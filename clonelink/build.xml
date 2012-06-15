@@ -1,0 +1,206 @@
+<!--
+[The "New BSD" license]
+Copyright (c) 2012 The Board of Trustees of The University of Alabama
+All rights reserved.
+
+See LICENSE for details.
+ -->
+
+<!--
+ - @author     Nicholas A. Kraft <nkraft@cs.ua.edu>
+ -->
+<project name="clonelink" default="all" basedir=".">
+   <property file="build.properties" />
+
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <!--  Paths                          -->
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <path id="compile.classpath">
+      <!--
+      <pathelement location="${compile.commons-config.classpath}" />
+      <pathelement location="${compile.commons-logging.classpath}" />
+      -->
+   </path>
+
+   <!--
+   <zipfileset id="commons-config.zfs" src="${compile.commons-config.classpath}" />
+   <zipfileset id="commons-logging.zfs" src="${compile.commons-logging.classpath}" />
+   -->
+
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <!--  Public Targets                 -->
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <target
+      name        = "all"
+      depends     = "-clean,-build"
+      description = "Rebuild ${project.name}"
+      />
+
+   <target
+      name        = "build"
+      depends     = "-build"
+      description = "Build ${project.name}"
+      />
+
+   <target
+      name        = "clean"
+      depends     = "-clean"
+      description = "Delete build files"
+      />
+
+   <target
+      name        = "very_clean"
+      depends     = "-very_clean"
+      description = "Delete build and dist files"
+      />
+
+   <target
+      name        = "dist"
+      depends     = "-dist"
+      description = "Package ${project.name}"
+      />
+
+   <target
+      name        = "javadoc"
+      depends     = "-javadoc"
+      description = "Generate Javadoc documentation for ${project.name}"
+      />
+
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <!--  Private Meta-targets           -->
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <target
+      name        = "-build"
+      depends     = "-compile,-create_jar"
+      />
+
+   <target
+      name        = "-compile"
+      depends     = "-compile_java"
+      />
+
+   <target
+      name        = "-clean"
+      depends     = "-clean_build"
+      />
+
+   <target
+      name        = "-very_clean"
+      depends     = "-clean,-clean_dist"
+      />
+
+   <target
+      name        = "-dist"
+      depends     = "-build,-clean_dist,-dist_jar"
+      />
+
+   <target
+      name        = "-javadoc"
+      depends     = "-generate_javadoc"
+      />
+
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <!--  Private Targets                -->
+   <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+   <target
+      name        = "-compile_java"
+      description = "Compile Java sources"
+      >
+      <mkdir dir="${dir.build.class}" />
+      <javac
+         srcdir      = "${dir.src.java}"
+         destdir     = "${dir.build.class}"
+         debug       = "${compile.java.debug}"
+         deprecation = "${compile.java.deprecation}"
+         fork        = "${compile.java.fork}"
+         optimize    = "${compile.java.optimize}"
+         source      = "${compile.java.source}"
+         target      = "${compile.java.target}"
+         nowarn      = "${compile.java.nowarn}"
+         includeantruntime = "false"
+         >
+         <classpath>
+            <path refid="compile.classpath" />
+         </classpath>
+         <compilerarg value="${compile.java.arg}" />
+      </javac>
+   </target>
+
+   <target
+      name        = "-create_jar"
+      description = "Create JAR file"
+      >
+      <mkdir dir="${dir.build.jar}" />
+      <jar
+         basedir  = "${dir.build.class}"
+         jarfile  = "${dir.build.jar}/${project.jar.name}.jar"
+         >
+         <manifest>
+            <attribute name="Main-Class" value="${project.jar.main}" />
+         </manifest>
+         <!--
+         <zipfileset refid="commons-config.zfs" />
+         <zipfileset refid="commons-logging.zfs" />
+         -->
+      </jar>
+      <symlink
+         resource    = "${project.jar.name}.jar"
+         link        = "${dir.build.jar}/${project.name}.jar"
+         overwrite   = "yes"
+         />
+   </target>
+
+   <target
+      name        = "-clean_build"
+      description = "Delete ${dir.build} directory"
+      >
+      <delete dir="${dir.build}" />
+   </target>
+
+   <target
+      name        = "-clean_dist"
+      description = "Delete ${dir.dist} directory"
+      >
+      <delete dir="${dir.dist}" />
+   </target>
+
+   <target
+      name        = "-dist_jar"
+      description = "Copy JAR files to ${dir.dist.lib}"
+      >
+      <mkdir dir="${dir.dist.lib}" />
+      <copy
+         todir = "${dir.dist.lib}"
+         file  = "${dir.build.jar}/${project.jar.name}.jar" />
+      <symlink
+         resource    = "${project.jar.name}.jar"
+         link        = "${dir.dist.lib}/${project.name}.jar"
+         overwrite   = "yes"
+         />
+   </target>
+
+   <target
+      name        = "-dist_javadoc"
+      description = "Copy Javadoc documentation to ${dir.dist.doc}"
+      >
+      <mkdir dir="${dir.dist.doc}" />
+      <copy todir="${dir.dist.doc}">
+         <fileset dir="${dir.build.doc}" />
+      </copy>
+   </target>
+
+   <target
+      name = "-generate_javadoc"
+      >
+      <mkdir dir="${dir.build.doc}" />
+      <javadoc
+         destdir  = "${dir.build.doc}"
+         author   = "${javadoc.author}"
+         version  = "${javadoc.version}"
+         >
+         <fileset dir=".">
+            <include name="${dir.src.java}/**" />
+         </fileset>
+      </javadoc>
+   </target>
+</project>
