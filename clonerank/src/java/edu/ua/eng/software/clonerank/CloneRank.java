@@ -14,6 +14,6 @@ public class CloneRank {
 
 	public static void main (String [] args) throws Exception {
         ///TODO
-        // Casey was HERE :)
+        // Casey was HER :)
 	}
 }
