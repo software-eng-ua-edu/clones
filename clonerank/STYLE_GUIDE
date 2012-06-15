@@ -1,0 +1,38 @@
+[Coding Style]
+
+With the exception of indentation, follow the code style described at:
+
+http://code.google.com/webtoolkit/makinggwtbetter.html
+
+In particular, note the "Class Structure and Member Sort Order", "Imports", and "Acronyms in names" sections.
+
+For indentation, use 4-space indents for blocks (NO tabs) (also use 4-spaces after line wraps).
+
+For if/else stmts:
+
+if (cond) {
+    ;
+} else {
+    ;
+}
+
+
+[Javadoc]
+
+Include javadoc tags in the following order:
+
+@author      (classes and interfaces only, required)
+@version     (classes and interfaces only, required. See footnote 1)
+@param       (methods and constructors only)
+@return      (methods only)
+@exception   (@throws is a synonym added in Javadoc 1.2)
+@see         
+@since       
+@serial      (or @serialField or @serialData)
+@deprecated  (see How and When To Deprecate APIs)
+
+Multiple @author tags should be listed in chronological order, with the creator of the class listed at the top.
+
+For more info, see:
+
+http://java.sun.com/j2se/javadoc/writingdoccomments/
