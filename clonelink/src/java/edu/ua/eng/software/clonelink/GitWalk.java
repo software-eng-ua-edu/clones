@@ -21,7 +21,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
- * @author Colin C. Hemphill <colin@hemphill.us>
+ * @author      Colin C. Hemphill <colin@hemphill.us>
  */
 
 public class GitWalk {
@@ -31,7 +31,7 @@ public class GitWalk {
         try {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repository = builder
-                    .setGitDir(new File("jhotdraw/.git")).readEnvironment()
+                    .setGitDir(new File("jhotdraw-git/.git")).readEnvironment()
                     .findGitDir().build();
             // System.out.println(repository.getFullBranch());
             RevWalk walk = new RevWalk(repository);

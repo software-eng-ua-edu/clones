@@ -1,0 +1,86 @@
+<clones>
+<systeminfo processor="nicad3" system="rhino-1.6R5" granularity="functions-blind" threshold="0%" minlines="10" maxlines="2500"/>
+<cloneinfo npcs="2798" npairs="16"/>
+<runinfo ncompares="17372" cputime="3"/>
+
+<clone nlines="63" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="1035" endline="1095" pcid="2100"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/shell/ConsoleTextArea.java" startline="174" endline="234" pcid="2335"></source>
+</clone>
+
+<clone nlines="23" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/QName.java" startline="221" endline="237" pcid="2534"></source>
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/Namespace.java" startline="235" endline="251" pcid="2502"></source>
+</clone>
+
+<clone nlines="23" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/QName.java" startline="221" endline="237" pcid="2534"></source>
+<source file="rhino-1.6R5/src/org/mozilla/javascript/NativeError.java" startline="187" endline="204" pcid="911"></source>
+</clone>
+
+<clone nlines="23" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/Namespace.java" startline="235" endline="251" pcid="2502"></source>
+<source file="rhino-1.6R5/src/org/mozilla/javascript/NativeError.java" startline="187" endline="204" pcid="911"></source>
+</clone>
+
+<clone nlines="21" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/Namespace.java" startline="254" endline="265" pcid="2503"></source>
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/QName.java" startline="240" endline="251" pcid="2535"></source>
+</clone>
+
+<clone nlines="17" similarity="100">
+<source file="rhino-1.6R5/src/org/mozilla/javascript/Parser.java" startline="1394" endline="1412" pcid="1467"></source>
+<source file="rhino-1.6R5/src/org/mozilla/javascript/Parser.java" startline="1433" endline="1452" pcid="1469"></source>
+</clone>
+
+<clone nlines="16" similarity="100">
+<source file="rhino-1.6R5/src/org/mozilla/javascript/ScriptRuntime.java" startline="1473" endline="1490" pcid="1744"></source>
+<source file="rhino-1.6R5/src/org/mozilla/javascript/ScriptRuntime.java" startline="1492" endline="1511" pcid="1745"></source>
+</clone>
+
+<clone nlines="15" similarity="100">
+<source file="rhino-1.6R5/src/org/mozilla/classfile/ClassFileWriter.java" startline="2900" endline="2917" pcid="100"></source>
+<source file="rhino-1.6R5/src/org/mozilla/classfile/ClassFileWriter.java" startline="2919" endline="2937" pcid="101"></source>
+</clone>
+
+<clone nlines="15" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/Namespace.java" startline="267" endline="286" pcid="2504"></source>
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/QName.java" startline="253" endline="272" pcid="2536"></source>
+</clone>
+
+<clone nlines="14" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="310" endline="323" pcid="2073"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/shell/JSConsole.java" startline="79" endline="92" pcid="2426"></source>
+</clone>
+
+<clone nlines="12" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/idswitch/Main.java" startline="450" endline="459" pcid="2280"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/idswitch/FileBody.java" startline="178" endline="187" pcid="2261"></source>
+</clone>
+
+<clone nlines="11" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/LogicalEquality.java" startline="304" endline="320" pcid="2483"></source>
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/LogicalEquality.java" startline="238" endline="254" pcid="2480"></source>
+</clone>
+
+<clone nlines="11" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/shell/ConsoleTextArea.java" startline="265" endline="275" pcid="2340"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="1133" endline="1143" pcid="2104"></source>
+</clone>
+
+<clone nlines="10" similarity="100">
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/XMLList.java" startline="987" endline="1002" pcid="2727"></source>
+<source file="rhino-1.6R5/xmlimplsrc/org/mozilla/javascript/xmlimpl/XML.java" startline="2226" endline="2241" pcid="2612"></source>
+</clone>
+
+<clone nlines="10" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/shell/ConsoleTextArea.java" startline="236" endline="245" pcid="2336"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="1100" endline="1109" pcid="2101"></source>
+</clone>
+
+<clone nlines="10" similarity="100">
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="1279" endline="1288" pcid="2115"></source>
+<source file="rhino-1.6R5/toolsrc/org/mozilla/javascript/tools/debugger/SwingGui.java" startline="1204" endline="1213" pcid="2109"></source>
+</clone>
+
+</clones>
