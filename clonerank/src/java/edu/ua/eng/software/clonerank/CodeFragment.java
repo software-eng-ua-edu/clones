@@ -1,4 +1,4 @@
-package edu.ua.eng.software.novel;
+package edu.ua.eng.software.CloneRank;
 
 public class CodeFragment
 {
