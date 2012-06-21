@@ -9,10 +9,13 @@ package edu.ua.eng.software.clonelink;
 
 /**
 * @author      Nicholas A. Kraft <nkraft@cs.ua.edu>
+* @author      Colin C. Hemphill <colin@hemphill.us>
 */
 public class CloneLink {
 
 	public static void main (String [] args) throws Exception {
-	///TODO
+            
+            GitWalk git = new GitWalk();
+            git.walk();
 	}
 }
