@@ -13,7 +13,7 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 /**
  * @author Paige Rodeghero <parodeghero@gmail.com>
  */
-public class IceCream {
+public class SVNRepo {
     @SuppressWarnings("rawtypes")
 	public static void main(String args[]) throws SVNException{
         DAVRepositoryFactory.setup();
