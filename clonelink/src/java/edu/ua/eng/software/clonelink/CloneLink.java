@@ -10,6 +10,7 @@ package edu.ua.eng.software.clonelink;
 /**
 * @author      Nicholas A. Kraft <nkraft@cs.ua.edu>
 * @author      Colin C. Hemphill <colin@hemphill.us>
+* @author      Paige A. Rodeghero <parodeghero@bsu.edu>
 */
 public class CloneLink {
 
@@ -18,5 +19,9 @@ public class CloneLink {
             //Git Repo testing
             GitWalk git = new GitWalk();
             git.walk();
+
+           //SVN Repo testing
+           SVNRepo svn = new SVNRepo();
+           svn.crawl();
 	}
 }
