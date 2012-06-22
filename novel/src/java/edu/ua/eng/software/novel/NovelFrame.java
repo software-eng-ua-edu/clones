@@ -29,6 +29,7 @@ public class NovelFrame extends JFrame {
         menu.add(file); menu.add(edit); menu.add(help);
 
         JMenuItem fileImport = new JMenuItem("Import/Run");
+	JMenuItem fileRerun = new JMenuItem("Rerun");
         JMenuItem filePrefs = new JMenuItem("Preferences");
         JMenuItem fileExit = new JMenuItem("Exit");
 
@@ -38,7 +39,7 @@ public class NovelFrame extends JFrame {
         JMenuItem helpTut = new JMenuItem("Tutorials");
         JMenuItem helpAbout = new JMenuItem("About");
 
-        file.add(fileImport); file.add(filePrefs); file.add(fileExit);
+        file.add(fileImport); file.add(fileRerun);file.add(filePrefs); file.add(fileExit);
         edit.add(editDif); edit.add(editFilter);
         help.add(helpTut); help.add(helpAbout);
         file.setMnemonic(KeyEvent.VK_F);
