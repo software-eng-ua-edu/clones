@@ -35,7 +35,7 @@ public class NovelPanel extends JPanel {
         leftPane.addTab("Clone Classes", new JLabel("Clone Classes"));
         c.gridx = 0; c.gridy = 0;
         c.gridheight = 2; c.gridwidth = 1;
-        c.anchor = GridBagConstraints.FIRST_LINE_START; c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.FIRST_LINE_START; c.fill = GridBagConstraints.BOTH;
         composite.add(leftPane, c);
 
         JTabbedPane rightPane = new JTabbedPane();
@@ -45,11 +45,11 @@ public class NovelPanel extends JPanel {
         rightPane.addTab("Tree Map", new JLabel("Tree Map"));
         c.gridx = 1; c.gridy = 0;
         c.gridheight = 2; c.gridwidth = 2;
-        c.anchor = GridBagConstraints.FIRST_LINE_END; c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.FIRST_LINE_END; c.fill = GridBagConstraints.BOTH;
         composite.add(rightPane, c);
 
         JLabel statusBar = new JLabel("Status Bar");
-        statusBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+        statusBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED)); 
         c.gridx = 0; c.gridy = 1;
         c.gridheight = 1; c.gridwidth = 3;
         c.anchor = GridBagConstraints.LAST_LINE_START;
