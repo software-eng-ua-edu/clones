@@ -22,7 +22,6 @@ See LICENSE for details.
       <pathelement location="${compile.commons-logging.classpath}" />
       -->
       <pathelement location="${compile.jgit.classpath}" />
-      <pathelement location="${compile.javacvs.classpath}" />
       <pathelement location="${compile.svnkit.classpath}" />
 
    </path>
@@ -32,7 +31,6 @@ See LICENSE for details.
    <zipfileset id="commons-logging.zfs" src="${compile.commons-logging.classpath}" />
    -->
    <zipfileset id="jgit.zfs" src="${compile.jgit.classpath}" />
-   <zipfileset id="javacvs.zfs" src="${compile.javacvs.classpath}" />
    <zipfileset id="svnkit.zfs" src="${compile.svnkit.classpath}" />
 
    <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -151,7 +149,6 @@ See LICENSE for details.
          <zipfileset refid="commons-logging.zfs" />
          -->
          <zipfileset refid="jgit.zfs" />
-         <zipfileset refid="javacvs.zfs" />
 		 <zipfileset refid="svnkit.zfs" />
       </jar>
       <symlink
