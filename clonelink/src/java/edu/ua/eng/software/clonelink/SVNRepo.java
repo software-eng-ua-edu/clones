@@ -15,7 +15,7 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
  */
 public class SVNRepo {
     @SuppressWarnings("rawtypes")
-	public static void main(String args[]) throws SVNException{
+	public void crawl() throws SVNException{
         DAVRepositoryFactory.setup();
 
 		String url = "https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw";
