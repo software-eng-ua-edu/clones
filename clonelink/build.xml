@@ -23,6 +23,8 @@ See LICENSE for details.
       -->
       <pathelement location="${compile.jgit.classpath}" />
       <pathelement location="${compile.javacvs.classpath}" />
+      <pathelement location="${compile.svnkit.classpath}" />
+
    </path>
 
    <!--

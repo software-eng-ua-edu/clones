@@ -18,6 +18,9 @@ import org.netbeans.lib.cvsclient.command.GlobalOptions;
 import java.io.File;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.Writer;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +41,9 @@ public class CvsClient {
 
         client.executeCommand(command, globalOptions);
 
-        System.out.println(log.toString().length());
+        Writer writ = new BufferedWriter(new FileWriter("/home/nummer/Desktop/temp.txt")); 
+        writ.write(log.toString(), 0, log.toString().length());
+        writ.close();
     }
 
     private Client connect() throws Exception {
