@@ -1,3 +1,10 @@
+/*
+ * [The "New BSD" license]
+ * Copyright (c) 2012 The Board of Trustees of The University of Alabama
+ * All rights reserved.
+ *
+ * See LICENSE for details.
+ */
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -15,13 +22,14 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
  */
 public class SVNRepo {
     @SuppressWarnings("rawtypes")
-	public void crawl() throws SVNException{
+	public void crawl() {
         DAVRepositoryFactory.setup();
 
 		String url = "https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw";
 		long startingRevision = 0;
 		long endingRevision = -1;
 				
+     try{
 		SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
 		Collection logEnteries = repository.log(new String[] {""}, null, startingRevision, endingRevision, true, true);
 		Pattern pattern = Pattern.compile(".*BUG.*", Pattern.CASE_INSENSITIVE);
@@ -32,6 +40,8 @@ public class SVNRepo {
 				 
 			if(matcher.find()){
 				System.out.println("Message Log: " + logEntry.getMessage());
+                                }catch (Exception e){
+                                }
 			}
 		}	
 	}
