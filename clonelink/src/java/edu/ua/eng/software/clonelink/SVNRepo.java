@@ -40,9 +40,9 @@ public class SVNRepo {
 				 
 			if(matcher.find()){
 				System.out.println("Message Log: " + logEntry.getMessage());
-                                }catch (Exception e){
                                 }
 			}
 		}	
-	}
+	}catch (Exception e){
+        }
 }
