@@ -15,17 +15,18 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * @author      Nicholas A. Kraft <nkraft@cs.ua.edu>
- * @author      Colin C. Hemphill <colin@hemphill.us>
+ * @author Nicholas A. Kraft <nkraft@cs.ua.edu>
+ * @author Colin C. Hemphill <colin@hemphill.us>
  */
 public class Novel {
 
-    public static void main (String [] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-        SwingUtilities.invokeLater(new Runnable(){
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    for (LookAndFeelInfo info : UIManager
+                            .getInstalledLookAndFeels()) {
                         if ("Nimbus".equals(info.getName())) {
                             UIManager.setLookAndFeel(info.getClassName());
                             break;
@@ -41,7 +42,7 @@ public class Novel {
                     // handle exception
                 }
                 NovelFrame ui = new NovelFrame();
-                ui.setMinimumSize(new Dimension(800,600));
+                ui.setMinimumSize(new Dimension(800, 600));
                 ui.initUI();
                 ui.setVisible(true);
             }
