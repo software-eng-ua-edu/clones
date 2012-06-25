@@ -5,6 +5,9 @@
  *
  * See LICENSE for details.
  */
+
+package edu.ua.eng.software.clonelink;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -40,9 +43,12 @@ public class SVNRepo {
 				 
 			if(matcher.find()){
 				System.out.println("Message Log: " + logEntry.getMessage());
-                                }
-			}
-		}	
-	}catch (Exception e){
+                        }
+                }
+        }	
+        catch (Exception e){
         }
+
+	}
+
 }
