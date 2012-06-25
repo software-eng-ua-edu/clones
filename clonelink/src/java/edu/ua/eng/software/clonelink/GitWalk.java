@@ -21,41 +21,38 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
- * @author      Colin C. Hemphill <colin@hemphill.us>
+ * @author Colin C. Hemphill <colin@hemphill.us>
  */
 
 public class GitWalk {
 
-    public void walk() {
+    public void walk() throws Exception {
 
-        try {
-            FileRepositoryBuilder builder = new FileRepositoryBuilder();
-            Repository repository = builder
-                    .setGitDir(new File("jhotdraw-git/.git")).readEnvironment()
-                    .findGitDir().build();
-            // System.out.println(repository.getFullBranch());
-            RevWalk walk = new RevWalk(repository);
-            ObjectId rootId = repository.resolve("HEAD");
-            RevCommit root = walk.parseCommit(rootId);
-            walk.markStart(root);
-            Iterator<RevCommit> it = walk.iterator();
+        FileRepositoryBuilder builder = new FileRepositoryBuilder();
+        Repository repository = builder
+                .setGitDir(new File("jhotdraw-git/.git")).readEnvironment()
+                .findGitDir().build();
+        // System.out.println(repository.getFullBranch());
+        RevWalk walk = new RevWalk(repository);
+        ObjectId rootId = repository.resolve("HEAD");
+        RevCommit root = walk.parseCommit(rootId);
+        walk.markStart(root);
+        Iterator<RevCommit> it = walk.iterator();
 
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Expression to find in commit messages: ");
-            String input = scan.nextLine();
-            Pattern pattern = Pattern.compile(".*" + input + ".*",
-                    Pattern.CASE_INSENSITIVE);
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Expression to find in commit messages: ");
+        String input = scan.nextLine();
+        Pattern pattern = Pattern.compile(".*" + input + ".*",
+                Pattern.CASE_INSENSITIVE);
 
-            for (int i = 0; it.hasNext(); i++) {
-                RevCommit current = it.next();
-                Matcher matcher = pattern.matcher(current.getFullMessage());
-                if (matcher.find()) {
-                    System.out.println(i + ": Expression '" + input
-                            + "' found at " + current.toString());
-                    // System.out.println(current.getFullMessage());
-                }
+        for (int i = 0; it.hasNext(); i++) {
+            RevCommit current = it.next();
+            Matcher matcher = pattern.matcher(current.getFullMessage());
+            if (matcher.find()) {
+                System.out.println(i + ": Expression '" + input + "' found at "
+                        + current.toString());
+                // System.out.println(current.getFullMessage());
             }
-        } catch (Exception e) {
         }
     }
 }
