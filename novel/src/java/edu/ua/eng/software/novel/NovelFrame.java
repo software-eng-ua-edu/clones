@@ -77,7 +77,12 @@ public class NovelFrame extends JFrame implements ActionListener {
 
     public void createAboutMenu() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012");
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+                + "\nVersion 1.0"
+                + "\n\nBlake Bassett, Colin Hemphill"
+                + "\nConor Kirkman, Nicholas Kraft"
+                + "\nPaige Rodeghero", "About N.o.V.E.L.",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void actionPerformed(ActionEvent e) {
