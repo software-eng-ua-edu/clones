@@ -5,7 +5,6 @@
  *
  * See LICENSE for details.
  */
-
 package edu.ua.eng.software.clonelink;
 
 import java.util.Collection;

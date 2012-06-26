@@ -23,7 +23,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 /**
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-
 public class GitWalk {
 
     public void walk() throws Exception {

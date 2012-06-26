@@ -25,7 +25,6 @@ import javax.swing.KeyStroke;
  * @version 06/25/12
  * 
  */
-
 public class NovelFrame extends JFrame implements ActionListener {
 
     public final void initUI() {

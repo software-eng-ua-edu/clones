@@ -29,7 +29,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @version 06/25/12
  * 
  */
-
 public class NovelPanel extends JPanel implements TreeSelectionListener {
 
     private JTree treePairs;

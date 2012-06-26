@@ -1,3 +1,10 @@
+/*
+ * [The "New BSD" license]
+ * Copyright (c) 2012 The Board of Trustees of The University of Alabama
+ * All rights reserved.
+ *
+ * See LICENSE for details.
+ */
 package edu.ua.eng.software.novel.importing;
 
 import java.util.ArrayList;
@@ -10,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import edu.ua.eng.software.novel.CodeFragment;
 
-/* 
+/**
  * Usage:
  * ------
  * File cloneFile = new File(cloneResultXML);
@@ -20,8 +27,8 @@ import edu.ua.eng.software.novel.CodeFragment;
  * ArrayList<ArrayList<CodeFragment>> clones = niCadHandler.getClones();
  * ------
  *
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
-
 public class NiCadHandler extends DefaultHandler
 {
     public void startElement (String uri, String localName, String qname, Attributes attributes) throws SAXException {

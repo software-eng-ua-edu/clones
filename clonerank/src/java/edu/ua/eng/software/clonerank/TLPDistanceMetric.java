@@ -1,3 +1,10 @@
+/*
+ * [The "New BSD" license]
+ * Copyright (c) 2012 The Board of Trustees of The University of Alabama
+ * All rights reserved.
+ *
+ * See LICENSE for details.
+ */
 package edu.ua.eng.software.clonerank;
 
 import java.util.Set;
@@ -8,9 +15,8 @@ import java.util.ListIterator;
 /**
  * Allows for filesystem distance based on package naming conventions.
  * 
- *
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
-
 public class TLPDistanceMetric extends DistanceMetric
 {
     public TLPDistanceMetric() {
