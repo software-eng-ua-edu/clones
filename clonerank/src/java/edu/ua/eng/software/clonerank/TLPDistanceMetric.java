@@ -33,18 +33,15 @@ public class TLPDistanceMetric extends DistanceMetric
     }
 
     public int getDistance(String path1, String path2) {
-        List<String> pathList1 = breakPath(path1);
-        List<String> pathList2 = breakPath(path2);
+        List<String> pathList1 = super.breakPath(path1);
+        List<String> pathList2 = super.breakPath(path2);
         int index1 = findIndex(pathList1);
         int index2 = findIndex(pathList2);
         if(index1 != -1 && index2 != -1) {
             pathList1 = pathList1.subList(index1, pathList1.size());
             pathList2 = pathList2.subList(index2, pathList2.size());
-            return pathDistance(pathList1, pathList2);
-        } else {
-            //TODO: no top level package?
         }
-        return -1;
+        return super.pathDistance(pathList1, pathList2);
     }
 
     protected int findIndex(List<String> path) {
