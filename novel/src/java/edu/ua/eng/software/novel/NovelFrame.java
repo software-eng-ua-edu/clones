@@ -105,7 +105,9 @@ public class NovelFrame extends JFrame implements ActionListener {
 
         final JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
-        File file = chooser.getSelectedFile();
-        panel.updateStatus("Importing file " + file.getAbsolutePath());
+        if (chooser.getSelectedFile() != null) {
+			File file = chooser.getSelectedFile();
+			panel.updateStatus("Importing file " + file.getAbsolutePath());
+		}
     }
 }
