@@ -48,6 +48,7 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         tabPanels.setDividerLocation(250);
         tabPanels.setResizeWeight(0.2);
+        tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);
 
         ClonePairsTree pairsTree = new ClonePairsTree();
