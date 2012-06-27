@@ -10,7 +10,9 @@ package edu.ua.eng.software.novel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,6 +28,8 @@ import javax.swing.KeyStroke;
  * 
  */
 public class NovelFrame extends JFrame implements ActionListener {
+    
+    NovelPanel panel;
 
     public final void initUI() {
 
@@ -38,6 +42,8 @@ public class NovelFrame extends JFrame implements ActionListener {
         menu.add(help);
 
         JMenuItem fileImport = new JMenuItem("Import/Run");
+        fileImport.addActionListener(this);
+        fileImport.setActionCommand("Open");
         JMenuItem filePrefs = new JMenuItem("Preferences");
         JMenuItem fileExit = new JMenuItem("Exit");
 
@@ -70,18 +76,8 @@ public class NovelFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        NovelPanel panel = new NovelPanel();
+        panel = new NovelPanel();
         setContentPane(panel.createContentPane());
-    }
-
-    public void createAboutMenu() {
-
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. Copyright 2012"
-                + "\nVersion 1.0"
-                + "\n\nBlake Bassett, Casey Ferris,"
-                + "\nColin Hemphill, Conor Kirkman,"
-                + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
-                JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -89,8 +85,27 @@ public class NovelFrame extends JFrame implements ActionListener {
             createTutorial();
         else if (e.getActionCommand().equals("About"))
             createAboutMenu();
+        else if (e.getActionCommand().equals("Open"))
+            openDialog();
+    }
+
+    public void createAboutMenu() {
+
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+                + "\nVersion 1.0" + "\n\nBlake Bassett, Colin Hemphill"
+                + "\nConor Kirkman, Nicholas Kraft" + "\nPaige Rodeghero",
+                "About N.o.V.E.L.", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void createTutorial() {
+
+    }
+
+    public void openDialog() {
+
+        final JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        File file = chooser.getSelectedFile();
+        panel.updateStatus("Importing file " + file.getAbsolutePath());
     }
 }

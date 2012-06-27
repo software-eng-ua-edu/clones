@@ -9,6 +9,7 @@ package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
+import javax.swing.border.Border;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
@@ -33,17 +35,23 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
     private JTree treePairs;
     private JTree treeClasses;
     private JEditorPane treePane;
+    private JLabel status;
 
     public JPanel createContentPane() {
 
         JPanel composite = new JPanel();
         composite.setLayout(new BorderLayout());
 
-        JLabel statusBar = new JLabel("Status Bar");
-        statusBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0,
-                Color.GRAY));
-        statusBar.setOpaque(true);
-        statusBar.setBackground(Color.WHITE);
+        status = new JLabel("Press F1 for help.");
+        Border statusBorder = BorderFactory.createMatteBorder(1, 0, 0, 0,
+                Color.GRAY);
+        Border statusPad = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        status.setBorder(BorderFactory.createCompoundBorder(statusBorder,
+                statusPad));
+        status.setFont(new Font(status.getFont().getName(), Font.ITALIC, status
+                .getFont().getSize()));
+        status.setOpaque(true);
+        status.setBackground(Color.WHITE);
 
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         tabPanels.setDividerLocation(250);
@@ -51,10 +59,10 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
         tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);
 
-        ClonePairsTree pairsTree = new ClonePairsTree();
+        NovelPairsTree pairsTree = new NovelPairsTree();
         treePairs = pairsTree.createTree();
 
-        CloneClassesTree classesTree = new CloneClassesTree();
+        NovelClassesTree classesTree = new NovelClassesTree();
         treeClasses = classesTree.createTree();
 
         JTabbedPane leftPane = new JTabbedPane();
@@ -72,9 +80,14 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
         tabPanels.setLeftComponent(leftPane);
         tabPanels.setRightComponent(rightPane);
 
-        composite.add(statusBar, BorderLayout.SOUTH);
+        composite.add(status, BorderLayout.SOUTH);
         composite.add(tabPanels, BorderLayout.CENTER);
         return composite;
+    }
+
+    public void updateStatus(String s) {
+
+        status.setText(s);
     }
 
     @Override
