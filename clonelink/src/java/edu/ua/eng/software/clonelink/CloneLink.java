@@ -17,7 +17,7 @@ public class CloneLink {
 	public static void main (String [] args) throws Exception {
             
             //Git Repo testing
-            GitWalk git = new GitWalk();
+            GitRepo git = new GitRepo();
             git.walk();
 
            //SVN Repo testing

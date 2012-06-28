@@ -26,7 +26,7 @@ import org.eclipse.jgit.lib.IndexDiff;
 /**
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class GitWalk {
+public class GitRepo {
 
     public void walk() throws Exception {
 
