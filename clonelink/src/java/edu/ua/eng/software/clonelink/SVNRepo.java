@@ -23,8 +23,7 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
  * @author Paige Rodeghero <parodeghero@gmail.com>
  */
 public class SVNRepo {
-    @SuppressWarnings("rawtypes")
-    public void crawl() {
+    public void walk() {
         DAVRepositoryFactory.setup();
 
         String url = "https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw";
@@ -33,11 +32,11 @@ public class SVNRepo {
                 
      try{
         SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
-        Collection logEnteries = repository.log(new String[] {""}, null, startingRevision, endingRevision, true, true);
+        Collection<SVNLogEntry> logEntries = repository.log(new String[] {""}, null, startingRevision, endingRevision, true, true);
         Pattern pattern = Pattern.compile("((bug|fix|pr)\\s*[#=]?\\s*[0-9]{4,6})", Pattern.CASE_INSENSITIVE);
-
-        for(Iterator entries = logEnteries.iterator();entries.hasNext();){
-            SVNLogEntry logEntry = (SVNLogEntry)entries.next();             
+        Iterator<SVNLogEntry> entries = logEntries.iterator();
+        while(entries.hasNext()){
+            SVNLogEntry logEntry = entries.next();             
             Matcher matcher = pattern.matcher(logEntry.toString());
                  
             if(matcher.find()){
