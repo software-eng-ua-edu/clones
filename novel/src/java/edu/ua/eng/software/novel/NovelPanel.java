@@ -12,15 +12,12 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.border.Border;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 
 /**
  * Creates the visible UI panel and initializes components
@@ -30,11 +27,10 @@ import javax.swing.event.TreeSelectionListener;
  * 
  */
 
-public class NovelPanel extends JPanel implements TreeSelectionListener {
+public class NovelPanel extends JPanel {
 
-    private JTree treePairs;
-    private JTree treeClasses;
-    private JEditorPane treePane;
+    private JScrollPane treePairs;
+    private JScrollPane treeClasses;
     private JLabel status;
 
     public JPanel createContentPane() {
@@ -60,18 +56,16 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
         tabPanels.setContinuousLayout(true);
 
         NovelPairsTree pairsTree = new NovelPairsTree();
-        treePairs = pairsTree.createTree();
+        treePairs = pairsTree.getTreePane();
 
         NovelClassesTree classesTree = new NovelClassesTree();
-        treeClasses = classesTree.createTree();
+        treeClasses = classesTree.getTreePane();
 
         JTabbedPane leftPane = new JTabbedPane();
-        leftPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         leftPane.addTab("Clone Pairs", treePairs);
         leftPane.addTab("Clone Classes", treeClasses);
 
         JTabbedPane rightPane = new JTabbedPane();
-        rightPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         rightPane.addTab("Source", new JLabel("Source", JLabel.CENTER));
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
         rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
@@ -88,10 +82,5 @@ public class NovelPanel extends JPanel implements TreeSelectionListener {
     public void updateStatus(String s) {
 
         status.setText(s);
-    }
-
-    @Override
-    public void valueChanged(TreeSelectionEvent arg0) {
-        // TODO Auto-generated method stub
     }
 }

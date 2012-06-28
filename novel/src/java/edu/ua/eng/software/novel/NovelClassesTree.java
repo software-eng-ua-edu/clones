@@ -7,23 +7,44 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeSelectionModel;
 
 /**
  * Initializes the tree structure for clone classes
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/25/12
+ * @version 06/27/12
  * 
  */
 
-public class NovelClassesTree {
+public class NovelClassesTree extends JPanel implements TreeSelectionListener {
 
-    public JTree createTree() {
+    private JTree treeClasses;
+    private JScrollPane treePane;
+
+    public NovelClassesTree() {
+        super(new GridLayout(1, 0));
 
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Clone Classes");
-        JTree treeClasses = new JTree(top);
+        createNodes(top);
+
+        treeClasses = new JTree(top);
+        treeClasses.getSelectionModel().setSelectionMode(
+                TreeSelectionModel.SINGLE_TREE_SELECTION);
+        treeClasses.addTreeSelectionListener(this);
+
+        treePane = new JScrollPane(treeClasses);
+    }
+
+    public void createNodes(DefaultMutableTreeNode top) {
 
         DefaultMutableTreeNode category = null;
         DefaultMutableTreeNode category2 = null;
@@ -39,7 +60,18 @@ public class NovelClassesTree {
         category2.add(new DefaultMutableTreeNode("SubCategory"));
         category2.add(new DefaultMutableTreeNode("SubCategory2"));
         category2.add(new DefaultMutableTreeNode("SubCategory3"));
+    }
 
-        return treeClasses;
+    public JScrollPane getTreePane() {
+        return treePane;
+    }
+
+    /** Required by TreeSelectionListener interface. */
+    public void valueChanged(TreeSelectionEvent e) {
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeClasses
+                .getLastSelectedPathComponent();
+
+        if (node == null)
+            return;
     }
 }
