@@ -9,86 +9,76 @@ package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
+import javax.swing.border.Border;
 
 /**
  * Creates the visible UI panel and initializes components
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/25/12
- * 
  */
 
-public class NovelPanel extends JPanel implements TreeSelectionListener {
+public class NovelPanel extends JPanel
+{
+    private JScrollPane treePairs;
+    private JScrollPane treeClasses;
+    private JLabel status;
 
-	private JTree treePairs;
-	private JTree treeClasses;
-	private JEditorPane treePane;
+    public JPanel createContentPane() {
 
-	public JPanel createContentPane() {
+        JPanel composite = new JPanel();
+        composite.setLayout(new BorderLayout());
 
-		JPanel composite = new JPanel();
-		composite.setLayout(new BorderLayout());
+        status = new JLabel("Press F1 for help.");
+        Border statusBorder = BorderFactory.createMatteBorder(1, 0, 0, 0,
+                Color.GRAY);
+        Border statusPad = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        status.setBorder(BorderFactory.createCompoundBorder(statusBorder,
+                statusPad));
+        status.setFont(new Font(status.getFont().getName(), Font.ITALIC, status
+                .getFont().getSize()));
+        status.setOpaque(true);
+        status.setBackground(Color.WHITE);
 
-		JLabel statusBar = new JLabel("Status Bar");
-		statusBar.setBorder(BorderFactory.
-				createMatteBorder(1,1,1,1, Color.GRAY));
-		statusBar.setOpaque(true);
-		statusBar.setBackground(Color.WHITE);
+        JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        tabPanels.setDividerLocation(250);
+        tabPanels.setResizeWeight(0.2);
+        tabPanels.setOneTouchExpandable(false);
+        tabPanels.setContinuousLayout(true);
 
-		JPanel tabPanels = new JPanel();
-		tabPanels.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+        NovelPairsTree pairsTree = new NovelPairsTree();
+        treePairs = pairsTree.getTreePane();
 
-		NovelPairsTree pairsTree = new NovelPairsTree();
-		treePairs = pairsTree.createTree();
-		
-		NovelClassesTree classesTree = new NovelClassesTree();
-		treeClasses = classesTree.createTree();
+        NovelClassesTree classesTree = new NovelClassesTree();
+        treeClasses = classesTree.getTreePane();
 
-		JTabbedPane leftPane = new JTabbedPane();
-		leftPane.addTab("Clone Pairs", treePairs);
-		leftPane.addTab("Clone Classes", treeClasses);
-		c.weightx = .1;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.WEST;
-		c.fill = GridBagConstraints.BOTH;
-		leftPane.setBorder(BorderFactory.
-				createMatteBorder(0,0,0,1, Color.GRAY));
-		tabPanels.add(leftPane, c);
+        JTabbedPane leftPane = new JTabbedPane();
+        leftPane.addTab("Clone Pairs", treePairs);
+        leftPane.addTab("Clone Classes", treeClasses);
 
-		JTabbedPane rightPane = new JTabbedPane();
-		rightPane.addTab("Source", new JLabel("Source", JLabel.CENTER));
-		rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-		rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
-		rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
-		c.weightx = .5;
-		c.weighty = 1;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.EAST;
-		c.fill = GridBagConstraints.BOTH;
-		tabPanels.add(rightPane, c);
+        JTabbedPane rightPane = new JTabbedPane();
+        rightPane.addTab("Source", new JLabel("Source", JLabel.CENTER));
+        rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
+        rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
+        rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
 
-		composite.add(statusBar, BorderLayout.SOUTH);
-		composite.add(tabPanels);
-		return composite;
-	}
+        tabPanels.setLeftComponent(leftPane);
+        tabPanels.setRightComponent(rightPane);
 
-	@Override
-	public void valueChanged(TreeSelectionEvent arg0) {
-		// TODO Auto-generated method stub
-	}
+        composite.add(status, BorderLayout.SOUTH);
+        composite.add(tabPanels, BorderLayout.CENTER);
+        return composite;
+    }
+
+    public void updateStatus(String s) {
+
+        status.setText(s);
+    }
 }

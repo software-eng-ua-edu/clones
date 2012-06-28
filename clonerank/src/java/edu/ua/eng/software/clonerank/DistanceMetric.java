@@ -25,7 +25,6 @@ public abstract class DistanceMetric
         do {
             pathList.addFirst(file.getName());
             file = file.getParentFile();
-            System.out.println("test");
         } while (file != null);
         return pathList;
     }
