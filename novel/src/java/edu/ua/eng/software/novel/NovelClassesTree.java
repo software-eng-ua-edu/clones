@@ -21,12 +21,10 @@ import javax.swing.tree.TreeSelectionModel;
  * Initializes the tree structure for clone classes
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/27/12
- * 
  */
 
-public class NovelClassesTree extends JPanel implements TreeSelectionListener {
-
+public class NovelClassesTree extends JPanel implements TreeSelectionListener
+{
     private JTree treeClasses;
     private JScrollPane treePane;
 

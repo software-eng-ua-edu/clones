@@ -24,11 +24,9 @@ import javax.swing.KeyStroke;
  * Creates the main UI frame and menu
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/25/12
- * 
  */
-public class NovelFrame extends JFrame implements ActionListener {
-
+public class NovelFrame extends JFrame implements ActionListener
+{
     NovelPanel panel;
 
     public final void initUI() {

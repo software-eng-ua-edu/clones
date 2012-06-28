@@ -21,12 +21,10 @@ import javax.swing.tree.TreeSelectionModel;
  * Initializes the tree structure for clone pairs
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/27/12
- * 
  */
 
-public class NovelPairsTree extends JPanel implements TreeSelectionListener {
-
+public class NovelPairsTree extends JPanel implements TreeSelectionListener
+{
     private JTree treePairs;
     private JScrollPane treePane;
 

@@ -18,8 +18,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Nicholas A. Kraft <nkraft@cs.ua.edu>
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class Novel {
-
+public class Novel
+{
     public static void main(String[] args) throws Exception {
 
         SwingUtilities.invokeLater(new Runnable() {

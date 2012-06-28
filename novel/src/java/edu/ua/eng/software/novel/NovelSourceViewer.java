@@ -11,9 +11,9 @@ package edu.ua.eng.software.novel;
  * Creates the contents of the Source Viewer tab
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/27/12
  */
 
-public class NovelSourceViewer {
-    
+public class NovelSourceViewer
+{
+
 }

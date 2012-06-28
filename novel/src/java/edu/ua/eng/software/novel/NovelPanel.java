@@ -23,12 +23,10 @@ import javax.swing.border.Border;
  * Creates the visible UI panel and initializes components
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @version 06/27/12
- * 
  */
 
-public class NovelPanel extends JPanel {
-
+public class NovelPanel extends JPanel
+{
     private JScrollPane treePairs;
     private JScrollPane treeClasses;
     private JLabel status;
