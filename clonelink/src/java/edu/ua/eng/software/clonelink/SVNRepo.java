@@ -20,9 +20,15 @@ import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 
 /**
- * @author Paige Rodeghero <parodeghero@gmail.com>
+ * @author      Paige Rodeghero <parodeghero@gmail.com>
+ * @author      Casey Ferris <cmferris1@crimson.ua.edu>
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
-public class SVNRepo {
+public class SVNRepo extends Repo {
+    public SVNRepo() {
+        this.commitData = new CommitData();
+    }
+
     public void walk() {
         DAVRepositoryFactory.setup();
 
@@ -30,22 +36,22 @@ public class SVNRepo {
         long startingRevision = 0;
         long endingRevision = -1;
                 
-     try{
-        SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
-        Collection<SVNLogEntry> logEntries = repository.log(new String[] {""}, null, startingRevision, endingRevision, true, true);
-        Pattern pattern = Pattern.compile("((bug|fix|pr)\\s*[#=]?\\s*[0-9]{4,6})", Pattern.CASE_INSENSITIVE);
-        Iterator<SVNLogEntry> entries = logEntries.iterator();
-        while(entries.hasNext()){
-            SVNLogEntry logEntry = entries.next();             
-            Matcher matcher = pattern.matcher(logEntry.toString());
-                 
-            if(matcher.find()){
-                System.out.println("Message Log: " + logEntry.getMessage());
-                System.out.println(logEntry.getChangedPaths().keySet().toArray()[0]);
-                        }
-                }
-        }   
-        catch (Exception e){
+        try{
+            SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
+            Collection logEntries = repository.log(new String[] {}, null, startingRevision, endingRevision, true, true);
+            Iterator entries = logEntries.iterator();
+            while(entries.hasNext()){
+                SVNLogEntry logEntry = (SVNLogEntry) entries.next();             
+                Commit commit = new Commit(logEntry.getChangedPaths().keySet(), logEntry.getMessage());
+                commitData.add(commit);
+            }   
+        } catch (Exception e) {
         }
     }
+
+    public CommitData getCommitData() {
+        return commitData;
+    }
+
+    private CommitData commitData;
 }

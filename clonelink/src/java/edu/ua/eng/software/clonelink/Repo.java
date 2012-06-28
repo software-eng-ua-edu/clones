@@ -7,11 +7,14 @@
 */
 package edu.ua.eng.software.clonelink;
 
-
+/**
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
+ * @author      Casey Ferris <cmferris1@crimson.ua.edu>
+ */
 
 public abstract class Repo
 {
-    public CommitData getCommitData();
+    abstract public CommitData getCommitData();
 
-    protected void walk();
+    abstract protected void walk();
 }

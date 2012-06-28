@@ -13,7 +13,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -24,7 +25,8 @@ import org.eclipse.jgit.treewalk.FileTreeIterator;
 import org.eclipse.jgit.lib.IndexDiff;
 
 /**
- * @author Colin C. Hemphill <colin@hemphill.us>
+ * @author      Colin C. Hemphill <colin@hemphill.us>
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
 public class GitRepo extends Repo {
 
@@ -32,27 +34,28 @@ public class GitRepo extends Repo {
         this.commitData = new CommitData();
     }
 
-    public void walk() throws Exception {
+    public void walk() {
+        try {
+            FileRepositoryBuilder builder = new FileRepositoryBuilder();
+            Repository repository = builder
+                    .setGitDir(new File("regex/jhotdraw/.git")).readEnvironment()
+                    .findGitDir().build();
+            RevWalk walk = new RevWalk(repository);
+            ObjectId rootId = repository.resolve("HEAD");
+            RevCommit root = walk.parseCommit(rootId);
+            walk.markStart(root);
+            Iterator<RevCommit> it = walk.iterator();
 
-        FileRepositoryBuilder builder = new FileRepositoryBuilder();
-        Repository repository = builder
-                .setGitDir(new File("regex/jhotdraw/.git")).readEnvironment()
-                .findGitDir().build();
-        RevWalk walk = new RevWalk(repository);
-        ObjectId rootId = repository.resolve("HEAD");
-        RevCommit root = walk.parseCommit(rootId);
-        walk.markStart(root);
-        Iterator<RevCommit> it = walk.iterator();
+            for (int i = 0; it.hasNext(); i++) {
+                RevCommit current = it.next();
+                FileTreeIterator fileTreeItr = new FileTreeIterator(repository);
+                IndexDiff diff = new IndexDiff (repository, current.getId(), fileTreeItr);
+                diff.diff();
+                Commit commit = new Commit(diff.getChanged(), current.getFullMessage());
+                commitData.add(commit);
+            }
+        } catch (Exception e) {
 
-        for (int i = 0; it.hasNext(); i++) {
-            RevCommit current = it.next();
-            FileTreeIterator fileTreeItr = new FileTreeIterator(repository);
-            IndexDiff diff = new IndexDiff (repository, current.getId(), fileTreeItr);
-            diff.diff();
-            List<String> files = new ArrayList<String>();
-            files.addAll(diff.getChanged());
-            Commit commit = new Commit(files, current.getFullMessage());
-            commitData.add(commit);
         }
     }
 
