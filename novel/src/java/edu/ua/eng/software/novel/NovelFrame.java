@@ -70,7 +70,7 @@ public class NovelFrame extends JFrame implements ActionListener
         setJMenuBar(menu);
 
         setTitle("N.o.V.E.L.");
-        setSize(800, 600);
+        setSize(1024, 768);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -89,7 +89,7 @@ public class NovelFrame extends JFrame implements ActionListener
 
     public void createAboutMenu() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. Â© Copyright 2012"
                 + "\nVersion 1.0" + "\n\nBlake Bassett, Casey Ferring"
                 + "\nColin Hemphill, Conor Kirkman"
                 + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
@@ -102,11 +102,14 @@ public class NovelFrame extends JFrame implements ActionListener
 
     public void openDialog() {
 
-        final JFileChooser chooser = new JFileChooser();
+        final JFileChooser chooser = new JFileChooser(
+                System.getProperty("user.dir"));
         int returnVal = chooser.showOpenDialog(this);
-        if (chooser.getSelectedFile() != null) {
+        if (chooser.getSelectedFile() != null
+                && chooser.getSelectedFile().isFile()) {
             File file = chooser.getSelectedFile();
-            panel.updateStatus("Importing file " + file.getAbsolutePath());
+            panel.updateStatus("Imported file " + file.getAbsolutePath());
+            panel.updateSource(file.toString());
         }
     }
 }

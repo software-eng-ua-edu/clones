@@ -27,44 +27,52 @@ import javax.swing.border.Border;
 
 public class NovelPanel extends JPanel
 {
-    private JScrollPane treePairs;
-    private JScrollPane treeClasses;
-    private JLabel status;
+    private JLabel statusLabel;
+    private NovelSourceViewer sourcePane;
+    private JScrollPane sourceView;
 
     public JPanel createContentPane() {
 
         JPanel composite = new JPanel();
         composite.setLayout(new BorderLayout());
 
-        status = new JLabel("Press F1 for help.");
+        // instantiate status bar
+        statusLabel = new JLabel("Press F1 for help.");
         Border statusBorder = BorderFactory.createMatteBorder(1, 0, 0, 0,
                 Color.GRAY);
         Border statusPad = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        status.setBorder(BorderFactory.createCompoundBorder(statusBorder,
+        statusLabel.setBorder(BorderFactory.createCompoundBorder(statusBorder,
                 statusPad));
-        status.setFont(new Font(status.getFont().getName(), Font.ITALIC, status
-                .getFont().getSize()));
-        status.setOpaque(true);
-        status.setBackground(Color.WHITE);
+        statusLabel.setFont(new Font(statusLabel.getFont().getName(),
+                Font.ITALIC, statusLabel.getFont().getSize()));
+        statusLabel.setOpaque(true);
+        statusLabel.setBackground(Color.LIGHT_GRAY);
 
+        // build trees
+        NovelPairsTree pairsTree = new NovelPairsTree();
+        JScrollPane treePairs = pairsTree.getTreePane();
+        NovelClassesTree classesTree = new NovelClassesTree();
+        JScrollPane treeClasses = classesTree.getTreePane();
+
+        // initialize source viewer pane
+        sourcePane = new NovelSourceViewer();
+        sourceView = sourcePane.blankSource();
+
+        // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        tabPanels.setDividerLocation(250);
+        tabPanels.setDividerLocation(225);
         tabPanels.setResizeWeight(0.2);
         tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);
 
-        NovelPairsTree pairsTree = new NovelPairsTree();
-        treePairs = pairsTree.getTreePane();
-
-        NovelClassesTree classesTree = new NovelClassesTree();
-        treeClasses = classesTree.getTreePane();
-
+        // left tabbed pane
         JTabbedPane leftPane = new JTabbedPane();
         leftPane.addTab("Clone Pairs", treePairs);
         leftPane.addTab("Clone Classes", treeClasses);
 
+        // right tabbed pane
         JTabbedPane rightPane = new JTabbedPane();
-        rightPane.addTab("Source", new JLabel("Source", JLabel.CENTER));
+        rightPane.addTab("Source", sourceView);
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
         rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
         rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
@@ -72,13 +80,19 @@ public class NovelPanel extends JPanel
         tabPanels.setLeftComponent(leftPane);
         tabPanels.setRightComponent(rightPane);
 
-        composite.add(status, BorderLayout.SOUTH);
+        // add components to the composite JPanel
+        composite.add(statusLabel, BorderLayout.SOUTH);
         composite.add(tabPanels, BorderLayout.CENTER);
         return composite;
     }
 
-    public void updateStatus(String s) {
+    public void updateStatus(String status) {
 
-        status.setText(s);
+        statusLabel.setText(status);
+    }
+
+    public void updateSource(String sourcePath) {
+
+        sourcePane.setSource(sourcePath);
     }
 }
