@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-public class CloneResults
+public class CommitData
 {
-    public CloneResults() {
-        commits = new ArrayList();
-        bugChanges = new HashMap();
-        changes = new HashMap();
+    public CommitData() {
+        commits = new ArrayList<Commit>();
+        bugChanges = new HashMap<String, Integer>();
+        changes = new HashMap<String, Integer>();
     }
 
     public List<Commit> getCommits() {
@@ -48,7 +48,7 @@ public class CloneResults
     }
 
     protected void incMap(Map<String, Integer> map, String key) {
-        map.set(key, lookup(map, key) + 1);
+        map.put(key, lookup(map, key) + 1);
     }
 
     private List<Commit> commits;
