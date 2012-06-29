@@ -46,19 +46,17 @@ public class GitRepo extends Repo {
             walk.markStart(root);
             DiffFormatter diffr = new DiffFormatter(new ByteArrayOutputStream());
             diffr.setRepository(repository);
-            Iterator<RevCommit> it = walk.iterator();
 
-            for (int i = 0; it.hasNext(); i++) {
-                RevCommit current = it.next();
-                if (current.getParentCount() > 0) {
-                    List<DiffEntry> diffList = diffr.scan(current.getTree(), current.getParent(0).getTree());
-                    Set<String> changed = new HashSet<String>(); 
+            for (RevCommit rc : walk) {
+                Set<String> changed = new HashSet<String>(); 
+                if (rc.getParentCount() > 0) {
+                    List<DiffEntry> diffList = diffr.scan(rc.getTree(), rc.getParent(0).getTree());
                     for (DiffEntry de : diffList) {
                         changed.add("/trunk/" + de.getOldPath());
                     }
-                    Commit commit = new Commit(changed, current.getFullMessage());
-                    commitData.add(commit);
                 }
+                Commit commit = new Commit(changed, rc.getFullMessage());
+                commitData.add(commit);
             }
         } catch (Exception e) {
             e.printStackTrace();
