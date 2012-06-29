@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * @author      Blake Bassett <rbbassett@crimson.ua.edu>
+ * @author      Casey Ferris <cmferris1@crimson.ua.edu>
+ */
+
 public class CommitData
 {
     public CommitData() {

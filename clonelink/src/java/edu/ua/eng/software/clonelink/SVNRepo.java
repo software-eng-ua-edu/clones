@@ -44,8 +44,9 @@ public class SVNRepo extends Repo {
             for(Object obj : logEntries) {
                 SVNLogEntry logEntry = (SVNLogEntry) obj;
                 String message = logEntry.getMessage();
+                message = (message != null) ? message : "";
                 Set<String> filesChanged = logEntry.getChangedPaths().keySet();
-                Commit commit = new Commit(filesChanged, (message != null) ? message : "");
+                Commit commit = new Commit(filesChanged, message);
                 commitData.add(commit);
             }
         } catch (Exception e) {
