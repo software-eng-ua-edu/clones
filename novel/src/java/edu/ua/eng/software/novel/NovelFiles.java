@@ -23,12 +23,12 @@ import javax.swing.tree.TreeSelectionModel;
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
 
-public class NovelPairsTree extends JPanel implements TreeSelectionListener
+public class NovelFiles extends JPanel implements TreeSelectionListener
 {
     private JTree treePairs;
     private JScrollPane treePane;
 
-    public NovelPairsTree() {
+    public NovelFiles() {
         super(new GridLayout(1, 0));
 
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("ProjectRoot");
