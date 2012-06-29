@@ -18,11 +18,24 @@ public class CloneLink {
 	public static void main (String [] args) throws Exception {
             
         //Git Repo testing
+        System.out.println("Setting up Git Repo.");
         Repo git = new GitRepo();
         git.walk();
 
         //SVN Repo testing
+        System.out.println("Setting up SVN Repo.");
         Repo svn = new SVNRepo();
         svn.walk();
+
+        CommitData gitCD = git.getCommitData();
+        CommitData svnCD = svn.getCommitData();
+
+        Commit test = gitCD.getCommits().get(10);
+
+        for(String file : test.getFilesChanged()) {
+            System.out.println(file);
+            System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.numChanges(file), gitCD.numBugChanges(file));
+            System.out.printf("SVN:: changes: %d, bugFixes: %d\n", svnCD.numChanges(file), svnCD.numBugChanges(file));
+        }
 	}
 }

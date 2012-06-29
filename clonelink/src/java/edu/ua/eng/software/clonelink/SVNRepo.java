@@ -9,6 +9,7 @@ package edu.ua.eng.software.clonelink;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,13 +40,16 @@ public class SVNRepo extends Repo {
         try{
             SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
             Collection logEntries = repository.log(new String[] {}, null, startingRevision, endingRevision, true, true);
-            Iterator entries = logEntries.iterator();
-            while(entries.hasNext()){
-                SVNLogEntry logEntry = (SVNLogEntry) entries.next();             
-                Commit commit = new Commit(logEntry.getChangedPaths().keySet(), logEntry.getMessage());
+            System.out.printf("logEntries contains %d items.\n", logEntries.size());
+            for(Object obj : logEntries) {
+                SVNLogEntry logEntry = (SVNLogEntry) obj;
+                String message = logEntry.getMessage();
+                Set<String> filesChanged = logEntry.getChangedPaths().keySet();
+                Commit commit = new Commit(filesChanged, (message != null) ? message : "");
                 commitData.add(commit);
-            }   
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

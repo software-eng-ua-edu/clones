@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 public class Commit
 {
     public Commit(Set<String> files, String message) {
+        System.out.printf("Constructing commit with %d files, %d char message.\n", files.size(), message.length());
         this.files = files;
         this.message = message;
         this.bugFlag = checkBugFix();
