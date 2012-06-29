@@ -67,7 +67,7 @@ public class NovelPanel extends JPanel
 
         // left tabbed pane
         JTabbedPane leftPane = new JTabbedPane();
-        leftPane.addTab("Clone Pairs", treePairs);
+        leftPane.addTab("Files", treePairs);
         leftPane.addTab("Clone Classes", treeClasses);
 
         // right tabbed pane

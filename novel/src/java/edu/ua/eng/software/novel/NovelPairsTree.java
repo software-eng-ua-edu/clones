@@ -31,7 +31,7 @@ public class NovelPairsTree extends JPanel implements TreeSelectionListener
     public NovelPairsTree() {
         super(new GridLayout(1, 0));
 
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode("Clone Pairs");
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode("ProjectRoot");
         createNodes(top);
 
         treePairs = new JTree(top);
@@ -46,40 +46,16 @@ public class NovelPairsTree extends JPanel implements TreeSelectionListener
 
         DefaultMutableTreeNode category = null;
         DefaultMutableTreeNode category2 = null;
-        category = new DefaultMutableTreeNode("Clone Pair 1");
+        category = new DefaultMutableTreeNode("src");
         top.add(category);
-        category2 = new DefaultMutableTreeNode("Clone Pair 2");
+        category2 = new DefaultMutableTreeNode("bin");
         top.add(category2);
 
-        category.add(new DefaultMutableTreeNode("SubCategory"));
-        category.add(new DefaultMutableTreeNode("SubCategory2"));
-        category.add(new DefaultMutableTreeNode("SubCategory3"));
-
-        category2.add(new DefaultMutableTreeNode("SubCategory"));
-        category2.add(new DefaultMutableTreeNode("SubCategory2"));
-        category2.add(new DefaultMutableTreeNode("SubCategory3"));
-        category2.add(new DefaultMutableTreeNode("SubCategory4"));
-        category2.add(new DefaultMutableTreeNode("SubCategory5"));
-        category2.add(new DefaultMutableTreeNode("SubCategory6"));
-        category2.add(new DefaultMutableTreeNode("SubCategory7"));
-        category2.add(new DefaultMutableTreeNode("SubCategory8"));
-        category2.add(new DefaultMutableTreeNode("SubCategory9"));
-        category2.add(new DefaultMutableTreeNode("SubCategory10"));
-        category2.add(new DefaultMutableTreeNode("SubCategory11"));
-        category2.add(new DefaultMutableTreeNode("SubCategory12"));
-        category2.add(new DefaultMutableTreeNode("SubCategory13"));
-        category2.add(new DefaultMutableTreeNode("SubCategory14"));
-        category2.add(new DefaultMutableTreeNode("SubCategory15"));
-        category2.add(new DefaultMutableTreeNode("SubCategory16"));
-        category2.add(new DefaultMutableTreeNode("SubCategory17"));
-        category2.add(new DefaultMutableTreeNode("SubCategory18"));
-        category2.add(new DefaultMutableTreeNode("SubCategory19"));
-        category2.add(new DefaultMutableTreeNode("SubCategory20"));
-        category2.add(new DefaultMutableTreeNode("SubCategory21"));
-        category2.add(new DefaultMutableTreeNode("SubCategory22"));
-        category2.add(new DefaultMutableTreeNode("SubCategory23"));
-        category2.add(new DefaultMutableTreeNode("SubCategory24"));
-        category2.add(new DefaultMutableTreeNode("SubCategory25"));
+        category.add(new DefaultMutableTreeNode("File1.java"));
+        category.add(new DefaultMutableTreeNode("File2.java"));
+        category.add(new DefaultMutableTreeNode("File3.java"));
+        category.add(new DefaultMutableTreeNode("File4.java"));
+        category.add(new DefaultMutableTreeNode("File5.java"));
     }
 
     public JScrollPane getTreePane() {
