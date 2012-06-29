@@ -40,21 +40,25 @@ public class GitRepo extends Repo {
             Repository repository = builder
                     .setGitDir(new File("regex/jhotdraw/.git")).readEnvironment()
                     .findGitDir().build();
+
             RevWalk walk = new RevWalk(repository);
             ObjectId rootId = repository.resolve("HEAD");
             RevCommit root = walk.parseCommit(rootId);
             walk.markStart(root);
+
             DiffFormatter diffr = new DiffFormatter(new ByteArrayOutputStream());
             diffr.setRepository(repository);
 
             for (RevCommit rc : walk) {
                 Set<String> changed = new HashSet<String>(); 
+                
                 if (rc.getParentCount() > 0) {
                     List<DiffEntry> diffList = diffr.scan(rc.getTree(), rc.getParent(0).getTree());
                     for (DiffEntry de : diffList) {
                         changed.add("/trunk/" + de.getOldPath());
                     }
                 }
+
                 Commit commit = new Commit(changed, rc.getFullMessage());
                 commitData.add(commit);
             }
