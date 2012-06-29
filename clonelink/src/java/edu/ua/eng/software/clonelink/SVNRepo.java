@@ -10,8 +10,6 @@ package edu.ua.eng.software.clonelink;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;

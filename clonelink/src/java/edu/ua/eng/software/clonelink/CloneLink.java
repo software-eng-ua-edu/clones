@@ -12,6 +12,7 @@ package edu.ua.eng.software.clonelink;
 * @author      Colin C. Hemphill <colin@hemphill.us>
 * @author      Paige A. Rodeghero <parodeghero@bsu.edu>
 * @author      Blake Bassett <rbbassett@crimson.ua.edu>
+* @author      Casey Ferris <cmferris1@crimson.ua.edu>
 */
 public class CloneLink {
 
