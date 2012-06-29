@@ -7,10 +7,14 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -80,7 +84,13 @@ public class NovelFrame extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Tutorial"))
-            createTutorial();
+            try {
+                createTutorial();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (URISyntaxException e1) {
+                e1.printStackTrace();
+            }
         else if (e.getActionCommand().equals("About"))
             createAboutMenu();
         else if (e.getActionCommand().equals("Open"))
@@ -96,8 +106,9 @@ public class NovelFrame extends JFrame implements ActionListener
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void createTutorial() {
+    public void createTutorial() throws IOException, URISyntaxException {
 
+        Desktop.getDesktop().browse(new URI("about:blank"));
     }
 
     public void openDialog() {
