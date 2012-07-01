@@ -49,8 +49,8 @@ public class NovelPanel extends JPanel
         statusLabel.setBackground(Color.LIGHT_GRAY);
 
         // build trees
-        NovelPairsTree pairsTree = new NovelPairsTree();
-        JScrollPane treePairs = pairsTree.getTreePane();
+        //NovelPairsTree pairsTree = new NovelPairsTree();
+        //JScrollPane treePairs = pairsTree.getTreePane();
         NovelClassesTree classesTree = new NovelClassesTree();
         JScrollPane treeClasses = classesTree.getTreePane();
 
@@ -67,7 +67,7 @@ public class NovelPanel extends JPanel
 
         // left tabbed pane
         JTabbedPane leftPane = new JTabbedPane();
-        leftPane.addTab("Files", treePairs);
+        //leftPane.addTab("Files", treePairs);
         leftPane.addTab("Clone Classes", treeClasses);
 
         // right tabbed pane
