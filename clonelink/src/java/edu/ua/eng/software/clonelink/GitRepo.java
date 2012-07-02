@@ -55,7 +55,10 @@ public class GitRepo extends Repo {
                 if (rc.getParentCount() > 0) {
                     List<DiffEntry> diffList = diffr.scan(rc.getTree(), rc.getParent(0).getTree());
                     for (DiffEntry de : diffList) {
-                        changed.add("/trunk/" + de.getOldPath());
+                        DiffEntry.ChangeType ct = de.getChangeType();
+                        if(ct == DiffEntry.ChangeType.MODIFY) {
+                            changed.add("/trunk/" + de.getOldPath());
+                        }
                     }
                 }
 

@@ -10,9 +10,12 @@ package edu.ua.eng.software.clonelink;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
 
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
+import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.io.SVNRepository;
@@ -38,12 +41,17 @@ public class SVNRepo extends Repo {
         try{
             SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
             Collection logEntries = repository.log(new String[] {}, null, startingRevision, endingRevision, true, true);
-            System.out.printf("logEntries contains %d items.\n", logEntries.size());
             for(Object obj : logEntries) {
                 SVNLogEntry logEntry = (SVNLogEntry) obj;
+                Map<String, SVNLogEntryPath> map = logEntry.getChangedPaths();
+                Set<String> filesChanged = new HashSet<String>();
+                for(String file : map.keySet()) {
+                    if(map.get(file).getType() == SVNLogEntryPath.TYPE_MODIFIED) {
+                        filesChanged.add(file);
+                    }
+                }
                 String message = logEntry.getMessage();
                 message = (message != null) ? message : "";
-                Set<String> filesChanged = logEntry.getChangedPaths().keySet();
                 Commit commit = new Commit(filesChanged, message);
                 commitData.add(commit);
             }
