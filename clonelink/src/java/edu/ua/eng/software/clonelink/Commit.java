@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
 
 public class Commit
 {
-    public Commit(Set<String> files, String message) {
+    protected Commit(Set<FileChange> files, String message) {
         System.out.printf("Constructing commit with %d files, %d char message.\n", files.size(), message.length());
         this.files = files;
         this.message = message;
         this.bugFlag = checkBugFix();
     }
 
-    public Set<String> getFilesChanged() {
+    public Set<FileChange> getFilesChanged() {
         return files;
     }
 
@@ -36,11 +36,13 @@ public class Commit
         return message;
     }
 
+
     protected boolean checkBugFix() {
         return pattern.matcher(message).find();
     }
 
-    private Set<String> files;
+
+    private Set<FileChange> files;
     private boolean bugFlag;
     private String message;
     static private final String regex = "((bug|fix|pr)\\s*[#=]?\\s*[0-9]{4,6})";

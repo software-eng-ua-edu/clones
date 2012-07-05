@@ -42,17 +42,7 @@ public class SVNRepo extends Repo {
             SVNRepository repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
             Collection logEntries = repository.log(new String[] {}, null, startingRevision, endingRevision, true, true);
             for(Object obj : logEntries) {
-                SVNLogEntry logEntry = (SVNLogEntry) obj;
-                Map<String, SVNLogEntryPath> map = logEntry.getChangedPaths();
-                Set<String> filesChanged = new HashSet<String>();
-                for(String file : map.keySet()) {
-                    if(map.get(file).getType() == SVNLogEntryPath.TYPE_MODIFIED) {
-                        filesChanged.add(file);
-                    }
-                }
-                String message = logEntry.getMessage();
-                message = (message != null) ? message : "";
-                Commit commit = new Commit(filesChanged, message);
+                Commit commit = new SVNCommit((SVNLogEntry) obj);
                 commitData.add(commit);
             }
         } catch (Exception e) {

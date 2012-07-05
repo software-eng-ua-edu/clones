@@ -50,20 +50,15 @@ public class GitRepo extends Repo {
             diffr.setRepository(repository);
 
             for (RevCommit rc : walk) {
-                Set<String> changed = new HashSet<String>(); 
                 
+                //doesn't currently get the head
+                //also, not sure if should move GitCommit to accepting RevCommits instead?
                 if (rc.getParentCount() > 0) {
                     List<DiffEntry> diffList = diffr.scan(rc.getTree(), rc.getParent(0).getTree());
-                    for (DiffEntry de : diffList) {
-                        DiffEntry.ChangeType ct = de.getChangeType();
-                        if(ct == DiffEntry.ChangeType.MODIFY) {
-                            changed.add("/trunk/" + de.getOldPath());
-                        }
-                    }
+                    GitCommit commit = new GitCommit(diffList, rc.getFullMessage());
+                    commitData.add(commit);
                 }
 
-                Commit commit = new Commit(changed, rc.getFullMessage());
-                commitData.add(commit);
             }
         } catch (Exception e) {
             e.printStackTrace();
