@@ -31,12 +31,11 @@ public class CloneLink {
         CommitData gitCD = git.getCommitData();
         CommitData svnCD = svn.getCommitData();
 
-        Commit svnTest = svnCD.getCommits().get(10);
         Commit gitTest = gitCD.getCommits().get(10);
 
-        for(FileChange change : svnTest.getFilesChanged()) {
-            String file = change.getNewPath();
-            System.out.println(file);
+        for(FileChange change : gitTest.getFilesChanged()) {
+            String file = change.getOldPath();
+            System.out.println(file + "::" + change.getChangeType());
             System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.numChanges(file), gitCD.numBugChanges(file));
             System.out.printf("SVN:: changes: %d, bugFixes: %d\n", svnCD.numChanges(file), svnCD.numBugChanges(file));
         }

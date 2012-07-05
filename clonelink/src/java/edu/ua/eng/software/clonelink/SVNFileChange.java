@@ -18,6 +18,12 @@ public class SVNFileChange implements FileChange
         this.changeType = mapChangeType(path.getType());
         this.oldPath = path.getPath();
         this.newPath = path.getPath(); //*Don't know if this works*
+        if(path.getCopyPath() != null) {
+            this.oldPath = path.getCopyPath();
+            if(this.changeType == ChangeType.ADD) {
+                this.changeType = ChangeType.COPY;
+            }
+        }
     }
 
     public ChangeType getChangeType() {
@@ -40,7 +46,6 @@ public class SVNFileChange implements FileChange
         } else if (ct == SVNLogEntryPath.TYPE_MODIFIED) {
             return ChangeType.MODIFY;
         } else if (ct == SVNLogEntryPath.TYPE_REPLACED) {
-            //Not sure if this is mapped correctly.
             return ChangeType.RENAME;
         }
         //Rushed, sorry
