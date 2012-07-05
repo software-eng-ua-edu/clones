@@ -18,6 +18,9 @@ public class GitFileChange implements FileChange
         this.changeType = mapChangeType(de.getChangeType());
         this.oldPath = "/trunk/" + de.getOldPath();
         this.newPath = "/trunk/" + de.getNewPath();
+        if(this.changeType == changeType.REMOVE){
+            this.newPath = this.oldPath;
+        }
     }
 
     public ChangeType getChangeType() {
