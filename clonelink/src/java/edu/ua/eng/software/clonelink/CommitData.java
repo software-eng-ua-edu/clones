@@ -40,7 +40,8 @@ public class CommitData
     public void add(Commit commit) {
         commits.add(commit);
 
-        for(String filePath : commit.getFilesChanged()) {
+        for(FileChange change : commit.getFilesChanged()) {
+            String filePath = change.getNewPath();
             incMap(changes, filePath);
             if (commit.isBugFix()) {
                 incMap(bugChanges, filePath); 

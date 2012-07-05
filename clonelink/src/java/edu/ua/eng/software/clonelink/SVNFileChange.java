@@ -17,7 +17,7 @@ public class SVNFileChange implements FileChange
     public SVNFileChange(SVNLogEntryPath path) {
         this.changeType = mapChangeType(path.getType());
         this.oldPath = path.getPath();
-        this.newPath = path.getCopyPath(); //*Don't know if this works*
+        this.newPath = path.getPath(); //*Don't know if this works*
     }
 
     public ChangeType getChangeType() {

@@ -34,7 +34,8 @@ public class CloneLink {
         Commit svnTest = svnCD.getCommits().get(10);
         Commit gitTest = gitCD.getCommits().get(10);
 
-        for(String file : gitTest.getFilesChanged()) {
+        for(FileChange change : svnTest.getFilesChanged()) {
+            String file = change.getNewPath();
             System.out.println(file);
             System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.numChanges(file), gitCD.numBugChanges(file));
             System.out.printf("SVN:: changes: %d, bugFixes: %d\n", svnCD.numChanges(file), svnCD.numBugChanges(file));
