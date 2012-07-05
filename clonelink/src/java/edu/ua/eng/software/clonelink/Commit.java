@@ -36,7 +36,6 @@ public class Commit
         return message;
     }
 
-
     protected boolean checkBugFix() {
         return pattern.matcher(message).find();
     }

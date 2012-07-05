@@ -21,12 +21,17 @@ public class CommitData
 {
     public CommitData() {
         commits = new ArrayList<Commit>();
+        bugCommits = new ArrayList<Commit>();
         bugChanges = new HashMap<String, Integer>();
         changes = new HashMap<String, Integer>();
     }
 
     public List<Commit> getCommits() {
         return commits;
+    }
+
+    public List<Commit> getBugCommits() {
+        return bugCommits;
     }
 
     public int numBugChanges(String filePath) {
@@ -45,6 +50,7 @@ public class CommitData
             incMap(changes, filePath);
             if (commit.isBugFix()) {
                 incMap(bugChanges, filePath); 
+                bugCommits.add(commit);
             }
         }
     }
@@ -58,6 +64,7 @@ public class CommitData
     }
 
     private List<Commit> commits;
+    private List<Commit> bugCommits;
     private Map<String, Integer> bugChanges;
     private Map<String, Integer> changes;
 }
