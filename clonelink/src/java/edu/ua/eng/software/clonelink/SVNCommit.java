@@ -26,7 +26,9 @@ public class SVNCommit extends Commit
         Map<String, SVNLogEntryPath> map = logEntry.getChangedPaths();
         Set<FileChange> changes = new HashSet<FileChange>();
         for(SVNLogEntryPath path : map.values()) {
-            changes.add(new SVNFileChange(path));
+            if(path.getPath().startsWith("/trunk/")) {
+                changes.add(new SVNFileChange(path));
+            }
         }
         return changes;
     }

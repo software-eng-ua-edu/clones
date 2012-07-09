@@ -52,7 +52,6 @@ public class GitRepo extends Repo {
             for (RevCommit rc : walk) {
                 commitData.addFirst(new GitCommit(rc, diffr));
             }
-            commitData.computeFileChanges();
         } catch (Exception e) {
             e.printStackTrace();
         }

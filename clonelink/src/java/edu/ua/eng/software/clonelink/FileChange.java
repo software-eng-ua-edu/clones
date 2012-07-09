@@ -7,6 +7,10 @@
  */
 package edu.ua.eng.software.clonelink;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+
 /**
  * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
@@ -19,6 +23,6 @@ public interface FileChange
     public String getNewPath();
 
     public enum ChangeType {
-        ADD, MODIFY, REMOVE, COPY, RENAME
+        ADD, MODIFY, REMOVE, COPY, RENAME;
     }
 }

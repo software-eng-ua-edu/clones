@@ -7,6 +7,10 @@
 */
 package edu.ua.eng.software.clonelink;
 
+import java.util.EnumSet;
+
+import edu.ua.eng.software.clonelink.FileChange.ChangeType;
+
 /**
 * @author      Nicholas A. Kraft <nkraft@cs.ua.edu>
 * @author      Colin C. Hemphill <colin@hemphill.us>
@@ -17,7 +21,7 @@ package edu.ua.eng.software.clonelink;
 public class CloneLink {
 
 	public static void main (String [] args) throws Exception {
-            
+
         //Git Repo testing
         System.out.println("Setting up Git Repo.");
         Repo git = new GitRepo();
@@ -28,8 +32,13 @@ public class CloneLink {
         Repo svn = new SVNRepo();
         svn.walk();
 
+        EnumSet<ChangeType> modify = EnumSet.of(ChangeType.ADD, ChangeType.MODIFY);
+
         CommitData gitCD = git.getCommitData();
         CommitData svnCD = svn.getCommitData();
+
+        gitCD.computeFileChanges(modify, true);
+        svnCD.computeFileChanges(modify, true);
 
         Commit gitTest = gitCD.getBugCommits().get(1);
 

@@ -45,7 +45,6 @@ public class SVNRepo extends Repo {
                 Commit commit = new SVNCommit((SVNLogEntry) obj);
                 commitData.add(commit);
             }
-            commitData.computeFileChanges();
         } catch (Exception e) {
             e.printStackTrace();
         }

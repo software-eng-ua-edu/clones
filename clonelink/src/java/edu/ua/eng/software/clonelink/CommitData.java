@@ -7,10 +7,14 @@
 */
 package edu.ua.eng.software.clonelink;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.EnumSet;
+import edu.ua.eng.software.clonelink.FileChange.ChangeType;
 
 /**
  * @author      Blake Bassett <rbbassett@crimson.ua.edu>
@@ -57,13 +61,37 @@ public class CommitData
     }
 
     public void computeFileChanges() {
+        computeFileChanges(EnumSet.allOf(ChangeType.class), true);
+    }
+
+    public void computeFileChanges(Collection<ChangeType> types, boolean carryChange) {
+        EnumSet<ChangeType> typeSet = EnumSet.copyOf(types);
         for(Commit commit : commits) {
             for(FileChange change : commit.getFileChanges()) {
-                String filePath = change.getNewPath();
-                incMap(changes, filePath);
-                if (commit.isBugFix()) {
-                    incMap(bugChanges, filePath); 
+                if (carryChange) {
+                    carryChanges(change);
                 }
+                if (typeSet.contains(change.getChangeType())) {
+                    String filePath = change.getOldPath();
+                    incMap(changes, filePath);
+                    if (commit.isBugFix()) {
+                        incMap(bugChanges, filePath); 
+                    }
+                }
+            }
+        }
+    }
+
+    private void carryChanges(FileChange change) {
+        String oldPath = change.getOldPath();
+        ChangeType type = change.getChangeType();
+        if (type == ChangeType.COPY || type == ChangeType.RENAME) {
+            String newPath = change.getNewPath();
+            for(int i = 0, j = lookup(changes, oldPath); i < j; i++) {
+                incMap(changes, newPath);
+            }
+            for(int i = 0, j = lookup(bugChanges, oldPath); i < j; i++) {
+                incMap(bugChanges, newPath);
             }
         }
     }
