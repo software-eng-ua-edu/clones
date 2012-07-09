@@ -8,7 +8,7 @@
 package edu.ua.eng.software.clonelink;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -20,8 +20,8 @@ import java.util.HashMap;
 public class CommitData
 {
     public CommitData() {
-        commits = new ArrayList<Commit>();
-        bugCommits = new ArrayList<Commit>();
+        commits = new LinkedList<Commit>();
+        bugCommits = new LinkedList<Commit>();
         bugChanges = new HashMap<String, Integer>();
         changes = new HashMap<String, Integer>();
     }
@@ -44,13 +44,26 @@ public class CommitData
 
     public void add(Commit commit) {
         commits.add(commit);
+        if (commit.isBugFix()) {
+            bugCommits.add(commit);
+        }
+    }
 
-        for(FileChange change : commit.getFilesChanged()) {
-            String filePath = change.getNewPath();
-            incMap(changes, filePath);
-            if (commit.isBugFix()) {
-                incMap(bugChanges, filePath); 
-                bugCommits.add(commit);
+    public void addFirst(Commit commit) {
+        commits.addFirst(commit);
+        if (commit.isBugFix()) {
+            bugCommits.addFirst(commit);
+        }
+    }
+
+    public void computeFileChanges() {
+        for(Commit commit : commits) {
+            for(FileChange change : commit.getFilesChanged()) {
+                String filePath = change.getNewPath();
+                incMap(changes, filePath);
+                if (commit.isBugFix()) {
+                    incMap(bugChanges, filePath); 
+                }
             }
         }
     }
@@ -63,8 +76,8 @@ public class CommitData
         map.put(key, lookup(map, key) + 1);
     }
 
-    private List<Commit> commits;
-    private List<Commit> bugCommits;
+    private LinkedList<Commit> commits;
+    private LinkedList<Commit> bugCommits;
     private Map<String, Integer> bugChanges;
     private Map<String, Integer> changes;
 }

@@ -50,8 +50,9 @@ public class GitRepo extends Repo {
             diffr.setRepository(repository);
 
             for (RevCommit rc : walk) {
-                commitData.add(new GitCommit(rc, diffr));
+                commitData.addFirst(new GitCommit(rc, diffr));
             }
+            commitData.computeFileChanges();
         } catch (Exception e) {
             e.printStackTrace();
         }

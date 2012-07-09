@@ -10,8 +10,8 @@ package edu.ua.eng.software.clonelink;
 /**
  * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
-public interface FileChange {
-
+public interface FileChange 
+{
     public ChangeType getChangeType();
 
     public String getOldPath();
@@ -21,5 +21,4 @@ public interface FileChange {
     public enum ChangeType {
         ADD, MODIFY, REMOVE, COPY, RENAME
     }
-
 }
