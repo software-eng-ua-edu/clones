@@ -58,7 +58,7 @@ public class CommitData
 
     public void computeFileChanges() {
         for(Commit commit : commits) {
-            for(FileChange change : commit.getFilesChanged()) {
+            for(FileChange change : commit.getFileChanges()) {
                 String filePath = change.getNewPath();
                 incMap(changes, filePath);
                 if (commit.isBugFix()) {

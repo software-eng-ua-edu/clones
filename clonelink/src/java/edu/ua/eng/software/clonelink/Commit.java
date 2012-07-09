@@ -24,7 +24,7 @@ public class Commit
         this.bugFlag = checkBugFix();
     }
 
-    public Set<FileChange> getFilesChanged() {
+    public Set<FileChange> getFileChanges() {
         return files;
     }
 

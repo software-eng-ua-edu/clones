@@ -33,7 +33,7 @@ public class CloneLink {
 
         Commit gitTest = gitCD.getBugCommits().get(1);
 
-        for(FileChange change : gitTest.getFilesChanged()) {
+        for(FileChange change : gitTest.getFileChanges()) {
             String file = change.getNewPath();
             System.out.println(file + "::" + change.getChangeType());
             System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.numChanges(file), gitCD.numBugChanges(file));
