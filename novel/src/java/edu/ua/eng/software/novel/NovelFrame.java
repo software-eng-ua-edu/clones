@@ -41,9 +41,11 @@ public class NovelFrame extends JFrame implements ActionListener
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
+        JMenu source = new JMenu("Source");
         JMenu help = new JMenu("Help");
         menu.add(file);
         menu.add(edit);
+        menu.add(source);
         menu.add(help);
 
         // sub menu items
@@ -52,8 +54,18 @@ public class NovelFrame extends JFrame implements ActionListener
         JMenuItem fileExit = new JMenuItem("Exit");
         JMenuItem editDif = new JMenuItem("Difference");
         JMenuItem editFilter = new JMenuItem("Filter");
+        JMenuItem sourceSelect = new JMenuItem("Select All");
+        JMenuItem sourceCopy = new JMenuItem("Copy Selection");
         JMenuItem helpTut = new JMenuItem("Tutorials");
         JMenuItem helpAbout = new JMenuItem("About");
+
+        // gray out currently unavailable menu items
+        filePrefs.setEnabled(false);
+        editDif.setEnabled(false);
+        editFilter.setEnabled(false);
+        sourceSelect.setEnabled(false);
+        sourceCopy.setEnabled(false);
+        helpTut.setEnabled(false);
 
         // set action commands
         fileImport.setActionCommand("OPEN");
@@ -66,6 +78,25 @@ public class NovelFrame extends JFrame implements ActionListener
         filePrefs.addActionListener(this);
         fileExit.setActionCommand("EXIT");
         fileExit.addActionListener(this);
+
+        editDif.setActionCommand("DIFF");
+        editDif.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,
+                Event.CTRL_MASK + Event.SHIFT_MASK));
+        editDif.addActionListener(this);
+        editFilter.setActionCommand("FILTER");
+        editFilter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
+                Event.CTRL_MASK + Event.SHIFT_MASK));
+        editFilter.addActionListener(this);
+
+        sourceSelect.setActionCommand("SELECT");
+        sourceSelect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
+                Event.CTRL_MASK));
+        sourceSelect.addActionListener(this);
+        sourceCopy.setActionCommand("COPY");
+        sourceCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+                Event.CTRL_MASK));
+        sourceCopy.addActionListener(this);
+
         helpTut.setActionCommand("TUTORIAL");
         helpTut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         helpTut.addActionListener(this);
@@ -79,6 +110,8 @@ public class NovelFrame extends JFrame implements ActionListener
         file.add(fileExit);
         edit.add(editDif);
         edit.add(editFilter);
+        source.add(sourceSelect);
+        source.add(sourceCopy);
         help.add(helpTut);
         help.add(helpAbout);
         setJMenuBar(menu);
