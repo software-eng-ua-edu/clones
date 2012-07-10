@@ -27,6 +27,8 @@ import javax.swing.border.Border;
 
 public class NovelPanel extends JPanel
 {
+    private JLabel sourcePanePath;
+    private String sourcePath;
     private JLabel statusLabel;
     private NovelSourceViewer sourcePane;
     private JScrollPane sourceView;
@@ -49,14 +51,22 @@ public class NovelPanel extends JPanel
         statusLabel.setBackground(Color.LIGHT_GRAY);
 
         // build trees
-        //NovelPairsTree pairsTree = new NovelPairsTree();
-        //JScrollPane treePairs = pairsTree.getTreePane();
+        // NovelPairsTree pairsTree = new NovelPairsTree();
+        // JScrollPane treePairs = pairsTree.getTreePane();
         NovelClassesTree classesTree = new NovelClassesTree();
         JScrollPane treeClasses = classesTree.getTreePane();
 
         // initialize source viewer pane
         sourcePane = new NovelSourceViewer();
         sourceView = sourcePane.blankSource();
+        sourcePanePath = new JLabel("Source location: ");
+        sourcePanePath.setBorder(BorderFactory
+                .createEmptyBorder(10, 10, 10, 10));
+        JSplitPane sourcePanels = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+                sourcePanePath, sourceView);
+        sourcePanels.setDividerLocation(25);
+        sourcePanels.setDividerSize(0);
+        sourcePanels.setEnabled(false);
 
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -67,12 +77,12 @@ public class NovelPanel extends JPanel
 
         // left tabbed pane
         JTabbedPane leftPane = new JTabbedPane();
-        //leftPane.addTab("Files", treePairs);
+        // leftPane.addTab("Files", treePairs);
         leftPane.addTab("Clone Classes", treeClasses);
 
         // right tabbed pane
         JTabbedPane rightPane = new JTabbedPane();
-        rightPane.addTab("Source", sourceView);
+        rightPane.addTab("Source", sourcePanels);
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
         rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
         rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
@@ -91,8 +101,9 @@ public class NovelPanel extends JPanel
         statusLabel.setText(status);
     }
 
-    public void updateSource(String sourcePath) {
-
+    public void updateSource(String path) {
+        sourcePath = path;
+        sourcePanePath.setText(sourcePath);
         sourcePane.setSource(sourcePath);
     }
 }

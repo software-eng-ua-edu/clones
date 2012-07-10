@@ -5,7 +5,7 @@
  *
  * See LICENSE for details.
  */
-package edu.ua.eng.software;
+package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
 import java.io.FileReader;
@@ -41,8 +41,7 @@ public class NovelSourceViewer extends JPanel
 
         Theme theme;
         try {
-            theme = Theme.load(getClass().getResourceAsStream(
-                    "eclipseTheme.xml"));
+            theme = Theme.load(getClass().getResourceAsStream("eclipse.xml"));
             theme.apply(sourcePane);
         } catch (IOException e) {
             e.printStackTrace();
