@@ -5,9 +5,9 @@
  *
  * See LICENSE for details.
  */
-package edu.ua.eng.software.novel;
+package edu.ua.eng.software;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 /**
@@ -30,13 +31,23 @@ public class NovelSourceViewer extends JPanel
     RTextScrollPane sourceView;
 
     public NovelSourceViewer() {
-        super(new GridLayout(1, 0));
+        super(new BorderLayout());
 
         sourcePane = new RSyntaxTextArea();
         sourcePane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         sourcePane.setCodeFoldingEnabled(true);
         sourcePane.setAntiAliasingEnabled(true);
         sourcePane.setEditable(false);
+
+        Theme theme;
+        try {
+            theme = Theme.load(getClass().getResourceAsStream(
+                    "eclipseTheme.xml"));
+            theme.apply(sourcePane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         sourceView = new RTextScrollPane(sourcePane);
     }
 
