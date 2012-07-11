@@ -145,7 +145,7 @@ See LICENSE for details.
       </jar>
       <symlink
          resource    = "${project.jar.name}.jar"
-         link        = "${dir.build.jar}/${project.name}.jar"
+         link        = "${basedir}/${dir.build.jar}/${project.name}.jar"
          overwrite   = "yes"
          />
    </target>
@@ -174,7 +174,7 @@ See LICENSE for details.
          file  = "${dir.build.jar}/${project.jar.name}.jar" />
       <symlink
          resource    = "${project.jar.name}.jar"
-         link        = "${dir.dist.lib}/${project.name}.jar"
+         link        = "${basedir}/${dir.dist.lib}/${project.name}.jar"
          overwrite   = "yes"
          />
    </target>
