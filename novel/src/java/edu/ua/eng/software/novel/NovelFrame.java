@@ -8,6 +8,7 @@
 package edu.ua.eng.software.novel;
 
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,8 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelFrame extends JFrame implements ActionListener
-{
+public class NovelFrame extends JFrame implements ActionListener {
     NovelPanel panel;
 
     public final void initUI() {
@@ -116,8 +116,10 @@ public class NovelFrame extends JFrame implements ActionListener
         help.add(helpAbout);
         setJMenuBar(menu);
 
+        // initiate the window
         setTitle("N.o.V.E.L.");
         setSize(1024, 768);
+        setMinimumSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -127,24 +129,24 @@ public class NovelFrame extends JFrame implements ActionListener
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OPEN"))
-            openDialog();
+            importDialog();
         else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
             System.exit(0);
         else if (e.getActionCommand().equals("TUTORIAL"))
             try {
-                openTutorial();
+                tutorialDialog();
             } catch (IOException e1) {
                 e1.printStackTrace();
             } catch (URISyntaxException e1) {
                 e1.printStackTrace();
             }
         else if (e.getActionCommand().equals("ABOUT"))
-            createAboutMenu();
+            aboutDialog();
     }
 
-    public void openDialog() {
+    public void importDialog() {
 
         final JFileChooser chooser = new JFileChooser(
                 System.getProperty("user.dir"));
@@ -168,12 +170,12 @@ public class NovelFrame extends JFrame implements ActionListener
         // will most likely use a new "NovelPrefs" class to display
     }
 
-    public void openTutorial() throws IOException, URISyntaxException {
+    public void tutorialDialog() throws IOException, URISyntaxException {
 
         Desktop.getDesktop().browse(new URI("about:blank"));
     }
 
-    public void createAboutMenu() {
+    public void aboutDialog() {
 
         JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
                 + "\nVersion 1.0" + "\n\nBlake Bassett, Casey Ferring"
