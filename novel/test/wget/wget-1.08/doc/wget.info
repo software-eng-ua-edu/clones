@@ -1,0 +1,87 @@
+This is wget.info, produced by makeinfo version 4.0b from ./wget.texi.
+
+INFO-DIR-SECTION Net Utilities
+INFO-DIR-SECTION World Wide Web
+START-INFO-DIR-ENTRY
+* Wget: (wget).         The non-interactive network downloader.
+END-INFO-DIR-ENTRY
+
+   This file documents the the GNU Wget utility for downloading network
+data.
+
+   Copyright (C) 1996, 1997, 1998, 2000, 2001 Free Software Foundation,
+Inc.
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License" and "GNU Free
+Documentation License", with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+
+Indirect:
+wget.info-1: 1019
+wget.info-2: 49799
+wget.info-3: 99418
+wget.info-4: 145124
+
+Tag Table:
+(Indirect)
+Node: Top1019
+Node: Overview1921
+Node: Invoking5037
+Node: URL Format5846
+Ref: URL Format-Footnote-18074
+Node: Option Syntax8176
+Node: Basic Startup Options9602
+Node: Logging and Input File Options10302
+Node: Download Options12828
+Node: Directory Options23792
+Node: HTTP Options26275
+Node: FTP Options33382
+Node: Recursive Retrieval Options36661
+Node: Recursive Accept/Reject Options42805
+Node: Recursive Retrieval45774
+Node: Following Links48862
+Node: Spanning Hosts49799
+Node: Types of Files51990
+Node: Directory-Based Limits54445
+Node: Relative Links57090
+Node: FTP Links57922
+Node: Time-Stamping58784
+Node: Time-Stamping Usage60427
+Node: HTTP Time-Stamping Internals62270
+Ref: HTTP Time-Stamping Internals-Footnote-163541
+Node: FTP Time-Stamping Internals63740
+Node: Startup File65201
+Node: Wgetrc Location66074
+Node: Wgetrc Syntax66889
+Node: Wgetrc Commands67604
+Node: Sample Wgetrc76373
+Node: Examples81463
+Node: Simple Usage81802
+Node: Advanced Usage83219
+Node: Very Advanced Usage86739
+Node: Various88199
+Node: Proxies88723
+Node: Distribution91491
+Node: Mailing List91830
+Node: Reporting Bugs92608
+Node: Portability94341
+Node: Signals95712
+Node: Appendices96367
+Node: Robots96685
+Node: Security Considerations99418
+Node: Contributors100414
+Node: Copying103586
+Node: GNU General Public License106197
+Node: GNU Free Documentation License125395
+Node: Concept Index145124
+
+End Tag Table
