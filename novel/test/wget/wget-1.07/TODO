@@ -1,0 +1,141 @@
+                                 Hey Emacs, this is -*- outline -*- mode
+
+This is the to-do list for Wget.  There is no timetable of when we plan to
+implement these features -- this is just a list of things it'd be nice to see in
+Wget.  Patches to implement any of these items would be gladly accepted.  The
+items are not listed in any particular order (except that recently-added items
+may tend towards the top).  Not all of these represent user-visible
+changes.
+
+* -p should probably go "_two_ more hops" on <FRAMESET> pages.
+
+* Only normal link-following recursion should respect -np.  Page-requisite
+  recursion should not.  When -np -p is specified, Wget should still retrieve
+  requisite images and such on the server, even if they aren't in that directory
+  or a subdirectory of it.  Likewise, -H -np -p should retrieve requisite files
+  from other hosts. 
+
+* Add a --range parameter allowing you to explicitly specify a range of bytes to
+  get from a file over HTTP (FTP only supports ranges ending at the end of the
+  file, though forcibly disconnecting from the server at the desired endpoint
+  might be workable).
+
+* RFC 1738 says that if logging on to an FTP server puts you in a directory
+  other than '/', the way to specify a file relative to '/' in a URL (let's use
+  "/bin/ls" in this example) is "ftp://host/%2Fbin/ls".  Wget needs to support
+  this (and ideally not consider "ftp://host//bin/ls" to be equivalent, as that
+  would equate to the command "CWD " rather than "CWD /").  To accomodate people
+  used to broken FTP clients like Internet Explorer and Netscape, if
+  "ftp://host/bin/ls" doesn't exist, Wget should try again (perhaps under
+  control of an option), acting as if the user had typed "ftp://host/%2Fbin/ls".
+
+* If multiple FTP URLs are specified that are on the same host, Wget should
+  re-use the connection rather than opening a new one for each file.
+
+* Try to devise a scheme so that, when password is unknown, Wget asks
+  the user for one.
+
+* Limit the number of successive redirection to max. 20 or so.
+
+* If -c used on a file that's already completely downloaded, don't re-download
+  it (unless normal --timestamping processing would cause you to do so).
+
+* If -c used with -N, check to make sure a file hasn't changed on the server
+  before "continuing" to download it (preventing a bogus hybrid file).
+
+* Take a look at
+  <http://info.webcrawler.com/mak/projects/robots/norobots-rfc.html>
+  and support the new directives.
+
+* Generalize --html-extension to something like --mime-extensions and have it
+  look at mime.types/mimecap file for preferred extension.  Non-HTML files with
+  filenames changed this way would be re-downloaded each time despite -N unless
+  .orig files were saved for them.  Since .orig would contain the same data as
+  non-.orig, the latter could be just a link to the former.  Another possibility
+  would be to implement a per-directory database called something like
+  .wget_url_mapping containing URLs and their corresponding filenames.
+
+* When spanning hosts, there's no way to say that you are only interested in
+  files in a certain directory on _one_ of the hosts (-I and -X apply to all).
+  Perhaps -I and -X should take an optional hostname before the directory?
+
+* Add an option to not encode special characters like ' ' and '~' when saving
+  local files.  Would be good to have a mode that encodes all special characters
+  (as now), one that encodes none (as above), and one that only encodes a
+  character if it was encoded in the original URL (e.g. %20 but not %7E).
+
+* --retr-symlinks should cause wget to traverse links to directories too.
+
+* Make wget return non-zero status in more situations, like incorrect HTTP auth.
+
+* Make -K compare X.orig to X and move the former on top of the latter if 
+  they're the same, rather than leaving identical .orig files laying around.
+
+* If CGI output is saved to a file, e.g. cow.cgi?param, -k needs to change the
+  '?' to a "%3F" in links to that file to avoid passing part of the filename as
+  a parameter.
+
+* Make `-k' convert <base href=...> too.
+
+* Make `-k' check for files that were downloaded in the past and convert links 
+  to them in newly-downloaded documents.
+
+* Add option to clobber existing file names (no `.N' suffixes).
+
+* Introduce a concept of "boolean" options.  For instance, every
+  boolean option `--foo' would have a `--no-foo' equivalent for
+  turning it off.  Get rid of `--foo=no' stuff.  Short options would
+  be handled as `-x' vs. `-nx'.
+
+* Implement "thermometer" display (not all that hard; use an
+  alternative show_progress() if the output goes to a terminal.)
+
+* Add option to only list wildcard matches without doing the download.
+
+* Add case-insensitivity as an option.
+
+* Handle MIME types correctly.  There should be an option to (not)
+  retrieve files based on MIME types, e.g. `--accept-types=image/*'.
+
+* Implement "persistent" retrieving.  In "persistent" mode Wget should
+  treat most of the errors as transient.
+
+* Allow time-stamping by arbitrary date.
+
+* Fix Unix directory parser to allow for spaces in file names.
+
+* Allow size limit to files (perhaps with an option to download oversize files 
+  up through the limit or not at all, to get more functionality than [u]limit.
+
+* Implement breadth-first retrieval.
+
+* Download to .in* when mirroring.
+
+* Add an option to delete or move no-longer-existent files when mirroring.
+
+* Implement a switch to avoid downloading multiple files (e.g. x and x.gz).
+
+* Implement uploading (--upload URL?) in FTP and HTTP.
+
+* Rewrite FTP code to allow for easy addition of new commands.  It
+  should probably be coded as a simple DFA engine.
+
+* Make HTTP timestamping use If-Modified-Since facility.
+
+* Implement better spider options.
+
+* Add more protocols (e.g. gopher and news), implementing them in a
+  modular fashion.
+
+* Implement a concept of "packages" a la mirror.
+
+* Implement correct RFC1808 URL parsing.
+
+* Implement more HTTP/1.1 bells and whistles (ETag, Content-MD5 etc.)
+
+* Add a "rollback" option to have --continue throw away a configurable number of
+  bytes at the end of a file before resuming download.  Apparently, some stupid
+  proxies insert a "transfer interrupted" string we need to get rid of.
+
+* When using --accept and --reject, you can end up with empty directories.  Have
+  Wget any such at the end.

@@ -22,6 +22,7 @@ See LICENSE for details.
       <pathelement location="${compile.commons-logging.classpath}" />
       -->
    	  <pathelement location="${compile.rsyntaxtextarea.classpath}" />
+        <pathelement location="${compile.rcf.classpath}" />
    </path>
 
    <!--
@@ -29,6 +30,7 @@ See LICENSE for details.
    <zipfileset id="commons-logging.zfs" src="${compile.commons-logging.classpath}" />
    -->
    <zipfileset id="rsyntaxtextarea.zfs" src="${compile.rsyntaxtextarea.classpath}" />
+   <zipfileset id="rcf.zfs" src="${compile.rcf.classpath}" />
 
    <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
    <!--  Public Targets                 -->
@@ -146,6 +148,7 @@ See LICENSE for details.
          <zipfileset refid="commons-logging.zfs" />
          -->
          <zipfileset refid="rsyntaxtextarea.zfs" />
+         <zipfileset refid="rcf.zfs" />
       </jar>
       <symlink
          resource    = "${project.jar.name}.jar"

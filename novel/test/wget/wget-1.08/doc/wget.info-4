@@ -1,0 +1,190 @@
+This is wget.info, produced by makeinfo version 4.0b from ./wget.texi.
+
+INFO-DIR-SECTION Net Utilities
+INFO-DIR-SECTION World Wide Web
+START-INFO-DIR-ENTRY
+* Wget: (wget).         The non-interactive network downloader.
+END-INFO-DIR-ENTRY
+
+   This file documents the the GNU Wget utility for downloading network
+data.
+
+   Copyright (C) 1996, 1997, 1998, 2000, 2001 Free Software Foundation,
+Inc.
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License" and "GNU Free
+Documentation License", with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+
+File: wget.info,  Node: Concept Index,  Prev: Copying,  Up: Top
+
+Concept Index
+*************
+
+* Menu:
+
+* .html extension:                       HTTP Options.
+* .listing files, removing:              FTP Options.
+* .netrc:                                Startup File.
+* .wgetrc:                               Startup File.
+* accept directories:                    Directory-Based Limits.
+* accept suffixes:                       Types of Files.
+* accept wildcards:                      Types of Files.
+* append to log:                         Logging and Input File Options.
+* arguments:                             Invoking.
+* authentication:                        HTTP Options.
+* backing up converted files:            Recursive Retrieval Options.
+* base for relative links in input file: Logging and Input File Options.
+* bind() address:                        Download Options.
+* bug reports:                           Reporting Bugs.
+* bugs:                                  Reporting Bugs.
+* cache:                                 HTTP Options.
+* client IP address:                     Download Options.
+* clobbering, file:                      Download Options.
+* command line:                          Invoking.
+* Content-Length, ignore:                HTTP Options.
+* continue retrieval:                    Download Options.
+* contributors:                          Contributors.
+* conversion of links:                   Recursive Retrieval Options.
+* cookies:                               HTTP Options.
+* cookies, loading:                      HTTP Options.
+* cookies, saving:                       HTTP Options.
+* copying:                               Copying.
+* cut directories:                       Directory Options.
+* debug:                                 Logging and Input File Options.
+* delete after retrieval:                Recursive Retrieval Options.
+* directories:                           Directory-Based Limits.
+* directories, exclude:                  Directory-Based Limits.
+* directories, include:                  Directory-Based Limits.
+* directory limits:                      Directory-Based Limits.
+* directory prefix:                      Directory Options.
+* dot style:                             Download Options.
+* downloading multiple times:            Download Options.
+* examples:                              Examples.
+* exclude directories:                   Directory-Based Limits.
+* execute wgetrc command:                Basic Startup Options.
+* features:                              Overview.
+* filling proxy cache:                   Recursive Retrieval Options.
+* follow FTP links:                      Recursive Accept/Reject Options.
+* following ftp links:                   FTP Links.
+* following links:                       Following Links.
+* force html:                            Logging and Input File Options.
+* free software:                         Copying.
+* ftp time-stamping:                     FTP Time-Stamping Internals.
+* GFDL:                                  Copying.
+* globbing, toggle:                      FTP Options.
+* GPL:                                   Copying.
+* hangup:                                Signals.
+* header, add:                           HTTP Options.
+* hosts, spanning:                       Spanning Hosts.
+* http password:                         HTTP Options.
+* http referer:                          HTTP Options.
+* http time-stamping:                    HTTP Time-Stamping Internals.
+* http user:                             HTTP Options.
+* ignore length:                         HTTP Options.
+* include directories:                   Directory-Based Limits.
+* incomplete downloads:                  Download Options.
+* incremental updating:                  Time-Stamping.
+* input-file:                            Logging and Input File Options.
+* invoking:                              Invoking.
+* IP address, client:                    Download Options.
+* latest version:                        Distribution.
+* link conversion:                       Recursive Retrieval Options.
+* links:                                 Following Links.
+* list:                                  Mailing List.
+* loading cookies:                       HTTP Options.
+* location of wgetrc:                    Wgetrc Location.
+* log file:                              Logging and Input File Options.
+* mailing list:                          Mailing List.
+* mirroring:                             Very Advanced Usage.
+* no parent:                             Directory-Based Limits.
+* no warranty:                           GNU General Public License.
+* no-clobber:                            Download Options.
+* nohup:                                 Invoking.
+* number of retries:                     Download Options.
+* operating systems:                     Portability.
+* option syntax:                         Option Syntax.
+* output file:                           Logging and Input File Options.
+* overview:                              Overview.
+* page requisites:                       Recursive Retrieval Options.
+* passive ftp:                           FTP Options.
+* pause:                                 Download Options.
+* portability:                           Portability.
+* progress indicator:                    Download Options.
+* proxies:                               Proxies.
+* proxy <1>:                             HTTP Options.
+* proxy:                                 Download Options.
+* proxy authentication:                  HTTP Options.
+* proxy filling:                         Recursive Retrieval Options.
+* proxy password:                        HTTP Options.
+* proxy user:                            HTTP Options.
+* quiet:                                 Logging and Input File Options.
+* quota:                                 Download Options.
+* random wait:                           Download Options.
+* recursion:                             Recursive Retrieval.
+* recursive retrieval:                   Recursive Retrieval.
+* redirecting output:                    Advanced Usage.
+* referer, http:                         HTTP Options.
+* reject directories:                    Directory-Based Limits.
+* reject suffixes:                       Types of Files.
+* reject wildcards:                      Types of Files.
+* relative links:                        Relative Links.
+* reporting bugs:                        Reporting Bugs.
+* required images, downloading:          Recursive Retrieval Options.
+* resume download:                       Download Options.
+* retries:                               Download Options.
+* retries, waiting between:              Download Options.
+* retrieving:                            Recursive Retrieval.
+* robots:                                Robots.
+* robots.txt:                            Robots.
+* sample wgetrc:                         Sample Wgetrc.
+* saving cookies:                        HTTP Options.
+* security:                              Security Considerations.
+* server maintenance:                    Robots.
+* server response, print:                Download Options.
+* server response, save:                 HTTP Options.
+* signal handling:                       Signals.
+* spanning hosts:                        Spanning Hosts.
+* spider:                                Download Options.
+* startup:                               Startup File.
+* startup file:                          Startup File.
+* suffixes, accept:                      Types of Files.
+* suffixes, reject:                      Types of Files.
+* symbolic links, retrieving:            FTP Options.
+* syntax of options:                     Option Syntax.
+* syntax of wgetrc:                      Wgetrc Syntax.
+* tag-based recursive pruning:           Recursive Accept/Reject Options.
+* time-stamping:                         Time-Stamping.
+* time-stamping usage:                   Time-Stamping Usage.
+* timeout:                               Download Options.
+* timestamping:                          Time-Stamping.
+* tries:                                 Download Options.
+* types of files:                        Types of Files.
+* updating the archives:                 Time-Stamping.
+* URL:                                   URL Format.
+* URL syntax:                            URL Format.
+* usage, time-stamping:                  Time-Stamping Usage.
+* user-agent:                            HTTP Options.
+* various:                               Various.
+* verbose:                               Logging and Input File Options.
+* wait:                                  Download Options.
+* wait, random:                          Download Options.
+* waiting between retries:               Download Options.
+* Wget as spider:                        Download Options.
+* wgetrc:                                Startup File.
+* wgetrc commands:                       Wgetrc Commands.
+* wgetrc location:                       Wgetrc Location.
+* wgetrc syntax:                         Wgetrc Syntax.
+* wildcards, accept:                     Types of Files.
+* wildcards, reject:                     Types of Files.
+
+
