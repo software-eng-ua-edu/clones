@@ -32,8 +32,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelFrame extends JFrame implements ActionListener {
-    NovelPanel panel;
+public class NovelFrame extends JFrame implements ActionListener
+{
+
+    private NovelPanel panel;
 
     public final void initUI() {
 
@@ -119,8 +121,9 @@ public class NovelFrame extends JFrame implements ActionListener {
         // initiate the window
         setTitle("N.o.V.E.L.");
         setSize(1024, 768);
-        setMinimumSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
+        setMinimumSize(new Dimension(800, 600));
+        setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new NovelPanel();
@@ -153,14 +156,15 @@ public class NovelFrame extends JFrame implements ActionListener {
         chooser.setFileHidingEnabled(false);
         chooser.setDialogTitle("Import/Run");
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                ".java and .txt Files", "java", "txt");
+                ".rcf and .xml", "rcf", "xml");
         chooser.setFileFilter(filter);
 
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             panel.updateStatus("Imported file " + file.getAbsolutePath());
-            panel.updateSource(file.toString());
+            panel.populateFiles(file.getAbsolutePath());
+            // panel.populateClasses();
         }
     }
 
