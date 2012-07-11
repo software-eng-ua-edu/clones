@@ -8,14 +8,16 @@
 package edu.ua.eng.software.novel;
 
 import java.awt.GridLayout;
+import java.util.Vector;
 
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeSelectionModel;
+import javax.swing.ListSelectionModel;
+
+import de.uni_bremen.st.rcf.imports.NiCadImport;
+import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.RCF;
 
 /**
  * Initializes the tree structure for clone pairs
@@ -23,51 +25,34 @@ import javax.swing.tree.TreeSelectionModel;
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
 
-public class NovelFiles extends JPanel implements TreeSelectionListener
+public class NovelFiles extends JPanel
 {
-    private JTree treePairs;
-    private JScrollPane treePane;
+    private JList fileList;
+    private JScrollPane filesPane;
 
     public NovelFiles() {
         super(new GridLayout(1, 0));
+        
+        java.io.File rcfFile = new java.io.File("test/test.rcf");
+        NiCadImport nci = new NiCadImport(rcfFile);
+        java.io.File nicadFile = new java.io.File("test/rhino-1.6R5_clones.xml");
 
-        DefaultMutableTreeNode top = new DefaultMutableTreeNode("ProjectRoot");
-        createNodes(top);
-
-        treePairs = new JTree(top);
-        treePairs.getSelectionModel().setSelectionMode(
-                TreeSelectionModel.SINGLE_TREE_SELECTION);
-        treePairs.addTreeSelectionListener(this);
-
-        treePane = new JScrollPane(treePairs);
+        nci.addVersion(nicadFile, "rhino-1.6R5");
+        RCF rcf = nci.getRCF();
+        
+        Vector<java.io.File> filesVector = new Vector<java.io.File>();
+        for(File f : rcf.getVersions().getFirstEntry().getFiles()) {
+            filesVector.add(new java.io.File(f.getAbsolutePath()));
+        }
+        fileList = new JList(filesVector);
+        fileList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        fileList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        fileList.setVisibleRowCount(-1);
+        
+        filesPane = new JScrollPane(fileList);
     }
 
-    public void createNodes(DefaultMutableTreeNode top) {
-
-        DefaultMutableTreeNode category = null;
-        DefaultMutableTreeNode category2 = null;
-        category = new DefaultMutableTreeNode("src");
-        top.add(category);
-        category2 = new DefaultMutableTreeNode("bin");
-        top.add(category2);
-
-        category.add(new DefaultMutableTreeNode("File1.java"));
-        category.add(new DefaultMutableTreeNode("File2.java"));
-        category.add(new DefaultMutableTreeNode("File3.java"));
-        category.add(new DefaultMutableTreeNode("File4.java"));
-        category.add(new DefaultMutableTreeNode("File5.java"));
-    }
-
-    public JScrollPane getTreePane() {
-        return treePane;
-    }
-
-    /** Required by TreeSelectionListener interface. */
-    public void valueChanged(TreeSelectionEvent e) {
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePairs
-                .getLastSelectedPathComponent();
-
-        if (node == null)
-            return;
+    public JScrollPane getFilesPane() {
+        return filesPane;
     }
 }
