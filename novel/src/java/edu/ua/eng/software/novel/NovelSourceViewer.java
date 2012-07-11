@@ -25,42 +25,33 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
 
-public class NovelSourceViewer extends JPanel
-{
-    RSyntaxTextArea sourcePane;
-    RTextScrollPane sourceView;
+public class NovelSourceViewer extends JPanel {
+	RSyntaxTextArea sourcePane;
+	RTextScrollPane sourceView;
 
-    public NovelSourceViewer() {
-        super(new BorderLayout());
+	public NovelSourceViewer() {
+		super(new BorderLayout());
 
-        sourcePane = new RSyntaxTextArea();
-        sourcePane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        sourcePane.setCodeFoldingEnabled(true);
-        sourcePane.setAntiAliasingEnabled(true);
-        sourcePane.setEditable(false);
+		sourcePane = new RSyntaxTextArea();
+		sourcePane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+		sourcePane.setCodeFoldingEnabled(true);
+		sourcePane.setAntiAliasingEnabled(true);
+		sourcePane.setEditable(false);
 
-        Theme theme;
-        try {
-            theme = Theme.load(getClass().getResourceAsStream("eclipse.xml"));
-            theme.apply(sourcePane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		sourceView = new RTextScrollPane(sourcePane);
+	}
 
-        sourceView = new RTextScrollPane(sourcePane);
-    }
+	public JScrollPane blankSource() {
+		return sourceView;
+	}
 
-    public JScrollPane blankSource() {
-        return sourceView;
-    }
-
-    public JScrollPane setSource(String sourceFile) {
-        try {
-            FileReader fr = new FileReader(sourceFile);
-            sourcePane.read(fr, null);
-        } catch (IOException e) {
-            System.err.println(e);
-        }
-        return sourceView;
-    }
+	public JScrollPane setSource(String sourceFile) {
+		try {
+			FileReader fr = new FileReader(sourceFile);
+			sourcePane.read(fr, null);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+		return sourceView;
+	}
 }
