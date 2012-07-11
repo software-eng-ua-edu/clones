@@ -7,8 +7,6 @@
  */
 package edu.ua.eng.software.novel;
 
-import java.awt.Dimension;
-
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -42,7 +40,6 @@ public class Novel
                     // handle exception
                 }
                 NovelFrame ui = new NovelFrame();
-                ui.setMinimumSize(new Dimension(800, 600));
                 ui.initUI();
                 ui.setVisible(true);
             }
