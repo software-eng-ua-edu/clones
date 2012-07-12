@@ -24,10 +24,9 @@ import javax.swing.border.Border;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-
+@SuppressWarnings("serial")
 public class NovelPanel extends JPanel
 {
-
     private JLabel sourcePanePath;
     private String sourcePath;
     private JLabel statusLabel;

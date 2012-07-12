@@ -7,9 +7,6 @@
  */
 package edu.ua.eng.software.novel;
 
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -22,14 +19,12 @@ import javax.swing.tree.TreeSelectionModel;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-
-public class NovelClassesTree extends JPanel implements TreeSelectionListener
+public class NovelClassesTree implements TreeSelectionListener
 {
     private JTree treeClasses;
     private JScrollPane treePane;
 
     public NovelClassesTree() {
-        super(new GridLayout(1, 0));
 
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Clone Classes");
         createNodes(top);
@@ -61,6 +56,7 @@ public class NovelClassesTree extends JPanel implements TreeSelectionListener
     }
 
     public JScrollPane getTreePane() {
+
         return treePane;
     }
 
