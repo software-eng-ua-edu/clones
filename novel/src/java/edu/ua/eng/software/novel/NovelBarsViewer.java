@@ -9,6 +9,7 @@ package edu.ua.eng.software.novel;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+//import javax.swing.GraphicsWrapper;
 
 /**
  * Creates the contents of the Bars tab
@@ -27,9 +28,4 @@ public class NovelBarsViewer extends JPanel
 	public void drawBars(){
 
 	}
-
-	public void paint(){
-
-	}
-
 }
