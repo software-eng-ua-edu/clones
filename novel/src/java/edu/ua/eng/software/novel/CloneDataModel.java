@@ -9,6 +9,7 @@ package edu.ua.eng.software.novel;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import de.uni_bremen.st.rcf.model.Version;
 import de.uni_bremen.st.rcf.model.CloneClasses;
@@ -36,11 +37,11 @@ public class CloneDataModel
     }
 
     private void populateMaps() {
-        for (CloneClass class : classes) {
-            for (Fragment clone : class.getFragments()) {
-                cloneToClass.put(clone, class);
+        for (CloneClass klass : classes) {
+            for (Fragment clone : klass.getFragments()) {
+                cloneToClass.put(clone, klass);
                 File file = clone.getStart().getFile();
-                if (!fileToClones.hasKey(file)) {
+                if (!fileToClones.containsKey(file)) {
                     fileToClones.put(file, new HashSet<Fragment>());
                 }
                 fileToClones.get(file).add(clone);
@@ -48,7 +49,7 @@ public class CloneDataModel
         }
     }
 
-    private CloneClasses getCloneClasses() {
+    private List<CloneClass> getCloneClasses() {
         return classes;
     }
 
@@ -56,11 +57,11 @@ public class CloneDataModel
         return cloneToClass.get(clone);
     }
 
-    private Fragments getClones(CloneClass class) {
-        return class.getFragments();
+    private HashSet<Fragment> getClones(CloneClass klass) {
+        return new HashSet<Fragment>(klass.getFragments());
     }
 
-    private Fragments getClones(File file) {
+    private HashSet<Fragment> getClones(File file) {
         return fileToClones.get(file);
     }
 
@@ -69,7 +70,7 @@ public class CloneDataModel
     }
 
     private Version version;
-    private CloneClasses classes;
+    private List<CloneClass> classes;
     private HashMap<File, HashSet<Fragment>> fileToClones;
     private HashMap<Fragment, CloneClass> cloneToClass;
 }

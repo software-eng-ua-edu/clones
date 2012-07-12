@@ -28,12 +28,6 @@ public class NovelBarsViewer extends JPanel
 
 	}
 
-	public NovelBarsViewer(){
-		//JPanel barStripesPanel = new JPanel();
-	
-	}
-
-
 	public void paint(){
 
 	}
