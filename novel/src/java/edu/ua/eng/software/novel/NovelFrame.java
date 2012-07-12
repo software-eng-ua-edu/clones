@@ -32,9 +32,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
+@SuppressWarnings("serial")
 public class NovelFrame extends JFrame implements ActionListener
 {
-
     private NovelPanel panel;
 
     public final void initUI() {
@@ -119,7 +119,7 @@ public class NovelFrame extends JFrame implements ActionListener
         setJMenuBar(menu);
 
         // initiate the window
-        setTitle("N.o.V.E.L.");
+        setTitle("NoVEL");
         setSize(1024, 768);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(800, 600));
@@ -130,7 +130,13 @@ public class NovelFrame extends JFrame implements ActionListener
         setContentPane(panel.createContentPane());
     }
 
+    /**
+     * Handle menu interactions
+     * 
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     public void actionPerformed(ActionEvent e) {
+
         if (e.getActionCommand().equals("OPEN"))
             importDialog();
         else if (e.getActionCommand().equals("PREFS"))
@@ -149,6 +155,9 @@ public class NovelFrame extends JFrame implements ActionListener
             aboutDialog();
     }
 
+    /**
+     * Create file chooser to import RCF and NiCad clone results
+     */
     public void importDialog() {
 
         final JFileChooser chooser = new JFileChooser(
@@ -168,17 +177,29 @@ public class NovelFrame extends JFrame implements ActionListener
         }
     }
 
+    /**
+     * Create dialog to handle user preferences
+     */
     public void prefsDialog() {
 
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
     }
 
+    /**
+     * Open software tutorials, most likely to be hosted online
+     * 
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void tutorialDialog() throws IOException, URISyntaxException {
 
         Desktop.getDesktop().browse(new URI("about:blank"));
     }
 
+    /**
+     * Create "About" dialog
+     */
     public void aboutDialog() {
 
         JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"

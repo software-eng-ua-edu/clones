@@ -12,26 +12,16 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.uni_bremen.st.rcf.imports.NiCadImport;
-import de.uni_bremen.st.rcf.imports.Import;
-import de.uni_bremen.st.rcf.model.RCF;
-import de.uni_bremen.st.rcf.model.File;
-import de.uni_bremen.st.rcf.model.Files;
-import de.uni_bremen.st.rcf.persistence.AbstractPersistenceManager;
-import de.uni_bremen.st.rcf.persistence.PersistenceManagerFactory;
-
 /**
+ * Initialize the NoVEL interface
+ * 
  * @author Nicholas A. Kraft <nkraft@cs.ua.edu>
  * @author Colin C. Hemphill <colin@hemphill.us>
- * @author Casey Ferris <cmferris1@crimson.ua.edu>
- * @author Paige Rodeghero <parodeghero@bsu.edu>
  */
 public class Novel
 {
     public static void main(String[] args) throws Exception {
 
-//        testNiCad();
-//        testRCF();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -57,31 +47,29 @@ public class Novel
             }
         });
     }
-
-//    private static void testNiCad() {
-//        java.io.File rcfFile = new java.io.File("test/test.rcf");
-//        NiCadImport nci = new NiCadImport(rcfFile);
-//        java.io.File nicadFile = new java.io.File("test/rhino-1.6R5_clones.xml");
-//
-//        nci.addVersion(nicadFile, "rhino-1.6R5");
-//        RCF rcf = nci.getRCF();
-//
-//        System.out.println("\n\n\nNiCad:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
-//
-//        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-//            System.out.println(f.getAbsolutePath());
-//        }
-//    }
-//
-//    private static void testRCF() throws Exception {
-//        java.io.File file = new java.io.File("test/wget.rcf");
-//        AbstractPersistenceManager apm = PersistenceManagerFactory.getPersistenceManager(file);
-//        RCF rcf = apm.load(file);
-//
-//        System.out.println("\n\n\nRCF:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
-//
-//        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-//            System.out.println(f.getAbsolutePath());
-//        }
-//    }
 }
+
+/*
+ * private static void testNiCad() { java.io.File rcfFile = new
+ * java.io.File("test/test.rcf"); NiCadImport nci = new NiCadImport(rcfFile);
+ * java.io.File nicadFile = new java.io.File("test/rhino-1.6R5_clones.xml");
+ * 
+ * nci.addVersion(nicadFile, "rhino-1.6R5"); RCF rcf = nci.getRCF();
+ * 
+ * System.out.println("\n\n\nNiCad:\n\n" +
+ * rcf.getVersions().getFirstEntry().getBasepath());
+ * 
+ * for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+ * System.out.println(f.getAbsolutePath()); } }
+ * 
+ * private static void testRCF() throws Exception { java.io.File file = new
+ * java.io.File("test/wget.rcf"); AbstractPersistenceManager apm =
+ * PersistenceManagerFactory.getPersistenceManager(file); RCF rcf =
+ * apm.load(file);
+ * 
+ * System.out.println("\n\n\nRCF:\n\n" +
+ * rcf.getVersions().getFirstEntry().getBasepath());
+ * 
+ * for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+ * System.out.println(f.getAbsolutePath()); } }
+ */
