@@ -5,13 +5,11 @@
  *
  * See LICENSE for details.
  */
-package edu.ua.eng.software.novel;
+package userInterface;
 
-import java.awt.BorderLayout;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -23,14 +21,12 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-@SuppressWarnings("serial")
-public class NovelSourceViewer extends JPanel
+public class NovelSourceViewer
 {
     RSyntaxTextArea sourcePane;
     RTextScrollPane sourceView;
 
     public NovelSourceViewer() {
-        super(new BorderLayout());
 
         sourcePane = new RSyntaxTextArea();
         sourcePane.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
