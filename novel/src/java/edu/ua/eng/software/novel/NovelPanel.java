@@ -23,16 +23,22 @@ import javax.swing.border.Border;
  * Creates the visible UI panel and initializes components
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
+ * @author Paige A. Rodeghero <parodeghero@bsu.edu>
  */
 @SuppressWarnings("serial")
 public class NovelPanel extends JPanel
 {
     private JLabel sourcePanePath;
-    private String sourcePath;
     private JLabel statusLabel;
+
+    private String sourcePath;
+    
     private NovelSourceViewer sourcePane;
+    private NovelBarsViewer barStripesPane;
+
     private JScrollPane sourceView;
     private JScrollPane filesView;
+    private JPanel barStripesView;
 
     public JPanel createContentPane() {
 
@@ -68,6 +74,9 @@ public class NovelPanel extends JPanel
         sourcePanels.setDividerSize(0);
         sourcePanels.setEnabled(false);
 
+        // initialize bar and stripe pane
+        barStripesPane = new NovelBarsViewer();
+        
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         tabPanels.setDividerLocation(225);
@@ -84,7 +93,7 @@ public class NovelPanel extends JPanel
         JTabbedPane rightPane = new JTabbedPane();
         rightPane.addTab("Source", sourcePanels);
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        rightPane.addTab("Bars", new JLabel("Bars", JLabel.CENTER));
+        rightPane.addTab("Bars", barStripesPanel);//new JLabel("Bars", JLabel.CENTER));
         rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
 
         tabPanels.setLeftComponent(leftPane);
@@ -109,7 +118,6 @@ public class NovelPanel extends JPanel
     }
 
     public void populateFiles(String chooserPath) {
-
         NovelFiles filesList = new NovelFiles(chooserPath);
         filesView = filesList.getFilesPane();
     }
