@@ -49,23 +49,23 @@ public class CloneDataModel
         }
     }
 
-    private List<CloneClass> getCloneClasses() {
+    public List<CloneClass> getCloneClasses() {
         return classes;
     }
 
-    private CloneClass getCloneClass(Fragment clone) {
+    public CloneClass getCloneClass(Fragment clone) {
         return cloneToClass.get(clone);
     }
 
-    private HashSet<Fragment> getClones(CloneClass klass) {
+    public HashSet<Fragment> getClones(CloneClass klass) {
         return new HashSet<Fragment>(klass.getFragments());
     }
 
-    private HashSet<Fragment> getClones(File file) {
+    public HashSet<Fragment> getClones(File file) {
         return fileToClones.get(file);
     }
 
-    private File getFile(Fragment clone) {
+    public File getFile(Fragment clone) {
         return clone.getStart().getFile();
     }
 

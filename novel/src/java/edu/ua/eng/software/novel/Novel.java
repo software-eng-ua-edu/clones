@@ -12,6 +12,12 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+// import de.uni_bremen.st.rcf.model.File;
+// import de.uni_bremen.st.rcf.persistence.AbstractPersistenceManager;
+// import de.uni_bremen.st.rcf.persistence.PersistenceManagerFactory;
+// import de.uni_bremen.st.rcf.model.RCF;
+
+
 /**
  * Initialize the NoVEL interface
  * 
@@ -47,6 +53,16 @@ public class Novel
             }
         });
     }
+
+    // private static void test() throws Exception {
+    //     java.io.File file = new java.io.File("test/wget.rcf");
+    //     AbstractPersistenceManager apm = PersistenceManagerFactory.getPersistenceManager(file);
+    //     RCF rcf = apm.load(file);
+
+    //     CloneDataModel cdm = new CloneDataModel(rcf.getVersions().getFirstEntry());
+
+    //     System.out.println(cdm.getCloneClasses().size());
+    // }
 }
 
 /*
