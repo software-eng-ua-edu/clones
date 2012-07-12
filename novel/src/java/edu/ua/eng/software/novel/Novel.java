@@ -23,6 +23,8 @@ import de.uni_bremen.st.rcf.persistence.PersistenceManagerFactory;
 /**
  * @author Nicholas A. Kraft <nkraft@cs.ua.edu>
  * @author Colin C. Hemphill <colin@hemphill.us>
+ * @author Casey Ferris <cmferris1@crimson.ua.edu>
+ * @author Paige Rodeghero <parodeghero@bsu.edu>
  */
 public class Novel
 {
