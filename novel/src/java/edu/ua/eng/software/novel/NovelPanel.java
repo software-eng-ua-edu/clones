@@ -93,7 +93,7 @@ public class NovelPanel extends JPanel
         JTabbedPane rightPane = new JTabbedPane();
         rightPane.addTab("Source", sourcePanels);
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        rightPane.addTab("Bars", barStripesPanel);//new JLabel("Bars", JLabel.CENTER));
+        rightPane.addTab("Bars", barStripesPane);//new JLabel("Bars", JLabel.CENTER));
         rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
 
         tabPanels.setLeftComponent(leftPane);
