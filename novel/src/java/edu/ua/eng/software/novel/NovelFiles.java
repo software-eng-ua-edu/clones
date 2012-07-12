@@ -24,61 +24,57 @@ import de.uni_bremen.st.rcf.model.RCF;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelFiles
-{
+public class NovelFiles {
 
-    private JScrollPane filesPane;
-    private String chooserPath;
+	private JScrollPane filesPane;
+	private String chooserPath;
 
-    public NovelFiles(String path) {
+	public NovelFiles(String path) {
 
-        chooserPath = path;
-        if (chooserPath == null) {
-            chooserPath = "test/rhino-1.6R5_clones.xml";
-            populate();
-            // JList fileList = new JList();
-            // filesPane = new JScrollPane(fileList);
-        } else
-            populate();
-    }
+		chooserPath = path;
+		if (chooserPath == null) {
+			chooserPath = "test/rhino-1.6R5_clones.xml";
+			populate();
+			// JList fileList = new JList();
+			// filesPane = new JScrollPane(fileList);
+		} else
+			populate();
+	}
 
-    public void populate() {
+	public void populate() {
 
-        java.io.File rcfFile = new java.io.File("test/test.rcf");
-        NiCadImport nci = new NiCadImport(rcfFile);
-        java.io.File nicadFile = new java.io.File(chooserPath);
+		java.io.File rcfFile = new java.io.File("test/test.rcf");
+		NiCadImport nci = new NiCadImport(rcfFile);
+		java.io.File nicadFile = new java.io.File(chooserPath);
 
-        nci.addVersion(nicadFile, "rhino-1.6R5");
-        RCF rcf = nci.getRCF();
+		nci.addVersion(nicadFile, "rhino-1.6R5");
+		RCF rcf = nci.getRCF();
 
-        Vector<File> filesVector = new Vector<File>();
-        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-            filesVector.add(f);
-        }
-        JList fileList = new JList(filesVector);
-        fileList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        fileList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        fileList.setVisibleRowCount(-1);
+		Vector<File> filesVector = new Vector<File>();
+		for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+			filesVector.add(f);
+		}
+		JList fileList = new JList(filesVector);
+		fileList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		fileList.setVisibleRowCount(-1);
 
-        fileList.setCellRenderer(new FileCellRenderer());
+		fileList.setCellRenderer(new FileCellRenderer());
 
-        filesPane = new JScrollPane(fileList);
-    }
+		filesPane = new JScrollPane(fileList);
+	}
 
-    public JScrollPane getFilesPane() {
+	public JScrollPane getFilesPane() {
 
-        return filesPane;
-    }
+		return filesPane;
+	}
 
-    @SuppressWarnings("serial")
-    public class FileCellRenderer extends DefaultListCellRenderer
-    {
-        public Component getListCellRendererComponent(JList list,
-                Object value, int index, boolean isSelected,
-                boolean cellHasFocus) {
-            String s = ((File) value).getRelativePath();
-            return super.getListCellRendererComponent(list, s, index,
-                    isSelected, cellHasFocus);
-        }
-    }
+	@SuppressWarnings("serial")
+	public class FileCellRenderer extends DefaultListCellRenderer {
+		public Component getListCellRendererComponent(JList list, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
+			String s = ((File) value).getRelativePath();
+			return super.getListCellRendererComponent(list, s, index,
+					isSelected, cellHasFocus);
+		}
+	}
 }
