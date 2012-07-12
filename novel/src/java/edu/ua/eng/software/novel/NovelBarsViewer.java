@@ -7,13 +7,28 @@
  */
 package edu.ua.eng.software.novel;
 
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.j
+
 /**
  * Creates the contents of the Bars tab
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
+ * @author Paige A. Rodeghero <parodeghero@bsu.edu>
  */
 
-public class NovelBarsViewer
+public class NovelBarsViewer extends JPanel
 {
+
+	public NovelBarsViewer(){
+		//JPanel barStripesPanel = new JPanel();
+	
+	}
+
+
+	public void paint(){
+
+	}
 
 }
