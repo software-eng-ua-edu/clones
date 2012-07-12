@@ -30,8 +30,8 @@ public class Novel
 {
     public static void main(String[] args) throws Exception {
 
-        testNiCad();
-        testRCF();
+//        testNiCad();
+//        testRCF();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -58,30 +58,30 @@ public class Novel
         });
     }
 
-    private static void testNiCad() {
-        java.io.File rcfFile = new java.io.File("test/test.rcf");
-        NiCadImport nci = new NiCadImport(rcfFile);
-        java.io.File nicadFile = new java.io.File("test/rhino-1.6R5_clones.xml");
-
-        nci.addVersion(nicadFile, "rhino-1.6R5");
-        RCF rcf = nci.getRCF();
-
-        System.out.println("\n\n\nNiCad:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
-
-        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-            System.out.println(f.getAbsolutePath());
-        }
-    }
-
-    private static void testRCF() throws Exception {
-        java.io.File file = new java.io.File("test/wget.rcf");
-        AbstractPersistenceManager apm = PersistenceManagerFactory.getPersistenceManager(file);
-        RCF rcf = apm.load(file);
-
-        System.out.println("\n\n\nRCF:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
-
-        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-            System.out.println(f.getAbsolutePath());
-        }
-    }
+//    private static void testNiCad() {
+//        java.io.File rcfFile = new java.io.File("test/test.rcf");
+//        NiCadImport nci = new NiCadImport(rcfFile);
+//        java.io.File nicadFile = new java.io.File("test/rhino-1.6R5_clones.xml");
+//
+//        nci.addVersion(nicadFile, "rhino-1.6R5");
+//        RCF rcf = nci.getRCF();
+//
+//        System.out.println("\n\n\nNiCad:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
+//
+//        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+//            System.out.println(f.getAbsolutePath());
+//        }
+//    }
+//
+//    private static void testRCF() throws Exception {
+//        java.io.File file = new java.io.File("test/wget.rcf");
+//        AbstractPersistenceManager apm = PersistenceManagerFactory.getPersistenceManager(file);
+//        RCF rcf = apm.load(file);
+//
+//        System.out.println("\n\n\nRCF:\n\n" + rcf.getVersions().getFirstEntry().getBasepath());
+//
+//        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+//            System.out.println(f.getAbsolutePath());
+//        }
+//    }
 }

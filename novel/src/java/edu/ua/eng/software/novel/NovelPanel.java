@@ -27,11 +27,13 @@ import javax.swing.border.Border;
 
 public class NovelPanel extends JPanel
 {
+
     private JLabel sourcePanePath;
     private String sourcePath;
     private JLabel statusLabel;
     private NovelSourceViewer sourcePane;
     private JScrollPane sourceView;
+    private JScrollPane filesView;
 
     public JPanel createContentPane() {
 
@@ -51,8 +53,7 @@ public class NovelPanel extends JPanel
         statusLabel.setBackground(Color.LIGHT_GRAY);
 
         // build file list and clone pairs tree
-        NovelFiles filesList = new NovelFiles();
-        JScrollPane filesPane = filesList.getFilesPane();
+        populateFiles(null);
         NovelClassesTree classesTree = new NovelClassesTree();
         JScrollPane classesPane = classesTree.getTreePane();
 
@@ -77,7 +78,7 @@ public class NovelPanel extends JPanel
 
         // left tabbed pane
         JTabbedPane leftPane = new JTabbedPane();
-        leftPane.addTab("Files", filesPane);
+        leftPane.addTab("Files", filesView);
         leftPane.addTab("Clone Classes", classesPane);
 
         // right tabbed pane
@@ -102,8 +103,15 @@ public class NovelPanel extends JPanel
     }
 
     public void updateSource(String path) {
+
         sourcePath = path;
         sourcePanePath.setText(sourcePath);
         sourcePane.setSource(sourcePath);
+    }
+
+    public void populateFiles(String chooserPath) {
+
+        NovelFiles filesList = new NovelFiles(chooserPath);
+        filesView = filesList.getFilesPane();
     }
 }
