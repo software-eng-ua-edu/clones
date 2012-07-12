@@ -5,7 +5,7 @@
  *
  * See LICENSE for details.
  */
-package userInterface;
+package edu.ua.eng.software.novel;
 
 import java.io.FileReader;
 import java.io.IOException;
