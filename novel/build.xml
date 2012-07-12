@@ -23,6 +23,8 @@ See LICENSE for details.
       -->
    	  <pathelement location="${compile.rsyntaxtextarea.classpath}" />
         <pathelement location="${compile.rcf.classpath}" />
+        <pathelement location="${compile.jcommon.classpath}" />
+        <pathelement location="${compile.jfreechart.classpath}" />
    </path>
 
    <!--
@@ -31,6 +33,8 @@ See LICENSE for details.
    -->
    <zipfileset id="rsyntaxtextarea.zfs" src="${compile.rsyntaxtextarea.classpath}" />
    <zipfileset id="rcf.zfs" src="${compile.rcf.classpath}" />
+   <zipfileset id="jcommon.zfs" src="${compile.jcommon.classpath}" />
+   <zipfileset id="jfreechart.zfs" src="${compile.jfreechart.classpath}" />
 
    <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
    <!--  Public Targets                 -->
