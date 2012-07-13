@@ -82,7 +82,7 @@ public class NovelPanel extends JPanel
         
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        tabPanels.setDividerLocation(225);
+        tabPanels.setDividerLocation(400);
         tabPanels.setResizeWeight(0.2);
         tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);

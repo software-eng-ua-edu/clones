@@ -27,58 +27,61 @@ import de.uni_bremen.st.rcf.model.RCF;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelFilesList extends JList {
+public class NovelFilesList extends JList
+{
 
-	public NovelFilesList(String path) {
-		chooserPath = path;
-		if (chooserPath == null) {
-			chooserPath = "test/rhino-1.6R5_clones.xml";
-		}
+    public NovelFilesList(String path) {
+        chooserPath = path;
+        if (chooserPath == null) {
+            chooserPath = "test/rhino-1.6R5_clones.xml";
+        }
 
-		populate();
-	}
+        populate();
+    }
 
-	public void populate() {
+    public void populate() {
 
-		java.io.File rcfFile = new java.io.File("test/test.rcf");
-		NiCadImport nci = new NiCadImport(rcfFile);
-		java.io.File nicadFile = new java.io.File(chooserPath);
+        java.io.File rcfFile = new java.io.File("test/test.rcf");
+        NiCadImport nci = new NiCadImport(rcfFile);
+        java.io.File nicadFile = new java.io.File(chooserPath);
 
-		nci.addVersion(nicadFile, "rhino-1.6R5");
-		RCF rcf = nci.getRCF();
+        nci.addVersion(nicadFile, "rhino-1.6R5");
+        RCF rcf = nci.getRCF();
 
-		Vector<File> filesVector = new Vector<File>();
-		for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-			filesVector.add(f);
-		}
-		super.setListData(filesVector);
-		super.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		super.setVisibleRowCount(-1);
+        Vector<File> filesVector = new Vector<File>();
+        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
+            filesVector.add(f);
+        }
+        super.setListData(filesVector);
+        super.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        super.setVisibleRowCount(-1);
 
-		super.setCellRenderer(new FileCellRenderer());
-		super.addMouseListener(new NovelFilesListMouseListener());
-	}
+        super.setCellRenderer(new FileCellRenderer());
+        super.addMouseListener(new NovelFilesListMouseListener());
+    }
 
-	@SuppressWarnings("serial")
-	public class FileCellRenderer extends DefaultListCellRenderer {
-		public Component getListCellRendererComponent(JList list, Object value,
-				int index, boolean isSelected, boolean cellHasFocus) {
-			String s = ((File) value).getRelativePath();
-			return super.getListCellRendererComponent(list, s, index,
-					isSelected, cellHasFocus);
-		}
-	}
+    @SuppressWarnings("serial")
+    public class FileCellRenderer extends DefaultListCellRenderer
+    {
+        public Component getListCellRendererComponent(JList list, Object value,
+                int index, boolean isSelected, boolean cellHasFocus) {
+            String s = (index + 1) + ":  " + ((File) value).getRelativePath();
+            return super.getListCellRendererComponent(list, s, index,
+                    isSelected, cellHasFocus);
+        }
+    }
 
-	private class NovelFilesListMouseListener extends MouseAdapter {
-	    public void mouseClicked(MouseEvent evt) {
-	        JList list = (JList)evt.getSource();
-	        if (evt.getClickCount() == 2) {
-	            int index = list.locationToIndex(evt.getPoint());
-	            File file = (File) list.getModel().getElementAt(index);
-	            NovelPanelController.getInstance().showSource(file);
-	        }
-	    }
-	}
+    private class NovelFilesListMouseListener extends MouseAdapter
+    {
+        public void mouseClicked(MouseEvent evt) {
+            JList list = (JList) evt.getSource();
+            if (evt.getClickCount() == 2) {
+                int index = list.locationToIndex(evt.getPoint());
+                File file = (File) list.getModel().getElementAt(index);
+                NovelPanelController.getInstance().showSource(file);
+            }
+        }
+    }
 
-	private String chooserPath;
+    private String chooserPath;
 }
