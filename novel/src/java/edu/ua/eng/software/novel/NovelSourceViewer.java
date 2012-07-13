@@ -51,7 +51,7 @@ public class NovelSourceViewer
         } catch (IOException e) {
             System.err.println(e);
         }
-        sourceView.getViewport().setViewPosition(new Point(0,0));
+        sourcePane.setCaretPosition(0);
         return sourceView;
     }
 }
