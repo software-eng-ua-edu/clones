@@ -144,8 +144,8 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getActionCommand().equals("OPEN"))
-            importDialog();
+        if (e.getActionCommand().equals("OPEN")) {}
+            //importDialog();
         else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
@@ -160,58 +160,6 @@ public class NovelFrame extends JFrame implements ActionListener
             }
         else if (e.getActionCommand().equals("ABOUT"))
             aboutDialog();
-    }
-
-    /**
-     * Create file chooser to import RCF and NiCad clone results
-     */
-    public void importDialog() {
-
-        final JFileChooser chooser = new JFileChooser(
-                System.getProperty("user.dir"));
-        chooser.setFileHidingEnabled(false);
-        chooser.setDialogTitle("Import/Run");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                ".rcf and .xml", "rcf", "xml");
-        chooser.setFileFilter(filter);
-
-        int returnVal = chooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            JDialog importType = importTypeDialog();
-            importType.setVisible(true);
-            panel.updateStatus("Imported file " + file.getAbsolutePath());
-            panel.populateFiles(file.getAbsolutePath());
-            // panel.populateClasses();
-        }
-    }
-    
-    public JDialog importTypeDialog() {
-        
-        JDialog importType = new JDialog(this, "Import Type", true);
-        importType.setLayout(new BorderLayout());
-        importType.setSize(new Dimension(320, 240));
-        importType.setResizable(false);
-        importType.setLocationRelativeTo(null);
-        
-        JPanel radioButtons = new JPanel();
-        radioButtons.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Select Clone Results File Type"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-        
-        JRadioButton selectRCF = new JRadioButton("RCF");
-        JRadioButton selectNiCad = new JRadioButton("NiCad");
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(selectRCF);
-        buttonGroup.add(selectNiCad);
-        
-        selectRCF.setSelected(true);
-        
-        radioButtons.add(selectRCF);
-        radioButtons.add(selectNiCad);
-        importType.add(radioButtons, BorderLayout.NORTH);
-        
-        return importType;
     }
 
     /**
