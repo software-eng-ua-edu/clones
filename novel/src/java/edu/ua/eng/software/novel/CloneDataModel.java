@@ -10,6 +10,7 @@ package edu.ua.eng.software.novel;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Vector;
 
 import de.uni_bremen.st.rcf.model.Version;
 import de.uni_bremen.st.rcf.model.CloneClasses;
@@ -27,7 +28,16 @@ import de.uni_bremen.st.rcf.model.SourcePosition;
 
 public class CloneDataModel
 {
-    public CloneDataModel(Version latest) {
+    public static CloneDataModel getInstance() {
+        return model;
+    }
+
+    public static CloneDataModel importData(Version latest) {
+        model = new CloneDataModel(latest);
+        return model;
+    }
+
+    protected CloneDataModel(Version latest) {
         version = latest;
         classes = latest.getCloneClasses();
         fileToClones = new HashMap<File, HashSet<Fragment>>();
@@ -65,10 +75,15 @@ public class CloneDataModel
         return fileToClones.get(file);
     }
 
+    public Vector<File> getFiles() {
+        return new Vector<File>(version.getFiles());
+    }
+
     public File getFile(Fragment clone) {
         return clone.getStart().getFile();
     }
 
+    private static CloneDataModel model;
     private Version version;
     private List<CloneClass> classes;
     private HashMap<File, HashSet<Fragment>> fileToClones;

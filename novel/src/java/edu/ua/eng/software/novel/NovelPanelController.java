@@ -26,6 +26,10 @@ public class NovelPanelController{
         panel.showSourcePane();
     }
 
+    public void loadCloneData() {
+        CloneDataModel cdm = CloneDataModel.getInstance();
+    }
+
     protected NovelPanelController() {
 
     }
