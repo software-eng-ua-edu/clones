@@ -35,6 +35,9 @@ public class NovelPanel extends JPanel
     
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
+    private BugLinkView bugLinkPane;
+    private NovelPieChart piePane;
+    private NovelTreeMap treePane;
 
     private JScrollPane sourceView;
     private JScrollPane filesView;
@@ -79,6 +82,8 @@ public class NovelPanel extends JPanel
 
         // initialize bar and stripe pane
         barStripesPane = new NovelBarsViewer();
+
+        bugLinkPane = new BugLinkView();
         
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -96,9 +101,9 @@ public class NovelPanel extends JPanel
         contentPane = new JTabbedPane();
         contentPane.addTab("Source", sourcePanels);
         contentPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        contentPane.addTab("Bars", barStripesPane);//new JLabel("Bars", JLabel.CENTER));
+        contentPane.addTab("Bars", barStripesPane);
         contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
-        contentPane.addTab("BugLink", new JLabel("BugLink", JLabel.CENTER));
+        contentPane.addTab("BugLink", bugLinkPane);
 
         tabPanels.setLeftComponent(listPane);
         tabPanels.setRightComponent(contentPane);
