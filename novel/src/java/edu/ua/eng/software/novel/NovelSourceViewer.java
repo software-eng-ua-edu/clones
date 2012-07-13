@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JScrollPane;
+import java.awt.Point;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
@@ -50,6 +51,7 @@ public class NovelSourceViewer
         } catch (IOException e) {
             System.err.println(e);
         }
+        sourceView.getViewport().setViewPosition(new Point(0,0));
         return sourceView;
     }
 }

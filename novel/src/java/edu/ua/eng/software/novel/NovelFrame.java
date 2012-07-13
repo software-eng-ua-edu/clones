@@ -127,7 +127,8 @@ public class NovelFrame extends JFrame implements ActionListener
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new NovelPanel();
-        setContentPane(panel.createContentPane());
+        setContentPane(panel);
+        NovelPanelController.getInstance().setPanel(panel);
     }
 
     /**

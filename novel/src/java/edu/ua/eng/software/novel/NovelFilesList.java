@@ -15,6 +15,9 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import de.uni_bremen.st.rcf.imports.NiCadImport;
 import de.uni_bremen.st.rcf.model.File;
 import de.uni_bremen.st.rcf.model.RCF;
@@ -24,21 +27,15 @@ import de.uni_bremen.st.rcf.model.RCF;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelFiles {
+public class NovelFilesList extends JList {
 
-	private JScrollPane filesPane;
-	private String chooserPath;
-
-	public NovelFiles(String path) {
-
+	public NovelFilesList(String path) {
 		chooserPath = path;
 		if (chooserPath == null) {
 			chooserPath = "test/rhino-1.6R5_clones.xml";
-			populate();
-			// JList fileList = new JList();
-			// filesPane = new JScrollPane(fileList);
-		} else
-			populate();
+		}
+
+		populate();
 	}
 
 	public void populate() {
@@ -54,18 +51,12 @@ public class NovelFiles {
 		for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
 			filesVector.add(f);
 		}
-		JList fileList = new JList(filesVector);
-		fileList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		fileList.setVisibleRowCount(-1);
+		super.setListData(filesVector);
+		super.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		super.setVisibleRowCount(-1);
 
-		fileList.setCellRenderer(new FileCellRenderer());
-
-		filesPane = new JScrollPane(fileList);
-	}
-
-	public JScrollPane getFilesPane() {
-
-		return filesPane;
+		super.setCellRenderer(new FileCellRenderer());
+		super.addMouseListener(new NovelFilesListMouseListener());
 	}
 
 	@SuppressWarnings("serial")
@@ -77,4 +68,17 @@ public class NovelFiles {
 					isSelected, cellHasFocus);
 		}
 	}
+
+	private class NovelFilesListMouseListener extends MouseAdapter {
+	    public void mouseClicked(MouseEvent evt) {
+	        JList list = (JList)evt.getSource();
+	        if (evt.getClickCount() == 2) {
+	            int index = list.locationToIndex(evt.getPoint());
+	            File file = (File) list.getModel().getElementAt(index);
+	            NovelPanelController.getInstance().showSource(file);
+	        }
+	    }
+	}
+
+	private String chooserPath;
 }
