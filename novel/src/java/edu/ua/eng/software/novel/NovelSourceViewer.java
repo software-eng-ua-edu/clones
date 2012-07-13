@@ -11,7 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JScrollPane;
-import java.awt.Point;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;

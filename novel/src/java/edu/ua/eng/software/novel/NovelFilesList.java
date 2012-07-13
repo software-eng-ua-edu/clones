@@ -8,15 +8,12 @@
 package edu.ua.eng.software.novel;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import de.uni_bremen.st.rcf.imports.NiCadImport;
 import de.uni_bremen.st.rcf.model.File;
@@ -27,6 +24,7 @@ import de.uni_bremen.st.rcf.model.RCF;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
+@SuppressWarnings("serial")
 public class NovelFilesList extends JList
 {
 
@@ -60,7 +58,6 @@ public class NovelFilesList extends JList
         super.addMouseListener(new NovelFilesListMouseListener());
     }
 
-    @SuppressWarnings("serial")
     public class FileCellRenderer extends DefaultListCellRenderer
     {
         public Component getListCellRendererComponent(JList list, Object value,
