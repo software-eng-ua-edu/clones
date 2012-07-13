@@ -95,6 +95,7 @@ public class NovelPanel extends JPanel
         rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
         rightPane.addTab("Bars", barStripesPane);//new JLabel("Bars", JLabel.CENTER));
         rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
+        rightPane.addTab("BugLink", new JLabel("BugLink", JLabel.CENTER));
 
         tabPanels.setLeftComponent(leftPane);
         tabPanels.setRightComponent(rightPane);
@@ -106,7 +107,6 @@ public class NovelPanel extends JPanel
     }
 
     public void updateStatus(String status) {
-
         statusLabel.setText(status);
     }
 
