@@ -12,14 +12,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Vector;
 
-import de.uni_bremen.st.rcf.model.Version;
-import de.uni_bremen.st.rcf.model.CloneClasses;
 import de.uni_bremen.st.rcf.model.CloneClass;
-import de.uni_bremen.st.rcf.model.Fragments;
-import de.uni_bremen.st.rcf.model.Fragment;
-import de.uni_bremen.st.rcf.model.Files;
 import de.uni_bremen.st.rcf.model.File;
-import de.uni_bremen.st.rcf.model.SourcePosition;
+import de.uni_bremen.st.rcf.model.Fragment;
+import de.uni_bremen.st.rcf.model.Version;
 
 /**
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
