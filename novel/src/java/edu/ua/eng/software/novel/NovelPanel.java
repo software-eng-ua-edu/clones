@@ -40,10 +40,13 @@ public class NovelPanel extends JPanel
     private JScrollPane filesView;
     private JPanel barStripesView;
 
-    public JPanel createContentPane() {
+    private JTabbedPane contentPane;
+    private JTabbedPane listPane;
 
-        JPanel composite = new JPanel();
-        composite.setLayout(new BorderLayout());
+    private JSplitPane sourcePanels;
+
+    public NovelPanel() {
+        super.setLayout(new BorderLayout());
 
         // instantiate status bar
         statusLabel = new JLabel("Press F1 for help.");
@@ -68,7 +71,7 @@ public class NovelPanel extends JPanel
         sourcePanePath = new JLabel("Source location: ");
         sourcePanePath.setBorder(BorderFactory
                 .createEmptyBorder(10, 10, 10, 10));
-        JSplitPane sourcePanels = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+        sourcePanels = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 sourcePanePath, sourceView);
         sourcePanels.setDividerLocation(25);
         sourcePanels.setDividerSize(0);
@@ -79,31 +82,30 @@ public class NovelPanel extends JPanel
         
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        tabPanels.setDividerLocation(225);
+        tabPanels.setDividerLocation(400);
         tabPanels.setResizeWeight(0.2);
         tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);
 
         // left tabbed pane
-        JTabbedPane leftPane = new JTabbedPane();
-        leftPane.addTab("Files", filesView);
-        leftPane.addTab("Clone Classes", classesPane);
+        listPane = new JTabbedPane();
+        listPane.addTab("Files", filesView);
+        listPane.addTab("Clone Classes", classesPane);
 
         // right tabbed pane
-        JTabbedPane rightPane = new JTabbedPane();
-        rightPane.addTab("Source", sourcePanels);
-        rightPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        rightPane.addTab("Bars", barStripesPane);//new JLabel("Bars", JLabel.CENTER));
-        rightPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
-        rightPane.addTab("BugLink", new JLabel("BugLink", JLabel.CENTER));
+        contentPane = new JTabbedPane();
+        contentPane.addTab("Source", sourcePanels);
+        contentPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
+        contentPane.addTab("Bars", barStripesPane);//new JLabel("Bars", JLabel.CENTER));
+        contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
+        contentPane.addTab("BugLink", new JLabel("BugLink", JLabel.CENTER));
 
-        tabPanels.setLeftComponent(leftPane);
-        tabPanels.setRightComponent(rightPane);
+        tabPanels.setLeftComponent(listPane);
+        tabPanels.setRightComponent(contentPane);
 
-        // add components to the composite JPanel
-        composite.add(statusLabel, BorderLayout.SOUTH);
-        composite.add(tabPanels, BorderLayout.CENTER);
-        return composite;
+        // add components to the super JPanel
+        super.add(statusLabel, BorderLayout.SOUTH);
+        super.add(tabPanels, BorderLayout.CENTER);
     }
 
     public void updateStatus(String status) {
@@ -118,7 +120,10 @@ public class NovelPanel extends JPanel
     }
 
     public void populateFiles(String chooserPath) {
-        NovelFiles filesList = new NovelFiles(chooserPath);
-        filesView = filesList.getFilesPane();
+        filesView = new JScrollPane(new NovelFilesList(chooserPath));
+    }
+
+    public void showSourcePane() {
+        contentPane.setSelectedComponent(sourcePanels);
     }
 }

@@ -50,6 +50,7 @@ public class NovelSourceViewer
         } catch (IOException e) {
             System.err.println(e);
         }
+        sourcePane.setCaretPosition(0);
         return sourceView;
     }
 }
