@@ -5,14 +5,15 @@
  *
  * See LICENSE for details.
  */
-package edu.ua.eng.software.novel;
+package edu.ua.eng.software.novel.importing;
 
 import java.io.File;
-import java.util.Vector;
 
 import de.uni_bremen.st.rcf.imports.Import;
 import de.uni_bremen.st.rcf.imports.Import.CloneFormat;
 import de.uni_bremen.st.rcf.model.RCF;
+import edu.ua.eng.software.novel.CloneDataModel;
+import edu.ua.eng.software.novel.NovelPanelController;
 
 /**
  * For importing the various clone detection files
