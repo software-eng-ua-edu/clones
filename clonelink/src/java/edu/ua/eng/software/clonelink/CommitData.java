@@ -26,8 +26,8 @@ public class CommitData
     public CommitData() {
         commits = new LinkedList<Commit>();
         bugCommits = new LinkedList<Commit>();
-        bugChanges = new HashMap<String, Integer>();
-        changes = new HashMap<String, Integer>();
+        changes = new HashMap<String, List<FileChange>>();
+        bugChanges = new HashMap<String, List<FileChange>>();
     }
 
     public List<Commit> getCommits() {
@@ -38,12 +38,12 @@ public class CommitData
         return bugCommits;
     }
 
-    public int numBugChanges(String filePath) {
-        return lookup(bugChanges, filePath);
+    public List<FileChange> getChanges(String file) {
+        return lookup(changes, file);
     }
 
-    public int numChanges(String filePath) {
-        return lookup(changes, filePath);
+    public List<FileChange> getBugChanges(String file) {
+        return lookup(bugChanges, file);
     }
 
     public void add(Commit commit) {
@@ -73,10 +73,7 @@ public class CommitData
                 }
                 if (typeSet.contains(change.getChangeType())) {
                     String filePath = change.getOldPath();
-                    incMap(changes, filePath);
-                    if (commit.isBugFix()) {
-                        incMap(bugChanges, filePath); 
-                    }
+                    registerChange(filePath, change);
                 }
             }
         }
@@ -87,25 +84,27 @@ public class CommitData
         ChangeType type = change.getChangeType();
         if (type == ChangeType.COPY || type == ChangeType.RENAME) {
             String newPath = change.getNewPath();
-            for(int i = 0, j = lookup(changes, oldPath); i < j; i++) {
-                incMap(changes, newPath);
-            }
-            for(int i = 0, j = lookup(bugChanges, oldPath); i < j; i++) {
-                incMap(bugChanges, newPath);
-            }
+            lookup(changes, newPath).addAll(lookup(changes, oldPath));
+            lookup(bugChanges, newPath).addAll(lookup(bugChanges, oldPath));
         }
     }
 
-    protected int lookup(Map<String, Integer> map, String key) {
-        return (map.containsKey(key)) ? map.get(key) : 0;
+    protected List<FileChange> lookup(Map<String, List<FileChange>> map, String key) {
+        if (!map.containsKey(key)) {
+            map.put(key, new LinkedList<FileChange>());
+        } 
+        return map.get(key);
     }
 
-    protected void incMap(Map<String, Integer> map, String key) {
-        map.put(key, lookup(map, key) + 1);
+    protected void registerChange(String file, FileChange change) {
+        lookup(changes, file).add(change);
+        if(change.getCommit().isBugFix()) {
+            lookup(bugChanges, file).add(change);
+        }
     }
 
     private LinkedList<Commit> commits;
     private LinkedList<Commit> bugCommits;
-    private Map<String, Integer> bugChanges;
-    private Map<String, Integer> changes;
+    private Map<String, List<FileChange>> changes;
+    private Map<String, List<FileChange>> bugChanges;
 }

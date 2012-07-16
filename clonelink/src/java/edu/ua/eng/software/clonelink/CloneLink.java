@@ -24,12 +24,12 @@ public class CloneLink {
 
         //Git Repo testing
         System.out.println("Setting up Git Repo.");
-        Repo git = new GitRepo();
+        Repo git = new GitRepo("regex/jhotdraw/.git");
         git.walk();
 
         //SVN Repo testing
         System.out.println("Setting up SVN Repo.");
-        Repo svn = new SVNRepo();
+        Repo svn = new SVNRepo("https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw");
         svn.walk();
 
         EnumSet<ChangeType> modify = EnumSet.of(ChangeType.ADD, ChangeType.MODIFY);
@@ -45,8 +45,8 @@ public class CloneLink {
         for(FileChange change : gitTest.getFileChanges()) {
             String file = change.getNewPath();
             System.out.println(file + "::" + change.getChangeType());
-            System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.numChanges(file), gitCD.numBugChanges(file));
-            System.out.printf("SVN:: changes: %d, bugFixes: %d\n", svnCD.numChanges(file), svnCD.numBugChanges(file));
+            System.out.printf("Git:: changes: %d, bugFixes: %d\n", gitCD.getChanges(file).size(), gitCD.getBugChanges(file).size());
+            System.out.printf("SVN:: changes: %d, bugFixes: %d\n", svnCD.getChanges(file).size(), svnCD.getBugChanges(file).size());
         }
 	}
 }

@@ -14,7 +14,8 @@ import org.eclipse.jgit.diff.DiffEntry;
  */
 public class GitFileChange implements FileChange
 {
-    public GitFileChange(DiffEntry de) {
+    public GitFileChange(GitCommit commit, DiffEntry de) {
+        this.commit = commit;
         this.changeType = mapChangeType(de.getChangeType());
         this.oldPath = de.getOldPath();
         this.newPath = de.getNewPath();
@@ -33,6 +34,10 @@ public class GitFileChange implements FileChange
 
     public String getNewPath() {
         return newPath;
+    }
+
+    public Commit getCommit() {
+        return commit;
     }
 
     protected ChangeType mapChangeType(DiffEntry.ChangeType ct) {
@@ -54,4 +59,5 @@ public class GitFileChange implements FileChange
     private ChangeType changeType;
     private String oldPath;
     private String newPath;
+    private GitCommit commit;
 }

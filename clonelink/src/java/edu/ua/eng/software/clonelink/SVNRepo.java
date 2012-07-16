@@ -27,14 +27,14 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
  * @author      Blake Bassett <rbbassett@crimson.ua.edu>
  */
 public class SVNRepo extends Repo {
-    public SVNRepo() {
+    public SVNRepo(String url) {
+        this.url = url;
         this.commitData = new CommitData();
     }
 
     public void walk() {
         DAVRepositoryFactory.setup();
 
-        String url = "https://jhotdraw.svn.sourceforge.net/svnroot/jhotdraw";
         long startingRevision = 0;
         long endingRevision = -1;
                 
@@ -55,4 +55,5 @@ public class SVNRepo extends Repo {
     }
 
     private CommitData commitData;
+    private String url;
 }

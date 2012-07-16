@@ -22,6 +22,8 @@ public interface FileChange
 
     public String getNewPath();
 
+    public Commit getCommit();
+
     public enum ChangeType {
         ADD, MODIFY, REMOVE, COPY, RENAME;
     }

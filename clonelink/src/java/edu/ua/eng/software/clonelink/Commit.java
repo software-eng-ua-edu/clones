@@ -17,11 +17,16 @@ import java.util.regex.Pattern;
 
 public class Commit
 {
-    protected Commit(Set<FileChange> files, String message) {
-        System.out.printf("Constructing commit with %d files, %d char message.\n", files.size(), message.length());
+    public void setFileChanges(Set<FileChange> files) {
         this.files = files;
+    }
+
+    public void setBugFix(boolean bugFlag) {
+        this.bugFlag = bugFlag;
+    }
+
+    public void setMessage(String message) {
         this.message = message;
-        this.bugFlag = checkBugFix();
     }
 
     public Set<FileChange> getFileChanges() {

@@ -30,7 +30,8 @@ import org.eclipse.jgit.diff.DiffEntry;
  */
 public class GitRepo extends Repo {
 
-    public GitRepo() {
+    public GitRepo(String uri) {
+        this.uri = uri;
         this.commitData = new CommitData();
     }
 
@@ -38,7 +39,7 @@ public class GitRepo extends Repo {
         try {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repository = builder
-                    .setGitDir(new File("regex/jhotdraw/.git")).readEnvironment()
+                    .setGitDir(new File(uri)).readEnvironment()
                     .findGitDir().build();
 
             RevWalk walk = new RevWalk(repository);
@@ -62,4 +63,5 @@ public class GitRepo extends Repo {
     }
 
     private CommitData commitData;
+    private String uri;
 }

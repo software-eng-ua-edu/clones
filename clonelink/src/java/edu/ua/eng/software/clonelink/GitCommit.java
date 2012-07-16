@@ -22,16 +22,18 @@ import org.eclipse.jgit.diff.DiffFormatter;
 public class GitCommit extends Commit
 {
     public GitCommit(RevCommit commit, DiffFormatter differ) {
-        super(process(commit, differ), commit.getFullMessage());
+        setFileChanges(process(commit, differ));
+        setMessage(commit.getFullMessage());
+        setBugFix(checkBugFix());
     }
 
-    protected static Set<FileChange> process(RevCommit commit, DiffFormatter differ) {
+    protected Set<FileChange> process(RevCommit commit, DiffFormatter differ) {
         Set<FileChange> changes = new HashSet<FileChange>();
         for(int i = 0; i < commit.getParentCount(); i++) {
             try{
                 List<DiffEntry> diffList = differ.scan(commit.getTree(), commit.getParent(i).getTree());
                 for(DiffEntry de : diffList) {
-                    changes.add(new GitFileChange(de));
+                    changes.add(new GitFileChange(this, de));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

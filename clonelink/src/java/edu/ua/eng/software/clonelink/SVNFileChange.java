@@ -14,7 +14,8 @@ import org.tmatesoft.svn.core.SVNLogEntryPath;
  */
 public class SVNFileChange implements FileChange
 {
-    public SVNFileChange(SVNLogEntryPath path) {
+    public SVNFileChange(SVNCommit commit, SVNLogEntryPath path) {
+        this.commit = commit;
         this.changeType = mapChangeType(path.getType());
         this.oldPath = path.getPath().substring(7);
         this.newPath = path.getPath().substring(7);
@@ -38,6 +39,10 @@ public class SVNFileChange implements FileChange
         return newPath;
     }
 
+    public Commit getCommit() {
+        return commit;
+    }
+
     protected static ChangeType mapChangeType(char ct) {
         if(ct == SVNLogEntryPath.TYPE_ADDED) {
             return ChangeType.ADD;
@@ -55,4 +60,5 @@ public class SVNFileChange implements FileChange
     private ChangeType changeType;
     private String oldPath;
     private String newPath;
+    private SVNCommit commit;
 }
