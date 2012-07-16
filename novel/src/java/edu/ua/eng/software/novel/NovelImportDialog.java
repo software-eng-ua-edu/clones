@@ -9,6 +9,19 @@ package edu.ua.eng.software.novel;
 
 import javax.swing.JFileChooser;
 import javax.swing.ButtonGroup;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JRadioButton;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import java.awt.Frame;
+
+import java.io.File;
 
 import edu.ua.eng.software.novel.NovelImporter.ReportType;
 
@@ -17,14 +30,14 @@ import edu.ua.eng.software.novel.NovelImporter.ReportType;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelImportDialog {
+public class NovelImportDialog extends JDialog {
 
-    public NovelImportDialog() {
-        dialog = new JDialog(dialog, "Import", true);
-        dialog.setLayout(new BorderLayout());
-        dialog.setSize(new Dimension(320, 240));
-        dialog.setResizable(false);
-        dialog.setLocationRelativeTo(null);
+    public NovelImportDialog(Frame parent) {
+        super(parent, "Import", true);
+        super.setLayout(new BorderLayout());
+        super.setSize(new Dimension(320, 240));
+        super.setResizable(false);
+        super.setLocationRelativeTo(null);
         
         JPanel radioButtons = new JPanel();
         radioButtons.setBorder(BorderFactory.createCompoundBorder(
@@ -38,11 +51,11 @@ public class NovelImportDialog {
 
         ActionListener buttonListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                importType = (ReportType) Enum.parse(typeof(ReportType), e.getActionCommand(), true);
+                importType = ReportType.valueOf(e.getActionCommand());
             }
         };
 
-        buttons = new ButtonGroup();
+        ButtonGroup buttons = new ButtonGroup();
         buttons.add(selectRCF);
         buttons.add(selectNiCad);
         
@@ -50,14 +63,14 @@ public class NovelImportDialog {
 
         JPanel panel = new JPanel();
 
+        //Add text boxes + browse buttons, attach listeners to buttons
+
+        //Add to panel
+
         radioButtons.add(selectRCF);
         radioButtons.add(selectNiCad);
-        dialog.add(panel, BorderLayout.NORTH);
-        dialog.add(radioButtons, BorderLayout.SOUTH);
-    }
-
-    public void show() {
-        dialog.setVisible(true);
+        super.add(panel, BorderLayout.NORTH);
+        super.add(radioButtons, BorderLayout.SOUTH);
     }
 
     public File getImportFile() {
@@ -72,7 +85,7 @@ public class NovelImportDialog {
         return importType;
     }
 
-    public JFileChooser chooseImportFile() {
+    private JFileChooser chooseImportFile() {
         JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         chooser.setFileHidingEnabled(false);
         chooser.setDialogTitle("Import File");
@@ -81,27 +94,23 @@ public class NovelImportDialog {
         chooser.setFileFilter(filter);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        buttonClicked = chooser.showOpenDialog(dialog);
+        buttonClicked = chooser.showOpenDialog(this);
         return chooser;
     }
 
-    public JFileChooser chooseSourceDir() {
+    private JFileChooser chooseSourceDir() {
         JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         chooser.setFileHidingEnabled(false);
         chooser.setDialogTitle("Import File");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        buttonClicked = chooser.showOpenDialog(dialog);
+        buttonClicked = chooser.showOpenDialog(this);
         return chooser;
     }
 
-    private ButtonGroup buttons;
-
     private File importFile;
     private File sourceDir;
-    private RecordType importType;
-
-    private JDialog dialog;
+    private ReportType importType;
 
     private int buttonClicked;
 }
