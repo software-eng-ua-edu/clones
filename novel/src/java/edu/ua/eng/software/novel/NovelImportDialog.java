@@ -30,20 +30,20 @@ import edu.ua.eng.software.novel.NovelImporter.ReportType;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
-public class NovelImportDialog extends JDialog {
-
+public class NovelImportDialog extends JDialog
+{
     public NovelImportDialog(Frame parent) {
         super(parent, "Import", true);
         super.setLayout(new BorderLayout());
         super.setSize(new Dimension(320, 240));
         super.setResizable(false);
         super.setLocationRelativeTo(null);
-        
+
         JPanel radioButtons = new JPanel();
-        radioButtons.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Select Clone Results and Source Folder"),
-                BorderFactory.createEmptyBorder(5,5,5,5)));
-        
+        radioButtons.setBorder(BorderFactory.createCompoundBorder(BorderFactory
+                .createTitledBorder("Select Clone Results and Source Folder"),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
         JRadioButton selectRCF = new JRadioButton("RCF");
         selectRCF.setActionCommand("RCF");
         JRadioButton selectNiCad = new JRadioButton("NICAD");
@@ -58,19 +58,22 @@ public class NovelImportDialog extends JDialog {
         ButtonGroup buttons = new ButtonGroup();
         buttons.add(selectRCF);
         buttons.add(selectNiCad);
-        
+
         selectRCF.setSelected(true);
 
         JPanel panel = new JPanel();
 
-        //Add text boxes + browse buttons, attach listeners to buttons
+        // Add text boxes + browse buttons, attach listeners to buttons
 
-        //Add to panel
+        // Add to panel
 
         radioButtons.add(selectRCF);
         radioButtons.add(selectNiCad);
         super.add(panel, BorderLayout.NORTH);
         super.add(radioButtons, BorderLayout.SOUTH);
+
+        chooseImportFile();
+        chooseSourceDir();
     }
 
     public File getImportFile() {
