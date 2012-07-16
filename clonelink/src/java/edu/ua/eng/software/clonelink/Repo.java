@@ -17,5 +17,5 @@ public abstract class Repo
 {
     abstract public CommitData getCommitData();
 
-    abstract protected void walk();
+    abstract protected Repo walk();
 }

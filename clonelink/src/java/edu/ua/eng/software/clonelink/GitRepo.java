@@ -35,7 +35,7 @@ public class GitRepo extends Repo {
         this.commitData = new CommitData();
     }
 
-    public void walk() {
+    public GitRepo walk() {
         try {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repository = builder
@@ -56,6 +56,7 @@ public class GitRepo extends Repo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     public CommitData getCommitData() {

@@ -7,12 +7,17 @@
  */
 package edu.ua.eng.software.novel.importing;
 
+import edu.ua.eng.software.clonelink.Repo;
+import edu.ua.eng.software.clonelink.RepoFactory;
+import edu.ua.eng.software.clonelink.RepoType;
+
 import java.io.File;
 
 import de.uni_bremen.st.rcf.imports.Import;
 import de.uni_bremen.st.rcf.imports.Import.CloneFormat;
 import de.uni_bremen.st.rcf.model.RCF;
 import edu.ua.eng.software.novel.CloneDataModel;
+import edu.ua.eng.software.novel.BugDataModel;
 import edu.ua.eng.software.novel.NovelPanelController;
 
 /**
@@ -32,6 +37,14 @@ public class NovelImporter
         NovelPanelController.getInstance().loadCloneData(); 
     }
 
+    public static void importBugs(File sourceRepo, SourceRepoType type) {
+        Repo repo = RepoFactory.build(sourceRepo.getAbsolutePath(), type.toRepoType());
+
+        BugDataModel.importData(repo.getCommitData());
+
+        NovelPanelController.getInstance().loadBugData();
+    }
+
     protected NovelImporter() {
 
     }
@@ -46,6 +59,22 @@ public class NovelImporter
                     return CloneFormat.NICAD;
                 case RCF:
                     return CloneFormat.RCF;
+                default:
+                    return null;
+            }
+        }
+    }
+
+    public enum SourceRepoType {
+        GIT, SVN;
+
+        public RepoType toRepoType()
+        {
+            switch(this) {
+                case GIT:
+                    return RepoType.GIT;
+                case SVN:
+                    return RepoType.SVN;
                 default:
                     return null;
             }

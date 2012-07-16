@@ -10,8 +10,10 @@ package edu.ua.eng.software.novel;
 import de.uni_bremen.st.rcf.model.File;
 
 /**
- * @author      Blake Bassett <rbbassett@crimson.ua.edu>
+ * @author  Blake Bassett <rbbassett@crimson.ua.edu>
+ * @author  Casey Ferris <cmferris1@crimson.ua.edu>
  */
+
 public class NovelPanelController{
     public static NovelPanelController getInstance() {
         return singleton;
@@ -28,6 +30,10 @@ public class NovelPanelController{
 
     public void loadCloneData() {
         CloneDataModel cdm = CloneDataModel.getInstance();
+    }
+
+    public void loadBugData() {
+        BugDataModel bdm = BugDataModel.getInstance();
     }
 
     protected NovelPanelController() {

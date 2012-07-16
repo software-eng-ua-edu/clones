@@ -32,7 +32,7 @@ public class SVNRepo extends Repo {
         this.commitData = new CommitData();
     }
 
-    public void walk() {
+    public SVNRepo walk() {
         DAVRepositoryFactory.setup();
 
         long startingRevision = 0;
@@ -48,6 +48,7 @@ public class SVNRepo extends Repo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     public CommitData getCommitData() {
