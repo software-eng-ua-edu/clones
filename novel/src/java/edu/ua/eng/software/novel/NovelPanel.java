@@ -10,8 +10,11 @@ package edu.ua.eng.software.novel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,12 +35,10 @@ public class NovelPanel extends JPanel
     private JLabel statusLabel;
 
     private String sourcePath;
-
+    
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
     private BugLinkView bugLinkPane;
-    private NovelPieChart piePane;
-    private NovelTreeMap treePane;
 
     private JScrollPane sourceView;
     private JScrollPane filesView;
@@ -47,6 +48,7 @@ public class NovelPanel extends JPanel
     private JTabbedPane listPane;
 
     private JSplitPane sourcePanels;
+    private JPanel bugLinkPanel;
 
     public NovelPanel() {
         super.setLayout(new BorderLayout());
@@ -62,6 +64,7 @@ public class NovelPanel extends JPanel
                 Font.ITALIC, statusLabel.getFont().getSize()));
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
+
 
         // build file list and clone pairs tree
         populateFiles(null);
@@ -80,11 +83,11 @@ public class NovelPanel extends JPanel
         sourcePanels.setDividerSize(0);
         sourcePanels.setEnabled(false);
 
-        // initialize bar and stripe pane
+        //initialize bar and stripe pane
         barStripesPane = new NovelBarsViewer();
-
-        bugLinkPane = new BugLinkView();
         
+        bugLinkPane = new BugLinkView();
+
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         tabPanels.setDividerLocation(400);
@@ -118,7 +121,6 @@ public class NovelPanel extends JPanel
     }
 
     public void updateSource(String path) {
-
         sourcePath = path;
         sourcePanePath.setText(sourcePath);
         sourcePane.setSource(sourcePath);
