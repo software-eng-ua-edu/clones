@@ -29,16 +29,20 @@ import edu.ua.eng.software.novel.NovelPanelController;
 
 public class NovelImporter
 {
-    public static void importReport(File importFile, File sourceDir, ReportType type) {
-        RCF imported = Import.importData(type.toCloneFormat(), importFile.getAbsolutePath(), "test/test.rcf", sourceDir.getAbsolutePath());
+    public static void importReport(File importFile, File sourceDir,
+            ReportType type) {
+        RCF imported = Import.importData(type.toCloneFormat(),
+                importFile.getAbsolutePath(), "test/test.rcf",
+                sourceDir.getAbsolutePath());
 
         CloneDataModel.importData(imported.getVersions().getFirstEntry());
 
-        NovelPanelController.getInstance().loadCloneData(); 
+        NovelPanelController.getInstance().loadCloneData();
     }
 
     public static void importBugs(File sourceRepo, SourceRepoType type) {
-        Repo repo = RepoFactory.build(sourceRepo.getAbsolutePath(), type.toRepoType());
+        Repo repo = RepoFactory.build(sourceRepo.getAbsolutePath(),
+                type.toRepoType());
 
         BugDataModel.importData(repo.getCommitData());
 
@@ -52,15 +56,14 @@ public class NovelImporter
     public enum ReportType {
         NICAD, RCF;
 
-        public CloneFormat toCloneFormat()
-        {
-            switch(this) {
-                case NICAD:
-                    return CloneFormat.NICAD;
-                case RCF:
-                    return CloneFormat.RCF;
-                default:
-                    return null;
+        public CloneFormat toCloneFormat() {
+            switch (this) {
+            case NICAD:
+                return CloneFormat.NICAD;
+            case RCF:
+                return CloneFormat.RCF;
+            default:
+                return null;
             }
         }
     }
@@ -68,15 +71,14 @@ public class NovelImporter
     public enum SourceRepoType {
         GIT, SVN;
 
-        public RepoType toRepoType()
-        {
-            switch(this) {
-                case GIT:
-                    return RepoType.GIT;
-                case SVN:
-                    return RepoType.SVN;
-                default:
-                    return null;
+        public RepoType toRepoType() {
+            switch (this) {
+            case GIT:
+                return RepoType.GIT;
+            case SVN:
+                return RepoType.SVN;
+            default:
+                return null;
             }
         }
     }

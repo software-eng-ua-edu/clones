@@ -35,7 +35,7 @@ public class NovelPanel extends JPanel
     private JLabel statusLabel;
 
     private String sourcePath;
-    
+
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
     private BugLinkView bugLinkPane;
@@ -49,6 +49,7 @@ public class NovelPanel extends JPanel
 
     private JSplitPane sourcePanels;
     private JPanel bugLinkPanel;
+    private NovelClassesTree classesTree;
 
     public NovelPanel() {
         super.setLayout(new BorderLayout());
@@ -65,11 +66,10 @@ public class NovelPanel extends JPanel
         statusLabel.setOpaque(true);
         statusLabel.setBackground(Color.LIGHT_GRAY);
 
-
         // build file list and clone pairs tree
         populateFiles(null);
-        NovelClassesTree classesTree = new NovelClassesTree();
-        JScrollPane classesPane = classesTree.getTreePane();
+        classesTree = new NovelClassesTree();
+        JScrollPane classesPane = new JScrollPane(classesTree);
 
         // initialize source viewer pane
         sourcePane = new NovelSourceViewer();
@@ -83,9 +83,9 @@ public class NovelPanel extends JPanel
         sourcePanels.setDividerSize(0);
         sourcePanels.setEnabled(false);
 
-        //initialize bar and stripe pane
+        // initialize bar and stripe pane
         barStripesPane = new NovelBarsViewer();
-        
+
         bugLinkPane = new BugLinkView();
 
         // resizable pane

@@ -26,6 +26,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import edu.ua.eng.software.novel.importing.NovelImporter;
 import edu.ua.eng.software.novel.importing.NovelImporter.ReportType;
 
 /**
@@ -113,32 +114,55 @@ public class NovelImportDialog extends JDialog
         buttons.add(selectNiCad);
 
         selectRCF.setSelected(true);
+        importType = ReportType.RCF;
 
         // add cancel & confirm buttons
+        ActionListener confirmAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getActionCommand() == "CANCEL")
+                    setVisible(false);
+                else {
+                    setVisible(false);
+                    NovelImporter.importReport(importFile, sourceDir,
+                            importType);
+                }
+            }
+        };
+
         JPanel confirmButtons = new JPanel();
         JButton cancel = new JButton("Cancel");
+        cancel.setActionCommand("CANCEL");
+        cancel.addActionListener(confirmAction);
         JButton confirm = new JButton("Okay");
+        confirm.setActionCommand("OKAY");
+        confirm.addActionListener(confirmAction);
 
         // add components
-        cSel.gridx = 0; cSel.gridy = 0;
-        cSel.weightx = 1.0; cSel. weighty = 0.5;
+        cSel.gridx = 0;
+        cSel.gridy = 0;
+        cSel.weightx = 1.0;
+        cSel.weighty = 0.5;
         cSel.fill = GridBagConstraints.HORIZONTAL;
         selection.add(fileText, cSel);
         cSel.gridx = 1;
         cSel.weightx = 0;
         selection.add(fileBrowse, cSel);
-        cSel.gridx = 0; cSel.gridy = 1;
+        cSel.gridx = 0;
+        cSel.gridy = 1;
         cSel.fill = GridBagConstraints.HORIZONTAL;
         selection.add(dirText, cSel);
         cSel.gridx = 1;
         selection.add(dirBrowse, cSel);
         radioButtons.add(selectRCF);
         radioButtons.add(selectNiCad);
-        c.gridx = 0; c.gridy = 0;
-        c.weightx = 0.5; c. weighty = 0.5;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.5;
         c.fill = GridBagConstraints.HORIZONTAL;
         composite.add(selection, c);
-        c.gridx = 0; c.gridy = 1;
+        c.gridx = 0;
+        c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         composite.add(radioButtons, c);
         confirmButtons.add(cancel);
