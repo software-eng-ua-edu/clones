@@ -7,24 +7,19 @@
  */
 package edu.ua.eng.software.novel;
 
-import java.awt.Color;
-
-import javax.swing.JPanel;
 import javax.swing.JTree;
-import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 /**
  * @author Paige A. Rodeghero <parodeghero@bsu.edu>
  */
 public class BugLinkView extends JTree
 {
 	public BugLinkView(){
-		//setLeafIcon(null);
-		//setClosedIcon(null);
-		//setOpenIcon(null);
 		setModel(createModel());
+
+		setRootVisible(false);
+		setCellRenderer(new TreeRenderer());
 	}
 
 	private DefaultTreeModel createModel(){
@@ -41,3 +36,4 @@ public class BugLinkView extends JTree
 		return new DefaultTreeModel(root);
 	}
 }
+

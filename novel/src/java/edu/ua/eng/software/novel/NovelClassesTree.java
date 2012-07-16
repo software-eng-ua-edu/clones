@@ -25,20 +25,20 @@ public class NovelClassesTree implements TreeSelectionListener
     private JScrollPane treePane;
 
     public NovelClassesTree() {
-
         DefaultMutableTreeNode top = new DefaultMutableTreeNode("Clone Classes");
         createNodes(top);
 
         treeClasses = new JTree(top);
+        treeClasses.setRootVisible(false);
         treeClasses.getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
         treeClasses.addTreeSelectionListener(this);
 
+        treeClasses.setCellRenderer(new TreeRenderer());
         treePane = new JScrollPane(treeClasses);
     }
 
     public void createNodes(DefaultMutableTreeNode top) {
-
         DefaultMutableTreeNode category = null;
         DefaultMutableTreeNode category2 = null;
         category = new DefaultMutableTreeNode("Clone Class 1");
@@ -56,7 +56,6 @@ public class NovelClassesTree implements TreeSelectionListener
     }
 
     public JScrollPane getTreePane() {
-
         return treePane;
     }
 
