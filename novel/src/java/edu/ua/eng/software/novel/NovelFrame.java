@@ -120,7 +120,7 @@ public class NovelFrame extends JFrame implements ActionListener
         setSize(1024, 768);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(800, 600));
-        setExtendedState(MAXIMIZED_BOTH);
+        // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         panel = new NovelPanel();
@@ -135,9 +135,9 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getActionCommand().equals("OPEN")) {}
-            //importDialog();
-        else if (e.getActionCommand().equals("PREFS"))
+        if (e.getActionCommand().equals("OPEN")) {
+            NovelImportDialog importDialog = new NovelImportDialog(this);
+        } else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
             System.exit(0);
@@ -179,7 +179,7 @@ public class NovelFrame extends JFrame implements ActionListener
     public void aboutDialog() {
 
         JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
-                + "\nVersion 1.0" + "\n\nBlake Bassett, Casey Ferring"
+                + "\nVersion 1.0" + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"
                 + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
                 JOptionPane.INFORMATION_MESSAGE);
