@@ -24,14 +24,14 @@ public class BugLinkView extends JTree
 
 	private DefaultTreeModel createModel(){
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Buggies");
-		DefaultMutableTreeNode category = null;
 		DefaultMutableTreeNode bug = null;
+		DefaultMutableTreeNode bugDescription = null;
 		
-		category = new DefaultMutableTreeNode("Bug types");
-		root.add(category);
+		bug = new DefaultMutableTreeNode("Bug");
+		root.add(bug);
 
-		bug = new DefaultMutableTreeNode("This is a bug.  aka bug #1 or tech. bug #0...yeah");
-		category.add(bug);
+		bugDescription = new DefaultMutableTreeNode("Bug Description");
+		bug.add(bugDescription);
 
 		return new DefaultTreeModel(root);
 	}
