@@ -7,6 +7,8 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.JScrollPane;
@@ -14,23 +16,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 /**
- * 
  * @author Paige A. Rodeghero <parodeghero@bsu.edu>
  */
-public class BugLinkView extends JPanel
+public class BugLinkView extends JTree
 {
-	private JTree bugTree;
-	private JScrollPane scrollPane;
-
 	public BugLinkView(){
-		bugTree = new JTree();
-		bugTree.setModel(createModel());
-
-		scrollPane = new JScrollPane();
-		scrollPane.add(bugTree);
-		add(scrollPane);
-
-		add(bugTree);
+		//setLeafIcon(null);
+		//setClosedIcon(null);
+		//setOpenIcon(null);
+		setModel(createModel());
 	}
 
 	private DefaultTreeModel createModel(){
