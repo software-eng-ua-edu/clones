@@ -32,7 +32,7 @@ public class NovelPanel extends JPanel
     private JLabel statusLabel;
 
     private String sourcePath;
-    
+
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
     private BugLinkView bugLinkPane;

@@ -13,19 +13,16 @@ import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Creates the main UI frame and menu
@@ -138,8 +135,8 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getActionCommand().equals("OPEN"))
-            importDialog();
+        if (e.getActionCommand().equals("OPEN")) {}
+            //importDialog();
         else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
@@ -154,28 +151,6 @@ public class NovelFrame extends JFrame implements ActionListener
             }
         else if (e.getActionCommand().equals("ABOUT"))
             aboutDialog();
-    }
-
-    /**
-     * Create file chooser to import RCF and NiCad clone results
-     */
-    public void importDialog() {
-
-        final JFileChooser chooser = new JFileChooser(
-                System.getProperty("user.dir"));
-        chooser.setFileHidingEnabled(false);
-        chooser.setDialogTitle("Import/Run");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                ".rcf and .xml", "rcf", "xml");
-        chooser.setFileFilter(filter);
-
-        int returnVal = chooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            panel.updateStatus("Imported file " + file.getAbsolutePath());
-            panel.populateFiles(file.getAbsolutePath());
-            // panel.populateClasses();
-        }
     }
 
     /**
