@@ -141,7 +141,8 @@ public class NovelImportDialog extends JDialog
                         setVisible(false);
                         try {
                             NovelPanelController.getInstance().updateStatus(
-                                    "Imported clone results from " + importFile.getName());
+                                    "Imported clone results from "
+                                            + importFile.getName());
                             NovelImporter.importReport(importFile, sourceDir,
                                     importType);
                         } catch (FileNotFoundException ex) {
