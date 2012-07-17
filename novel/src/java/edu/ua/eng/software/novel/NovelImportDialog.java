@@ -127,9 +127,11 @@ public class NovelImportDialog extends JDialog
                     setVisible(false);
                     try {
                         NovelImporter.importReport(importFile, sourceDir,
-                            importType);
+                                importType);
                     } catch (FileNotFoundException ex) {
-                        JOptionPane.showMessageDialog(getParent(), ex.getMessage(), "File Not Found", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(getParent(),
+                                ex.getMessage(), "File Not Found",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }

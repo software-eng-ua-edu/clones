@@ -29,6 +29,7 @@ import de.uni_bremen.st.rcf.model.Fragment;
  * 
  * @author Colin C. Hemphill <colin@hemphill.us>
  */
+@SuppressWarnings("serial")
 public class NovelClassesTree extends JTree implements TreeSelectionListener
 {
     public NovelClassesTree() {

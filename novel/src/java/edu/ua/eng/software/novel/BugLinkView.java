@@ -10,30 +10,31 @@ package edu.ua.eng.software.novel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+
 /**
  * @author Paige A. Rodeghero <parodeghero@bsu.edu>
  */
+@SuppressWarnings("serial")
 public class BugLinkView extends JTree
 {
-	public BugLinkView(){
-		setModel(createModel());
+    public BugLinkView() {
+        setModel(createModel());
 
-		setRootVisible(false);
-		setCellRenderer(new TreeRenderer());
-	}
+        setRootVisible(false);
+        setCellRenderer(new TreeRenderer());
+    }
 
-	private DefaultTreeModel createModel(){
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Buggies");
-		DefaultMutableTreeNode bug = null;
-		DefaultMutableTreeNode bugDescription = null;
-		
-		bug = new DefaultMutableTreeNode("Bug");
-		root.add(bug);
+    private DefaultTreeModel createModel() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Buggies");
+        DefaultMutableTreeNode bug = null;
+        DefaultMutableTreeNode bugDescription = null;
 
-		bugDescription = new DefaultMutableTreeNode("Bug Description");
-		bug.add(bugDescription);
+        bug = new DefaultMutableTreeNode("Bug");
+        root.add(bug);
 
-		return new DefaultTreeModel(root);
-	}
+        bugDescription = new DefaultMutableTreeNode("Bug Description");
+        bug.add(bugDescription);
+
+        return new DefaultTreeModel(root);
+    }
 }
-
