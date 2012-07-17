@@ -33,9 +33,6 @@ import de.uni_bremen.st.rcf.model.CloneClass;
 public class NovelClassesTree extends JTree implements TreeSelectionListener
 {
     public NovelClassesTree() {
-        root = new DefaultMutableTreeNode("Clone Classes");
-        model = new DefaultTreeModel(root);
-        setModel(model);
         setRootVisible(false);
         getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -45,6 +42,9 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
     }
 
     public void loadFromDataModel() {
+        root = new DefaultMutableTreeNode("Clone Classes");
+        model = new DefaultTreeModel(root);
+        setModel(model);
         CloneDataModel dataModel = CloneDataModel.getInstance();
         List<CloneClass> cloneClasses = dataModel.getCloneClasses();
         for(CloneClass cc : cloneClasses) {
@@ -89,7 +89,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         }
 
         public String toString() {
-            return String.format("%d CloneClass [%d]",
+            return String.format("%d: CloneClass [%d]",
                 getPosition() + 1,
                 getChildCount());
         }
@@ -115,8 +115,8 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
 
         public String toString() {
             TreeNode parent = getParent();
-            return String.format("%d.%d %d:%d::%s",
-                parent.getParent().getIndex(parent),
+            return String.format("%d.%d: %d:%d::%s",
+                parent.getParent().getIndex(parent) + 1,
                 getPosition() + 1,
                 getFragment().getStart().getLine(),
                 getFragment().getEnd().getLine(),

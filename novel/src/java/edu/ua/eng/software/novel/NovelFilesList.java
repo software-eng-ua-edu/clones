@@ -28,34 +28,17 @@ import de.uni_bremen.st.rcf.model.RCF;
 public class NovelFilesList extends JList
 {
 
-    public NovelFilesList(String path) {
-        chooserPath = path;
-        if (chooserPath == null) {
-            chooserPath = "test/rhino-1.6R5_clones.xml";
-        }
-
-        populate();
-    }
-
-    public void populate() {
-
-        java.io.File rcfFile = new java.io.File("test/test.rcf");
-        NiCadImport nci = new NiCadImport(rcfFile);
-        java.io.File nicadFile = new java.io.File(chooserPath);
-
-        nci.addVersion(nicadFile, "rhino-1.6R5");
-        RCF rcf = nci.getRCF();
-
-        Vector<File> filesVector = new Vector<File>();
-        for (File f : rcf.getVersions().getFirstEntry().getFiles()) {
-            filesVector.add(f);
-        }
-        super.setListData(filesVector);
+    public NovelFilesList() {
         super.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         super.setVisibleRowCount(-1);
 
         super.setCellRenderer(new FileCellRenderer());
         super.addMouseListener(new NovelFilesListMouseListener());
+    }
+
+    public void loadFromDataModel() {
+        CloneDataModel model = CloneDataModel.getInstance();
+        super.setListData(model.getFiles());
     }
 
     public class FileCellRenderer extends DefaultListCellRenderer

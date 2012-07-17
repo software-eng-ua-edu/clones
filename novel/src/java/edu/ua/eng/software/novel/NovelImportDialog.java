@@ -15,6 +15,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -24,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.ua.eng.software.novel.importing.NovelImporter;
@@ -123,8 +125,12 @@ public class NovelImportDialog extends JDialog
                     setVisible(false);
                 else {
                     setVisible(false);
-                    NovelImporter.importReport(importFile, sourceDir,
+                    try {
+                        NovelImporter.importReport(importFile, sourceDir,
                             importType);
+                    } catch (FileNotFoundException ex) {
+                        JOptionPane.showMessageDialog(getParent(), ex.getMessage(), "File Not Found", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         };

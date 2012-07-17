@@ -41,7 +41,8 @@ public class NovelPanel extends JPanel
     private BugLinkView bugLinkPane;
 
     private JScrollPane sourceView;
-    private JScrollPane filesView;
+    private NovelClassesTree classesTree;
+    private NovelFilesList filesList;
     private JPanel barStripesView;
 
     private JTabbedPane contentPane;
@@ -49,7 +50,6 @@ public class NovelPanel extends JPanel
 
     private JSplitPane sourcePanels;
     private JPanel bugLinkPanel;
-    private NovelClassesTree classesTree;
 
     public NovelPanel() {
         super.setLayout(new BorderLayout());
@@ -67,7 +67,8 @@ public class NovelPanel extends JPanel
         statusLabel.setBackground(Color.LIGHT_GRAY);
 
         // build file list and clone pairs tree
-        populateFiles(null);
+        filesList = new NovelFilesList();
+        JScrollPane filesView = new JScrollPane(filesList);
         classesTree = new NovelClassesTree();
         JScrollPane classesPane = new JScrollPane(classesTree);
 
@@ -126,15 +127,15 @@ public class NovelPanel extends JPanel
         sourcePane.setSource(sourcePath);
     }
 
-    public void populateFiles(String chooserPath) {
-        filesView = new JScrollPane(new NovelFilesList(chooserPath));
-    }
-
     public void showSourcePane() {
         contentPane.setSelectedComponent(sourcePanels);
     }
 
     public NovelClassesTree getClassesTree() {
         return classesTree;
+    }
+
+    public NovelFilesList getFilesList() {
+        return filesList;
     }
 }

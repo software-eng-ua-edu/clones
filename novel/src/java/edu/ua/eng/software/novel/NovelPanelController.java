@@ -31,6 +31,7 @@ public class NovelPanelController
 
     public void loadCloneData() {
         panel.getClassesTree().loadFromDataModel();
+        panel.getFilesList().loadFromDataModel();
     }
 
     public void loadBugData() {

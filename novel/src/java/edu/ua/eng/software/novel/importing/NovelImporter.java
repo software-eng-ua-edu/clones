@@ -12,10 +12,13 @@ import edu.ua.eng.software.clonelink.RepoFactory;
 import edu.ua.eng.software.clonelink.RepoType;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import de.uni_bremen.st.rcf.imports.Import;
 import de.uni_bremen.st.rcf.imports.Import.CloneFormat;
 import de.uni_bremen.st.rcf.model.RCF;
+import de.uni_bremen.st.rcf.persistence.AbstractPersistenceManager;
+import de.uni_bremen.st.rcf.persistence.PersistenceManagerFactory;
 import edu.ua.eng.software.novel.CloneDataModel;
 import edu.ua.eng.software.novel.BugDataModel;
 import edu.ua.eng.software.novel.NovelPanelController;
@@ -30,10 +33,16 @@ import edu.ua.eng.software.novel.NovelPanelController;
 public class NovelImporter
 {
     public static void importReport(File importFile, File sourceDir,
-            ReportType type) {
-        RCF imported = Import.importData(type.toCloneFormat(),
-                importFile.getAbsolutePath(), "test/test.rcf",
-                sourceDir.getAbsolutePath());
+            ReportType type) throws FileNotFoundException {
+        RCF imported;
+        if(type == ReportType.RCF) {
+            AbstractPersistenceManager apm = PersistenceManagerFactory.getPersistenceManager(importFile);
+            imported = apm.load(importFile);
+        } else {
+            imported = Import.importData(type.toCloneFormat(),
+                        importFile.getAbsolutePath(), "test/test.rcf",
+                        sourceDir.getAbsolutePath());
+        }
 
         CloneDataModel.importData(imported.getVersions().getFirstEntry());
 
