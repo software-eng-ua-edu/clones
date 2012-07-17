@@ -98,9 +98,11 @@ public class NovelFrame extends JFrame implements ActionListener
 
         helpTut.setActionCommand("TUTORIAL");
         helpTut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+        helpTut.setMnemonic(KeyEvent.VK_F1);
         helpTut.addActionListener(this);
         helpAbout.setActionCommand("ABOUT");
         helpAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
+        helpAbout.setMnemonic(KeyEvent.VK_F2);
         helpAbout.addActionListener(this);
 
         // add the sub menus
