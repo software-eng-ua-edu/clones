@@ -30,7 +30,7 @@ public class NovelPanelController
     }
 
     public void loadCloneData() {
-        CloneDataModel cdm = CloneDataModel.getInstance();
+        panel.getClassesTree().loadFromDataModel();
     }
 
     public void loadBugData() {

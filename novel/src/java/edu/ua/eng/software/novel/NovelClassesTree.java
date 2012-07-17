@@ -10,15 +10,20 @@ package edu.ua.eng.software.novel;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.Enumeration;
 
 import de.uni_bremen.st.rcf.model.Fragment;
 import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.CloneClass;
 
 /**
  * Initializes the tree structure for clone classes
@@ -31,7 +36,6 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         root = new DefaultMutableTreeNode("Clone Classes");
         model = new DefaultTreeModel(root);
         setModel(model);
-        createNodes();
         setRootVisible(false);
         getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -40,22 +44,15 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         setCellRenderer(new TreeRenderer());
     }
 
-    public void createNodes() {
-        DefaultMutableTreeNode category = null;
-        DefaultMutableTreeNode category2 = null;
-        category = new DefaultMutableTreeNode("Clone Class 1");
-        root.add(category);
-        category2 = new DefaultMutableTreeNode("Clone Class 2");
-        root.add(category2);
-
-        category.add(new DefaultMutableTreeNode("SubCategory"));
-        category.add(new DefaultMutableTreeNode("SubCategory2"));
-        category.add(new DefaultMutableTreeNode("SubCategory3"));
-
-        category2.add(new DefaultMutableTreeNode("SubCategory"));
-        category2.add(new DefaultMutableTreeNode("SubCategory2"));
-        category2.add(new DefaultMutableTreeNode("SubCategory3"));
-
+    public void loadFromDataModel() {
+        CloneDataModel dataModel = CloneDataModel.getInstance();
+        List<CloneClass> cloneClasses = dataModel.getCloneClasses();
+        for(CloneClass cc : cloneClasses) {
+            Set<Fragment> fragments = dataModel.getClones(cc);
+            ClassCell classCell = new ClassCell(fragments);
+            root.add(classCell);
+            classCell.updateString();
+        }
         model.reload();
     }
 
@@ -70,47 +67,42 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
     private DefaultMutableTreeNode root;
     private DefaultTreeModel model;
 
-    private class ClassCell
+    private class ClassCell extends DefaultMutableTreeNode
     {
-        public ClassCell(List<Fragment> cloneClass, int position) {
-            this.position = position;
-            this.children = new ArrayList<FragmentCell>();
-            int i = 0;
+        public ClassCell(Set<Fragment> cloneClass) {
             for(Fragment fragment : cloneClass) {
-                i++;
-                children.add(new FragmentCell(fragment, this, i));
+                FragmentCell cell = new FragmentCell(fragment);
+                add(cell);
+            }
+        }
+
+        public void updateString() {
+            setUserObject(this.toString());
+            for(Enumeration children = children(); children.hasMoreElements();) {
+                FragmentCell cell = (FragmentCell) children.nextElement();
+                cell.updateString();
             }
         }
 
         public int getPosition() {
-            return position;
-        }
-
-        public void setPosition(int i) {
-            position = i;
-        }
-
-        public List<FragmentCell> getChildren() {
-           return children; 
+            return getParent().getIndex(this);
         }
 
         public String toString() {
             return String.format("%d CloneClass [%d]",
-                getPosition(),
-                getChildren().size());
+                getPosition() + 1,
+                getChildCount());
         }
-
-        private int position;
-        private List<FragmentCell> children;
-
     }
 
-    private class FragmentCell
+    private class FragmentCell extends DefaultMutableTreeNode
     {
-        public FragmentCell(Fragment f, ClassCell c, int position) {
+        public FragmentCell(Fragment f) {
             this.fragment = f;
-            this.parent = c;
-            this.position = position;
+        }
+
+        public void updateString() {
+            setUserObject(this.toString());
         }
 
         public Fragment getFragment() {
@@ -118,32 +110,23 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         }
 
         public int getPosition() {
-            return position;
-        }
-
-        public void setPosition(int i) {
-            position = i;
-        }
-
-        public ClassCell getParent() {
-            return parent;
+            return getParent().getIndex(this);
         }
 
         public String toString() {
+            TreeNode parent = getParent();
             return String.format("%d.%d %d:%d::%s",
-                parent.getPosition(),
-                getPosition(),
-                getStart().getLine(),
-                getEnd().getLine(),
+                parent.getParent().getIndex(parent),
+                getPosition() + 1,
+                getFragment().getStart().getLine(),
+                getFragment().getEnd().getLine(),
                 getFile().getRelativePath());
         }
 
         public File getFile() {
-            return getStart().getFile();
+            return getFragment().getStart().getFile();
         }
 
-        private int position;
         private Fragment fragment;
-        private ClassCell parent;
     }
 }

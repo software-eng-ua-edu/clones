@@ -133,4 +133,8 @@ public class NovelPanel extends JPanel
     public void showSourcePane() {
         contentPane.setSelectedComponent(sourcePanels);
     }
+
+    public NovelClassesTree getClassesTree() {
+        return classesTree;
+    }
 }
