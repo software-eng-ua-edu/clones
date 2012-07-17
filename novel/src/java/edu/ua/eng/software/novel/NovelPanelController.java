@@ -8,6 +8,7 @@
 package edu.ua.eng.software.novel;
 
 import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.Directory;
 
 /**
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
@@ -25,7 +26,12 @@ public class NovelPanelController
     }
 
     public void showSource(File file) {
-        panel.updateSource(file.getAbsolutePath());
+        CloneDataModel model = CloneDataModel.getInstance();
+        String path = file.getRelativePath();
+        if(path.startsWith("./")){
+            path = path.substring(2, path.length());
+        }
+        panel.updateSource(model.getVersion().getBasepath() + "/" + path);
         panel.showSourcePane();
     }
 

@@ -15,6 +15,7 @@ import java.util.Vector;
 import de.uni_bremen.st.rcf.model.CloneClass;
 import de.uni_bremen.st.rcf.model.File;
 import de.uni_bremen.st.rcf.model.Fragment;
+
 import de.uni_bremen.st.rcf.model.Version;
 
 /**
@@ -53,6 +54,10 @@ public class CloneDataModel
                 fileToClones.get(file).add(clone);
             }
         }
+    }
+
+    public Version getVersion() {
+        return version;
     }
 
     public List<CloneClass> getCloneClasses() {
