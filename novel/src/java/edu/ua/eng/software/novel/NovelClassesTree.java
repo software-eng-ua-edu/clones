@@ -14,6 +14,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import de.uni_bremen.st.rcf.model.Fragment;
+import de.uni_bremen.st.rcf.model.File;
+
 /**
  * Initializes the tree structure for clone classes
  * 
@@ -63,4 +69,81 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
 
     private DefaultMutableTreeNode root;
     private DefaultTreeModel model;
+
+    private class ClassCell
+    {
+        public ClassCell(List<Fragment> cloneClass, int position) {
+            this.position = position;
+            this.children = new ArrayList<FragmentCell>();
+            int i = 0;
+            for(Fragment fragment : cloneClass) {
+                i++;
+                children.add(new FragmentCell(fragment, this, i));
+            }
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int i) {
+            position = i;
+        }
+
+        public List<FragmentCell> getChildren() {
+           return children; 
+        }
+
+        public String toString() {
+            return String.format("%d CloneClass [%d]",
+                getPosition(),
+                getChildren().size());
+        }
+
+        private int position;
+        private List<FragmentCell> children;
+
+    }
+
+    private class FragmentCell
+    {
+        public FragmentCell(Fragment f, ClassCell c, int position) {
+            this.fragment = f;
+            this.parent = c;
+            this.position = position;
+        }
+
+        public Fragment getFragment() {
+            return fragment;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int i) {
+            position = i;
+        }
+
+        public ClassCell getParent() {
+            return parent;
+        }
+
+        public String toString() {
+            return String.format("%d.%d %d:%d::%s",
+                parent.getPosition(),
+                getPosition(),
+                getStart().getLine(),
+                getEnd().getLine(),
+                getFile().getRelativePath());
+        }
+
+        public File getFile() {
+            return getStart().getFile();
+        }
+
+        private int position;
+        private Fragment fragment;
+        private ClassCell parent;
+    }
 }
