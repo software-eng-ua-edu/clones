@@ -10,12 +10,12 @@ package edu.ua.eng.software.novel;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Vector;
 
 import de.uni_bremen.st.rcf.model.CloneClass;
 import de.uni_bremen.st.rcf.model.File;
 import de.uni_bremen.st.rcf.model.Fragment;
-
 import de.uni_bremen.st.rcf.model.Version;
 
 /**
@@ -30,17 +30,31 @@ public class CloneDataModel
     }
 
     public static CloneDataModel importData(Version latest) {
-        model = new CloneDataModel(latest);
+        model.setVersion(latest);
         return model;
     }
 
-    protected CloneDataModel(Version latest) {
-        version = latest;
-        classes = latest.getCloneClasses();
+    protected CloneDataModel() {
+        classes = new LinkedList<CloneClass>();
+        files = new Vector<File>();
         fileToClones = new HashMap<File, HashSet<Fragment>>();
         cloneToClass = new HashMap<Fragment, CloneClass>();
+    }
+
+    private void setVersion(Version latest) {
+        clear();
+        version = latest;
+        classes.addAll(latest.getCloneClasses());
+        files.addAll(version.getFiles());
 
         populateMaps();
+    }
+
+    private void clear() {
+        classes.clear();
+        files.clear();
+        fileToClones.clear();
+        cloneToClass.clear();
     }
 
     private void populateMaps() {
@@ -77,16 +91,18 @@ public class CloneDataModel
     }
 
     public Vector<File> getFiles() {
-        return new Vector<File>(version.getFiles());
+        return files;
     }
 
     public File getFile(Fragment clone) {
         return clone.getStart().getFile();
     }
 
-    private static CloneDataModel model;
+    private static CloneDataModel model = new CloneDataModel();
+
     private Version version;
     private List<CloneClass> classes;
+    private Vector<File> files;
     private HashMap<File, HashSet<Fragment>> fileToClones;
     private HashMap<Fragment, CloneClass> cloneToClass;
 }

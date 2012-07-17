@@ -43,6 +43,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         renderer.setClosedIcon(null);
         renderer.setLeafIcon(null);
         setCellRenderer(renderer);
+        loadFromDataModel();
     }
 
     public void loadFromDataModel() {
