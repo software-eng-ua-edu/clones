@@ -14,6 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -22,10 +23,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.ua.eng.software.novel.importing.NovelImporter;
@@ -40,7 +41,7 @@ import edu.ua.eng.software.novel.importing.NovelImporter.ReportType;
  */
 public class NovelImportDialog extends JDialog
 {
-    public NovelImportDialog(Frame parent) {
+    public NovelImportDialog(final Frame parent) {
         super(parent, "Import", true);
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(400, 240));
@@ -90,6 +91,8 @@ public class NovelImportDialog extends JDialog
         dirBrowse.setActionCommand("SETDIR");
         fileBrowse.addActionListener(browseListener);
         dirBrowse.addActionListener(browseListener);
+        fileBrowse.setMnemonic(KeyEvent.VK_B);
+        dirBrowse.setMnemonic(KeyEvent.VK_R);
 
         // add radio buttons to select clone results type
         JPanel radioButtons = new JPanel();
@@ -105,9 +108,11 @@ public class NovelImportDialog extends JDialog
         };
 
         JRadioButton selectRCF = new JRadioButton("RCF");
+        selectRCF.setMnemonic(KeyEvent.VK_F);
         selectRCF.setActionCommand("RCF");
         selectRCF.addActionListener(radioListener);
         JRadioButton selectNiCad = new JRadioButton("NiCad");
+        selectNiCad.setMnemonic(KeyEvent.VK_N);
         selectNiCad.setActionCommand("NICAD");
         selectNiCad.addActionListener(radioListener);
 
@@ -124,26 +129,40 @@ public class NovelImportDialog extends JDialog
                 if (e.getActionCommand() == "CANCEL")
                     setVisible(false);
                 else {
-                    setVisible(false);
-                    try {
-                        NovelImporter.importReport(importFile, sourceDir,
-                                importType);
-                    } catch (FileNotFoundException ex) {
-                        JOptionPane.showMessageDialog(getParent(),
-                                ex.getMessage(), "File Not Found",
-                                JOptionPane.ERROR_MESSAGE);
+                    if (importFile == null)
+                        JOptionPane.showMessageDialog(parent,
+                                "Please select clone results to import",
+                                "Import Error", JOptionPane.ERROR_MESSAGE);
+                    else if (sourceDir == null)
+                        JOptionPane.showMessageDialog(parent,
+                                "Please select a source directory",
+                                "Import Error", JOptionPane.ERROR_MESSAGE);
+                    else {
+                        setVisible(false);
+                        try {
+                            NovelImporter.importReport(importFile, sourceDir,
+                                    importType);
+                        } catch (FileNotFoundException ex) {
+                            JOptionPane.showMessageDialog(getParent(),
+                                    ex.getMessage(), "File Not Found",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             }
         };
 
         JPanel confirmButtons = new JPanel();
-        JButton cancel = new JButton("Cancel");
-        cancel.setActionCommand("CANCEL");
-        cancel.addActionListener(confirmAction);
         JButton confirm = new JButton("Okay");
+        confirm.setToolTipText("Confirm import settings");
+        confirm.setMnemonic(KeyEvent.VK_O);
         confirm.setActionCommand("OKAY");
         confirm.addActionListener(confirmAction);
+        JButton cancel = new JButton("Cancel");
+        cancel.setToolTipText("Abort import dialog");
+        cancel.setMnemonic(KeyEvent.VK_C);
+        cancel.setActionCommand("CANCEL");
+        cancel.addActionListener(confirmAction);
 
         // add components
         cSel.gridx = 0;
@@ -173,8 +192,8 @@ public class NovelImportDialog extends JDialog
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         composite.add(radioButtons, c);
-        confirmButtons.add(cancel);
         confirmButtons.add(confirm);
+        confirmButtons.add(cancel);
         super.add(composite, BorderLayout.CENTER);
         super.add(confirmButtons, BorderLayout.SOUTH);
 
