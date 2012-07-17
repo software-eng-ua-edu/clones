@@ -34,6 +34,10 @@ public class NovelPanelController
         panel.updateSource(model.getVersion().getBasepath() + "/" + path);
         panel.showSourcePane();
     }
+    
+    public void updateStatus(String status) {
+        panel.updateStatus(status);
+    }
 
     public void loadCloneData() {
         panel.getClassesTree().loadFromDataModel();
