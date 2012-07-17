@@ -7,23 +7,22 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Set;
+
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.Enumeration;
-
-import de.uni_bremen.st.rcf.model.Fragment;
-import de.uni_bremen.st.rcf.model.File;
 import de.uni_bremen.st.rcf.model.CloneClass;
+import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.Fragment;
 
 /**
  * Initializes the tree structure for clone classes
@@ -38,7 +37,11 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(this);
 
-        setCellRenderer(new TreeRenderer());
+        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+        renderer.setOpenIcon(null);
+        renderer.setClosedIcon(null);
+        renderer.setLeafIcon(null);
+        setCellRenderer(renderer);
     }
 
     public void loadFromDataModel() {
