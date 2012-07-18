@@ -10,8 +10,12 @@ package edu.ua.eng.software.novel;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Set;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -20,6 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import de.uni_bremen.st.rcf.model.CloneClass;
@@ -39,6 +44,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
         addTreeSelectionListener(this);
+        addMouseListener(new NovelClassesTreeMouseListener());
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setOpenIcon(null);
@@ -96,7 +102,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
             while(en.hasMoreElements()) {
                 Object obj = en.nextElement();
                 if(obj instanceof FragmentCell) {
-                    list.add((FragmentCell) en.nextElement());
+                    list.add((FragmentCell) obj);
                 }
             }
             return list;
@@ -150,5 +156,30 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         }
 
         private Fragment fragment;
+    }
+
+    private class NovelClassesTreeMouseListener extends MouseAdapter
+    {
+        public void mouseClicked(MouseEvent evt) {
+            NovelClassesTree tree = (NovelClassesTree) evt.getSource();
+            if (evt.getClickCount() == 2) {
+                TreePath path = getPathForLocation(evt.getX(), evt.getY());
+                TreeNode node = (TreeNode) path.getLastPathComponent();
+                if(!node.isLeaf()) {
+                    ClassCell cell = (ClassCell) node;
+                    NovelPanelController.getInstance().classCellSelected(cell);
+                } else {
+                    FragmentCell cell = (FragmentCell) node;
+                    List<FragmentCell> cells = new LinkedList<FragmentCell>();
+                    cells.add(cell);
+                    if(cell.getNextSibling() != null) {
+                        cells.add((FragmentCell) cell.getNextSibling());
+                    } else {
+                        cells.add((FragmentCell) cell.getPreviousSibling());
+                    }
+                    NovelPanelController.getInstance().fragmentCellsSelected(cells);
+                }
+            }
+        }
     }
 }
