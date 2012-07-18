@@ -164,20 +164,22 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
             NovelClassesTree tree = (NovelClassesTree) evt.getSource();
             if (evt.getClickCount() == 2) {
                 TreePath path = getPathForLocation(evt.getX(), evt.getY());
-                TreeNode node = (TreeNode) path.getLastPathComponent();
-                if(!node.isLeaf()) {
-                    ClassCell cell = (ClassCell) node;
-                    NovelPanelController.getInstance().classCellSelected(cell);
-                } else {
-                    FragmentCell cell = (FragmentCell) node;
-                    List<FragmentCell> cells = new LinkedList<FragmentCell>();
-                    cells.add(cell);
-                    if(cell.getNextSibling() != null) {
-                        cells.add((FragmentCell) cell.getNextSibling());
+                if(path != null) {
+                    TreeNode node = (TreeNode) path.getLastPathComponent();
+                    if(!node.isLeaf()) {
+                        ClassCell cell = (ClassCell) node;
+                        NovelPanelController.getInstance().classCellSelected(cell);
                     } else {
-                        cells.add((FragmentCell) cell.getPreviousSibling());
+                        FragmentCell cell = (FragmentCell) node;
+                        List<FragmentCell> cells = new LinkedList<FragmentCell>();
+                        cells.add(cell);
+                        if(cell.getNextSibling() != null) {
+                            cells.add((FragmentCell) cell.getNextSibling());
+                        } else {
+                            cells.add((FragmentCell) cell.getPreviousSibling());
+                        }
+                        NovelPanelController.getInstance().fragmentCellsSelected(cells);
                     }
-                    NovelPanelController.getInstance().fragmentCellsSelected(cells);
                 }
             }
         }
