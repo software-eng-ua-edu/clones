@@ -37,7 +37,7 @@ public class NovelSourceViewer
         sourceView = new RTextScrollPane(sourcePane);
     }
 
-    public JScrollPane blankSource() {
+    public JScrollPane getSourceView() {
 
         return sourceView;
     }
