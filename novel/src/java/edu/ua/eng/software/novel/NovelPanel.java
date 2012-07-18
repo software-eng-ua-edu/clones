@@ -10,6 +10,7 @@ package edu.ua.eng.software.novel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -72,6 +73,9 @@ public class NovelPanel extends JPanel
         JTabbedPane listPane = new JTabbedPane();
         listPane.addTab("Files", filesView);
         listPane.addTab("Clone Classes", classesPane);
+        
+        listPane.setMnemonicAt(0, KeyEvent.VK_F);
+        listPane.setMnemonicAt(1, KeyEvent.VK_C);
 
         // right tabbed pane
         contentPane = new JTabbedPane();
@@ -80,6 +84,12 @@ public class NovelPanel extends JPanel
         contentPane.addTab("Bars", barStripesPane);
         contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
         contentPane.addTab("BugLink", bugLinkPane);
+        
+        contentPane.setMnemonicAt(0, KeyEvent.VK_S);
+        contentPane.setMnemonicAt(1, KeyEvent.VK_P);
+        contentPane.setMnemonicAt(2, KeyEvent.VK_B);
+        contentPane.setMnemonicAt(3, KeyEvent.VK_T);
+        contentPane.setMnemonicAt(4, KeyEvent.VK_L);
 
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
