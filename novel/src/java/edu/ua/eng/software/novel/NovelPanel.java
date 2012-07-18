@@ -7,12 +7,10 @@
  */
 package edu.ua.eng.software.novel;
 
-import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
-
-import java.util.List;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -20,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+
+import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
 
 /**
  * Creates the visible UI panel and initializes components
@@ -30,20 +30,17 @@ import javax.swing.JTabbedPane;
 @SuppressWarnings("serial")
 public class NovelPanel extends JPanel
 {
-    private JLabel sourcePanePath;
     private JLabel statusLabel;
 
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
     private BugLinkView bugLinkPane;
 
-    private JScrollPane sourceView;
     private NovelClassesTree classesTree;
     private NovelFilesList filesList;
     // private JPanel barStripesView;
 
     private JTabbedPane contentPane;
-    private JSplitPane sourcePanels;
 
     // private JPanel bugLinkPanel;
 
@@ -52,7 +49,9 @@ public class NovelPanel extends JPanel
 
         // instantiate status bar
         statusLabel = new JLabel("Press F1 for help.");
-        statusLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        statusLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 0, 0, Color.LIGHT_GRAY),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         statusLabel.setFont(new Font(statusLabel.getFont().getName(),
                 Font.ITALIC, statusLabel.getFont().getSize()));
 
@@ -64,15 +63,6 @@ public class NovelPanel extends JPanel
 
         // initialize source viewer pane
         sourcePane = new NovelSourceViewer();
-        sourceView = sourcePane.getSourceView();
-        sourcePanePath = new JLabel("Source location: ");
-        sourcePanePath.setBorder(BorderFactory
-                .createEmptyBorder(10, 10, 10, 10));
-        sourcePanels = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-                sourcePanePath, sourceView);
-        sourcePanels.setDividerLocation(25);
-        sourcePanels.setDividerSize(0);
-        sourcePanels.setEnabled(false);
 
         // initialize bar and stripe pane
         barStripesPane = new NovelBarsViewer();
@@ -85,7 +75,7 @@ public class NovelPanel extends JPanel
 
         // right tabbed pane
         contentPane = new JTabbedPane();
-        contentPane.addTab("Source", sourcePanels);
+        contentPane.addTab("Source", sourcePane);
         contentPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
         contentPane.addTab("Bars", barStripesPane);
         contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
@@ -94,7 +84,7 @@ public class NovelPanel extends JPanel
         // resizable pane
         JSplitPane tabPanels = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 listPane, contentPane);
-        tabPanels.setDividerLocation(350);
+        tabPanels.setDividerLocation(300);
         tabPanels.setResizeWeight(0.2);
         tabPanels.setOneTouchExpandable(false);
         tabPanels.setContinuousLayout(true);
@@ -109,8 +99,7 @@ public class NovelPanel extends JPanel
     }
 
     public void updateFileSelected(String path) {
-        sourcePanePath.setText(path);
-        sourcePane.setSource(path);
+        sourcePane.setSingleSource(path);
     }
 
     public void updateFragmentsSelected(List<FragmentCell> fragments) {
@@ -118,7 +107,7 @@ public class NovelPanel extends JPanel
     }
 
     public void showSourcePane() {
-        contentPane.setSelectedComponent(sourcePanels);
+        contentPane.setSelectedComponent(sourcePane);
     }
 
     public NovelClassesTree getClassesTree() {
