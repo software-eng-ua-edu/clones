@@ -7,6 +7,10 @@
  */
 package edu.ua.eng.software.novel;
 
+import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
+
+import java.util.List;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -121,10 +125,14 @@ public class NovelPanel extends JPanel
         statusLabel.setText(status);
     }
 
-    public void updateSource(String path) {
+    public void updateFileSelected(String path) {
         sourcePath = path;
         sourcePanePath.setText(sourcePath);
         sourcePane.setSource(sourcePath);
+    }
+
+    public void updateFragmentsSelected(List<FragmentCell> fragments) {
+
     }
 
     public void showSourcePane() {

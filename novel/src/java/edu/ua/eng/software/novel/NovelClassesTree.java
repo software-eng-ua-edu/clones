@@ -7,8 +7,10 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.swing.JTree;
@@ -72,7 +74,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
     private DefaultMutableTreeNode root;
     private DefaultTreeModel model;
 
-    private class ClassCell extends DefaultMutableTreeNode
+    public class ClassCell extends DefaultMutableTreeNode
     {
         public ClassCell(Set<Fragment> cloneClass) {
             for(Fragment fragment : cloneClass) {
@@ -83,10 +85,21 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
 
         public void updateString() {
             setUserObject(this.toString());
-            for(Enumeration children = children(); children.hasMoreElements();) {
-                FragmentCell cell = (FragmentCell) children.nextElement();
+            for(FragmentCell cell : getChildren()) {
                 cell.updateString();
             }
+        }
+
+        public ArrayList<FragmentCell> getChildren() {
+            ArrayList<FragmentCell> list = new ArrayList<FragmentCell>();
+            Enumeration en = children();
+            while(en.hasMoreElements()) {
+                Object obj = en.nextElement();
+                if(obj instanceof FragmentCell) {
+                    list.add((FragmentCell) en.nextElement());
+                }
+            }
+            return list;
         }
 
         public int getPosition() {
@@ -100,7 +113,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         }
     }
 
-    private class FragmentCell extends DefaultMutableTreeNode
+    public class FragmentCell extends DefaultMutableTreeNode
     {
         public FragmentCell(Fragment f) {
             this.fragment = f;
@@ -130,6 +143,10 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
 
         public File getFile() {
             return getFragment().getStart().getFile();
+        }
+
+        public ClassCell getParent() {
+            return (ClassCell) super.getParent();
         }
 
         private Fragment fragment;

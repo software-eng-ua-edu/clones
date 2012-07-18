@@ -58,7 +58,7 @@ public class NovelFilesList extends JList
             if (evt.getClickCount() == 2) {
                 int index = list.locationToIndex(evt.getPoint());
                 File file = (File) list.getModel().getElementAt(index);
-                NovelPanelController.getInstance().showSource(file);
+                NovelPanelController.getInstance().fileSelected(file);
             }
         }
     }

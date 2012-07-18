@@ -10,6 +10,12 @@ package edu.ua.eng.software.novel;
 import de.uni_bremen.st.rcf.model.File;
 import de.uni_bremen.st.rcf.model.Directory;
 
+import edu.ua.eng.software.novel.NovelClassesTree.ClassCell;
+import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
+
+import java.util.List;
+import java.util.LinkedList;
+
 /**
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
  * @author Casey Ferris <cmferris1@crimson.ua.edu>
@@ -25,14 +31,21 @@ public class NovelPanelController
         this.panel = panel;
     }
 
-    public void showSource(File file) {
+    public void fileSelected(File file) {
         CloneDataModel model = CloneDataModel.getInstance();
         String path = file.getRelativePath();
         if(path.startsWith("./")){
             path = path.substring(2, path.length());
         }
-        panel.updateSource(model.getVersion().getBasepath() + "/" + path);
-        panel.showSourcePane();
+        panel.updateFileSelected(model.getVersion().getBasepath() + "/" + path);
+    }
+
+    public void classCellSelected(ClassCell classCell) {
+        fragmentCellsSelected(classCell.getChildren().subList(0,2));
+    }
+
+    public void fragmentCellsSelected(List<FragmentCell> fragments) {
+        panel.updateFragmentsSelected(fragments);
     }
 
     public void loadCloneData() {
@@ -41,7 +54,7 @@ public class NovelPanelController
     }
 
     public void loadBugData() {
-        BugDataModel bdm = BugDataModel.getInstance();
+        
     }
 
     protected NovelPanelController() {

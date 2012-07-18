@@ -10,6 +10,7 @@ package edu.ua.eng.software.novel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  * @author Paige A. Rodeghero <parodeghero@bsu.edu>
@@ -21,7 +22,12 @@ public class BugLinkView extends JTree
         setModel(createModel());
 
         setRootVisible(false);
-        setCellRenderer(new TreeRenderer());
+
+        DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
+        renderer.setOpenIcon(null);
+        renderer.setClosedIcon(null);
+        renderer.setLeafIcon(null);
+        setCellRenderer(renderer);
     }
 
     private DefaultTreeModel createModel() {
