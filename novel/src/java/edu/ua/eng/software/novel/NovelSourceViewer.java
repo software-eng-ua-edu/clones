@@ -71,8 +71,6 @@ public class NovelSourceViewer extends JPanel
 
         pathLeft = new JLabel("Source Location:");
         pathRight = new JLabel("Source Location:");
-        pathLeft.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pathRight.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         sourcePaneLeft = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pathLeft,
                 scrollLeft);
@@ -92,7 +90,7 @@ public class NovelSourceViewer extends JPanel
         splitSource.setEnabled(false);
         initialize();
     }
-    
+
     private void initialize() {
         super.add(sourcePaneLeft, BorderLayout.CENTER);
     }
@@ -107,11 +105,13 @@ public class NovelSourceViewer extends JPanel
 
     public void setSplitSource(Fragment leftFrag, Fragment rightFrag) {
         setFile(leftFrag.getStart().getFile(), sourceLeft, pathLeft);
-        setHighlight(sourceLeft, leftFrag.getStart().getLine(), leftFrag.getEnd().getLine());
+        setHighlight(sourceLeft, leftFrag.getStart().getLine(), leftFrag
+                .getEnd().getLine());
         splitSource.setLeftComponent(sourcePaneLeft);
 
         setFile(rightFrag.getStart().getFile(), sourceRight, pathRight);
-        setHighlight(sourceRight, rightFrag.getStart().getLine(), rightFrag.getEnd().getLine());
+        setHighlight(sourceRight, rightFrag.getStart().getLine(), rightFrag
+                .getEnd().getLine());
         splitSource.setRightComponent(sourcePaneRight);
 
         removeAll();
@@ -146,7 +146,7 @@ public class NovelSourceViewer extends JPanel
 
     private void setHighlight(RSyntaxTextArea text, int startLine, int endLine) {
         try {
-            for(int i = startLine; i <= endLine; i++) {
+            for (int i = startLine; i <= endLine; i++) {
                 text.addLineHighlight(i - 1, cloneHighlight);
             }
             text.setCaretPosition(text.getLineStartOffset(startLine - 1));
@@ -155,8 +155,9 @@ public class NovelSourceViewer extends JPanel
         }
     }
 
-    public void centerLineInScrollPane(RSyntaxTextArea text, RTextScrollPane scroll) {
-        //Totally doesn't work.
+    public void centerLineInScrollPane(RSyntaxTextArea text,
+            RTextScrollPane scroll) {
+        // Totally doesn't work.
         try {
             JViewport viewport = scroll.getViewport();
             Rectangle r = text.modelToView(text.getCaretPosition());
