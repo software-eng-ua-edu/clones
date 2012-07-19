@@ -38,7 +38,7 @@ public class NovelPanelController
         if (path.startsWith("./")) {
             path = path.substring(2, path.length());
         }
-        panel.updateFileSelected(model.getVersion().getBasepath() + "/" + path);
+        panel.updateFileSelected(file);
     }
 
     public void classCellSelected(ClassCell classCell) {

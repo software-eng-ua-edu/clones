@@ -20,6 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
+import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.Fragment;
+
 import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
 
 /**
@@ -42,6 +45,9 @@ public class NovelPanel extends JPanel
     // private JPanel barStripesView;
 
     private JTabbedPane contentPane;
+
+    private FragmentCell leftFrag;
+    private FragmentCell rightFrag;
 
     // private JPanel bugLinkPanel;
 
@@ -108,12 +114,14 @@ public class NovelPanel extends JPanel
         statusLabel.setText(status);
     }
 
-    public void updateFileSelected(String path) {
-        sourcePane.setSingleSource(path);
+    public void updateFileSelected(File file) {
+        sourcePane.setSingleSource(file);
     }
 
     public void updateFragmentsSelected(List<FragmentCell> fragments) {
-
+        leftFrag = fragments.get(0);
+        rightFrag = fragments.get(1);
+        sourcePane.setSplitSource(leftFrag.getFragment(), rightFrag.getFragment());
     }
 
     public void showSourcePane() {
