@@ -49,6 +49,7 @@ public class NovelFrame extends JFrame implements ActionListener
 
         // sub menu items
         JMenuItem fileImport = new JMenuItem("Import/Run");
+        JMenuItem fileSetRepo = new JMenuItem("Set Repository Path");
         JMenuItem filePrefs = new JMenuItem("Preferences");
         JMenuItem fileExit = new JMenuItem("Exit");
         JMenuItem editDif = new JMenuItem("Difference");
@@ -71,6 +72,10 @@ public class NovelFrame extends JFrame implements ActionListener
         fileImport.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
                 Event.CTRL_MASK));
         fileImport.addActionListener(this);
+        fileSetRepo.setActionCommand("SET");
+        fileSetRepo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                Event.CTRL_MASK));
+        fileSetRepo.addActionListener(this);
         filePrefs.setActionCommand("PREFS");
         filePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
                 Event.CTRL_MASK));
@@ -107,6 +112,7 @@ public class NovelFrame extends JFrame implements ActionListener
 
         // add the sub menus
         file.add(fileImport);
+        file.add(fileSetRepo);
         file.add(filePrefs);
         file.add(fileExit);
         edit.add(editDif);
@@ -139,6 +145,8 @@ public class NovelFrame extends JFrame implements ActionListener
 
         if (e.getActionCommand().equals("OPEN")) {
             NovelImportDialog importDialog = new NovelImportDialog(this);
+        } else if (e.getActionCommand().equals("SET")) {
+            NovelSetRepoDialog setRepoDialog = new NovelSetRepoDialog(this);
         } else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
