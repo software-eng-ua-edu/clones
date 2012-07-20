@@ -59,7 +59,7 @@ public class NovelPanelController
     }
 
     public void loadBugData() {
-        
+       
     }
 
     protected NovelPanelController() {

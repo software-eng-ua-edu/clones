@@ -9,6 +9,7 @@ package edu.ua.eng.software.clonelink;
 
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * @author      Blake Bassett <rbbassett@crimson.ua.edu>
@@ -41,14 +42,24 @@ public class Commit
         return message;
     }
 
+    public String getBugID() {
+        return bugid;
+    }
+
     protected boolean checkBugFix() {
-        return pattern.matcher(message).find();
+        Matcher match = pattern.matcher(message);
+        boolean isMatch = match.find();
+        if(isMatch) {
+            bugid = match.group(1);
+        }
+        return isMatch;
     }
 
 
     private Set<FileChange> files;
     private boolean bugFlag;
     private String message;
-    static private final String regex = "((bug|fix|pr)\\s*[#=]?\\s*[0-9]{4,6})";
+    private String bugid;
+    static private final String regex = "(?:bug|fix|pr)\\s*(?:id|[#=])?\\s*([0-9]{4,6})";
     static private final Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
 }

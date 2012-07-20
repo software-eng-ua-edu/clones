@@ -135,4 +135,8 @@ public class NovelPanel extends JPanel
     public NovelFilesList getFilesList() {
         return filesList;
     }
+
+    public BugLinkView getBugLinkView() {
+        return bugLinkPane;
+    }
 }
