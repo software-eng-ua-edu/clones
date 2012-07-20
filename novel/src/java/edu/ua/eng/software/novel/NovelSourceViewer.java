@@ -9,28 +9,23 @@ package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.Point;
-
+import java.awt.Rectangle;
 import java.io.FileReader;
 import java.io.IOException;
 
-import de.uni_bremen.st.rcf.model.File;
-import de.uni_bremen.st.rcf.model.Fragment;
-
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JViewport;
-import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
+import de.uni_bremen.st.rcf.model.File;
+import de.uni_bremen.st.rcf.model.Fragment;
 
 /**
  * Creates the contents of the Source Viewer tab
@@ -113,7 +108,6 @@ public class NovelSourceViewer extends JPanel
         setHighlight(sourceRight, rightFrag.getStart().getLine(), rightFrag
                 .getEnd().getLine());
         splitSource.setRightComponent(sourcePaneRight);
-
         removeAll();
         super.add(splitSource);
         revalidate();
@@ -134,10 +128,12 @@ public class NovelSourceViewer extends JPanel
     private void setFile(File file, RSyntaxTextArea text, JLabel label) {
         text.removeAllLineHighlights();
         String path = getPathFromFile(file);
+
         try {
             FileReader fr = new FileReader(path);
             text.read(fr, null);
-            label.setText(path);
+            label.setText(file.getName());
+            label.setToolTipText(file.getRelativePath());
             text.setCaretPosition(0);
         } catch (IOException e) {
             e.printStackTrace();
