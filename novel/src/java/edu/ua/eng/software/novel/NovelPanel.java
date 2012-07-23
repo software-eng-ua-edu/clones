@@ -38,7 +38,7 @@ public class NovelPanel extends JPanel
 
     private NovelSourceViewer sourcePane;
     private NovelBarsViewer barStripesPane;
-    private BugLinkView bugLinkPane;
+    private BugLinkView bugLinkView;
 
     private NovelClassesTree classesTree;
     private NovelFilesList filesList;
@@ -73,7 +73,8 @@ public class NovelPanel extends JPanel
 
         // initialize bar and stripe pane
         barStripesPane = new NovelBarsViewer();
-        bugLinkPane = new BugLinkView();
+        bugLinkView = new BugLinkView();
+        JScrollPane bugLinkPane = new JScrollPane(bugLinkView);
 
         // left tabbed pane
         JTabbedPane listPane = new JTabbedPane();
@@ -122,6 +123,7 @@ public class NovelPanel extends JPanel
         leftFrag = fragments.get(0);
         rightFrag = fragments.get(1);
         sourcePane.setSplitSource(leftFrag.getFragment(), rightFrag.getFragment());
+        bugLinkView.showFragments(fragments);
     }
 
     public void showSourcePane() {
@@ -137,6 +139,6 @@ public class NovelPanel extends JPanel
     }
 
     public BugLinkView getBugLinkView() {
-        return bugLinkPane;
+        return bugLinkView;
     }
 }

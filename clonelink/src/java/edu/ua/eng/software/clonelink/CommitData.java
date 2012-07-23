@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.EnumSet;
+
 import edu.ua.eng.software.clonelink.FileChange.ChangeType;
 
 /**
