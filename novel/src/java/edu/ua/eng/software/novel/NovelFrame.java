@@ -73,7 +73,7 @@ public class NovelFrame extends JFrame implements ActionListener
                 Event.CTRL_MASK));
         fileImport.addActionListener(this);
         fileSetRepo.setActionCommand("SET");
-        fileSetRepo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+        fileSetRepo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
                 Event.CTRL_MASK));
         fileSetRepo.addActionListener(this);
         filePrefs.setActionCommand("PREFS");

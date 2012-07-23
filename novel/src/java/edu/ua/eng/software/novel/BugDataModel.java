@@ -21,7 +21,7 @@ public class BugDataModel
     }
 
     public static BugDataModel importData(CommitData data) {
-        model = new BugDataModel(data);
+        model.setCommitData(data);
         return model;
     }
 
@@ -29,10 +29,14 @@ public class BugDataModel
         return commitData;
     }
 
-    protected BugDataModel(CommitData data) {
+    protected BugDataModel() {
+        commitData = new CommitData();
+    }
+
+    protected void setCommitData(CommitData data) {
         this.commitData = data;
     }
 
-    private static BugDataModel model;
+    private static BugDataModel model = new BugDataModel();
     private CommitData commitData;
 }

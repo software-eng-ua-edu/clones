@@ -24,6 +24,7 @@ import edu.ua.eng.software.novel.NovelClassesTree.ClassCell;
 
 /**
  * @author Paige A. Rodeghero <parodeghero@bsu.edu>
+ * @author Blake Bassett <rbbassett@crimson.ua.edu>
  */
 @SuppressWarnings("serial")
 public class BugLinkView extends JTree
@@ -43,33 +44,40 @@ public class BugLinkView extends JTree
     }
 
     public void showFragments(List<FragmentCell> fragments) {
+        root.removeAllChildren();
         if(!fragments.isEmpty()) {
+            fragments = fragments.get(0).getParent().getChildren();
             CommitData commitData = BugDataModel.getInstance().getCommitData();
             ClassCell klass = fragments.get(0).getParent();
             DefaultMutableTreeNode klassNode = new DefaultMutableTreeNode(klass.toString());
             root.add(klassNode);
+            for(Commit commit : commitData.getBugCommits()) {
+                for(FileChange change : commit.getFileChanges()) {
+                    //if(change.getOldPath().startsWith("jhotdraw7")) {
+                        System.out.println(change.getOldPath());
+                    //}
+                }
+            }
             for(FragmentCell fragment : fragments) {
                 String path = fragment.getFragment().getStart().getFile().getRelativePath();
-                List<FileChange> changes = commitData.getChanges(path);
-                ListIterator<FileChange> it = changes.listIterator();
+                System.out.println(path);
 
-                //removing non-bug changes
-                while(it.hasNext()) {
-                    FileChange change = it.next();
-                    if(!change.getCommit().isBugFix()) {
-                        it.remove();
-                    }
-                }
-
-                if(!changes.isEmpty()) {
-                    DefaultMutableTreeNode fragNode = new DefaultMutableTreeNode(fragment.getFragment());
-                    klassNode.add(fragNode);
-                    for(FileChange change : changes) {
+                DefaultMutableTreeNode fragNode = new DefaultMutableTreeNode(fragment);
+                klassNode.add(fragNode);
+                for(FileChange change : commitData.getChanges(path)) {
+                    if(change.getCommit().isBugFix()) {
                         fragNode.add(new DefaultMutableTreeNode(change.getCommit().getBugID()));
                     }
                 }
             }
-            model.reload();
+        }
+        model.reload();
+        expandAll();
+    }
+
+    protected void expandAll() {
+        for(int i = 0; i < getRowCount(); i++) {
+            expandRow(i);
         }
     }
 
