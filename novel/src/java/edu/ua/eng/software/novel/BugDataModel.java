@@ -35,6 +35,7 @@ public class BugDataModel
 
     protected void setCommitData(CommitData data) {
         this.commitData = data;
+        this.commitData.computeFileChanges();
     }
 
     private static BugDataModel model = new BugDataModel();

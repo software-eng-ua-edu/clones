@@ -51,6 +51,7 @@ public class BugLinkView extends JTree
             ClassCell klass = fragments.get(0).getParent();
             DefaultMutableTreeNode klassNode = new DefaultMutableTreeNode(klass.toString());
             root.add(klassNode);
+            System.out.println("----");
             for(Commit commit : commitData.getBugCommits()) {
                 for(FileChange change : commit.getFileChanges()) {
                     //if(change.getOldPath().startsWith("jhotdraw7")) {
@@ -58,9 +59,10 @@ public class BugLinkView extends JTree
                     //}
                 }
             }
+            System.out.println("----");
             for(FragmentCell fragment : fragments) {
                 String path = fragment.getFragment().getStart().getFile().getRelativePath();
-                System.out.println(path);
+                System.out.println(path + ":[" + commitData.getChanges(path).size() + "]");
 
                 DefaultMutableTreeNode fragNode = new DefaultMutableTreeNode(fragment);
                 klassNode.add(fragNode);
