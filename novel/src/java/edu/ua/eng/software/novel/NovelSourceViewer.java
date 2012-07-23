@@ -11,6 +11,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -22,6 +25,7 @@ import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import de.uni_bremen.st.rcf.model.File;
@@ -44,7 +48,7 @@ public class NovelSourceViewer extends JPanel
     private JSplitPane sourcePaneLeft;
     private JSplitPane sourcePaneRight;
     private JSplitPane splitSource;
-    private Color cloneHighlight = Color.YELLOW;
+    private Color cloneHighlight = new Color(255, 255, 200);
 
     public NovelSourceViewer() {
         super(new BorderLayout());
@@ -60,6 +64,17 @@ public class NovelSourceViewer extends JPanel
         sourceRight.setCodeFoldingEnabled(true);
         sourceRight.setAntiAliasingEnabled(true);
         sourceRight.setEditable(false);
+
+        try {
+            BufferedInputStream bis = new BufferedInputStream(
+                    new FileInputStream("res/eclipseTheme.xml"));
+            DataInputStream in = new DataInputStream(bis);
+            Theme theme = Theme.load(in);
+            theme.apply(sourceLeft);
+            theme.apply(sourceRight);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         scrollLeft = new RTextScrollPane(sourceLeft);
         scrollRight = new RTextScrollPane(sourceRight);
