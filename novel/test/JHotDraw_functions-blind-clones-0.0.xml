@@ -1,0 +1,76 @@
+<?xml version="1.0" ?><clones>
+<systeminfo granularity="functions-blind" maxlines="2500" minlines="10" processor="nicad3" system="JHotDraw" threshold="0%"/>
+<classinfo npairs="14" npcs="4934"/>
+<runinfo cputime="3" ncompares="6750"/>
+
+<class id="1" nlines="42" similarity="100">
+<source endline="509" file="JHotDraw/src/CH/ifa/draw/contrib/MDIDesktopPane.java" pcid="642" startline="457"/>
+<source endline="450" file="JHotDraw/src/CH/ifa/draw/contrib/MDIDesktopPane.java" pcid="641" startline="397"/>
+</class>
+
+<class id="2" nlines="21" similarity="100">
+<source endline="109" file="JHotDraw/src/CH/ifa/draw/figures/ElbowHandle.java" pcid="1137" startline="86"/>
+<source endline="133" file="JHotDraw/src/CH/ifa/draw/figures/ElbowHandle.java" pcid="1138" startline="111"/>
+</class>
+
+<class id="3" nlines="19" similarity="100">
+<source endline="54" file="JHotDraw/src/CH/ifa/draw/samples/nothing/NothingApplet.java" pcid="1607" startline="28"/>
+<source endline="63" file="JHotDraw/src/CH/ifa/draw/samples/nothing/NothingApp.java" pcid="1605" startline="37"/>
+</class>
+
+<class id="4" nlines="17" similarity="100">
+<source endline="124" file="JHotDraw/src/CH/ifa/draw/figures/ConnectedTextTool.java" pcid="1115" startline="102"/>
+<source endline="151" file="JHotDraw/src/CH/ifa/draw/figures/ConnectedTextTool.java" pcid="1116" startline="130"/>
+</class>
+
+<class id="5" nlines="14" similarity="100">
+<source endline="58" file="JHotDraw/src/CH/ifa/draw/util/UndoCommand.java" pcid="4892" startline="39"/>
+<source endline="51" file="JHotDraw/src/CH/ifa/draw/util/RedoCommand.java" pcid="4733" startline="33"/>
+</class>
+
+<class id="6" nlines="14" similarity="100">
+<source endline="324" file="JHotDraw/src/CH/ifa/draw/standard/AbstractTool.java" pcid="1790" startline="312"/>
+<source endline="209" file="JHotDraw/src/CH/ifa/draw/standard/AbstractCommand.java" pcid="1674" startline="197"/>
+</class>
+
+<class id="7" nlines="13" similarity="100">
+<source endline="187" file="JHotDraw/src/CH/ifa/draw/figures/ConnectedTextTool.java" pcid="1120" startline="173"/>
+<source endline="203" file="JHotDraw/src/CH/ifa/draw/figures/ConnectedTextTool.java" pcid="1121" startline="189"/>
+</class>
+
+<class id="8" nlines="11" similarity="100">
+<source endline="423" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" pcid="1030" startline="414"/>
+<source endline="434" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" pcid="1033" startline="425"/>
+</class>
+
+<class id="9" nlines="10" similarity="100">
+<source endline="124" file="JHotDraw/src/CH/ifa/draw/contrib/CTXCommandMenu.java" pcid="199" startline="116"/>
+<source endline="90" file="JHotDraw/src/CH/ifa/draw/util/CommandMenu.java" pcid="4619" startline="82"/>
+</class>
+
+<class id="10" nlines="10" similarity="100">
+<source endline="672" file="JHotDraw/src/CH/ifa/draw/standard/StandardDrawingView.java" pcid="2433" startline="660"/>
+<source endline="396" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ZoomDrawingView.java" pcid="1028" startline="385"/>
+</class>
+
+<class id="11" nlines="10" similarity="100">
+<source endline="44" file="JHotDraw/src/CH/ifa/draw/standard/SendToBackCommand.java" pcid="2357" startline="35"/>
+<source endline="44" file="JHotDraw/src/CH/ifa/draw/standard/BringToFrontCommand.java" pcid="1871" startline="35"/>
+</class>
+
+<class id="12" nlines="10" similarity="100">
+<source endline="274" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="974" startline="265"/>
+<source endline="263" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="973" startline="254"/>
+</class>
+
+<class id="13" nlines="10" similarity="100">
+<source endline="274" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="974" startline="265"/>
+<source endline="252" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="972" startline="243"/>
+</class>
+
+<class id="14" nlines="10" similarity="100">
+<source endline="263" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="973" startline="254"/>
+<source endline="252" file="JHotDraw/src/CH/ifa/draw/contrib/zoom/ScalingGraphics.java" pcid="972" startline="243"/>
+</class>
+
+</clones>
