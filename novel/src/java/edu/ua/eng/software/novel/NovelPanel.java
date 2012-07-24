@@ -88,7 +88,7 @@ public class NovelPanel extends JPanel
         contentPane = new JTabbedPane();
         contentPane.addTab("Source", sourcePane);
         contentPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        contentPane.addTab("Bars", barStripesPane);
+        contentPane.addTab("Bars", new JLabel("Bars and Stripes Chart", JLabel.CENTER));
         contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
         contentPane.addTab("BugLink", bugLinkPane);
         
