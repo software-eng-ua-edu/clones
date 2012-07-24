@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -166,21 +167,16 @@ public class NovelSourceViewer extends JPanel
         }
     }
 
-    public void centerLineInScrollPane(RSyntaxTextArea text,
-            RTextScrollPane scroll) {
-        // Totally doesn't work.
-        try {
-            JViewport viewport = scroll.getViewport();
-            Rectangle r = text.modelToView(text.getCaretPosition());
-            int extentHeight = viewport.getExtentSize().height;
-            int viewHeight = viewport.getViewSize().height;
-
-            int y = Math.max(0, r.y);
-            y = Math.min(y, viewHeight - extentHeight);
-
-            viewport.setViewPosition(new Point(0, y));
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
+    public void centerLineInScrollPane(final RSyntaxTextArea text,
+            final RTextScrollPane scroll) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    scroll.getViewport().setViewPosition(new Point(0, text.yForLine(text.getCaretLineNumber())));
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
