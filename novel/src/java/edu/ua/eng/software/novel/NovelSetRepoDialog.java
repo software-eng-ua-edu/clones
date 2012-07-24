@@ -124,7 +124,7 @@ public class NovelSetRepoDialog extends JDialog
                         try {
                             NovelPanelController.getInstance().updateStatus(
                                     "Set repository path to "
-                                            + sourceDir.getName());
+                                            + sourceDir.getParentFile().getName() + "/" + sourceDir.getName());
                             NovelImporter.importBugs(sourceDir,
                                     importType);
                         } catch (Exception ex) {
