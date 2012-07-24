@@ -63,7 +63,6 @@ public class NovelFrame extends JFrame implements ActionListener
         JMenuItem helpAbout = new JMenuItem("About");
 
         // gray out currently unavailable menu items
-        filePrefs.setEnabled(false);
         editDif.setEnabled(false);
         editFilter.setEnabled(false);
         helpTut.setEnabled(false);
@@ -160,6 +159,8 @@ public class NovelFrame extends JFrame implements ActionListener
 
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
+        NovelPrefs prefs = new NovelPrefs(this);
+        prefs.setVisible(true);
     }
 
     /**
@@ -178,7 +179,7 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void aboutDialog() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. ï¿½ Copyright 2012"
                 + "\nVersion " + getVersion()
                 + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"

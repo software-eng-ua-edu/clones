@@ -21,12 +21,13 @@ See LICENSE for details.
       <pathelement location="${compile.commons-config.classpath}" />
       <pathelement location="${compile.commons-logging.classpath}" />
       -->
-   	  <pathelement location="${compile.rsyntaxtextarea.classpath}" />
+      <pathelement location="${compile.rsyntaxtextarea.classpath}" />
         <pathelement location="${compile.rcf.classpath}" />
         <pathelement location="${compile.jcommon.classpath}" />
         <pathelement location="${compile.jfreechart.classpath}" />
         <pathelement location="${compile.clonelink.classpath}" />
-   	    <pathelement location="${compile.jgit.classpath}" />
+        <pathelement location="${compile.jgit.classpath}" />
+        <pathelement location="${compile.designgridlayout.classpath}" />
    </path>
 
    <!--
@@ -37,6 +38,7 @@ See LICENSE for details.
    <zipfileset id="rcf.zfs" src="${compile.rcf.classpath}" />
    <zipfileset id="clonelink.zfs" src="${compile.clonelink.classpath}" />
    <zipfileset id="jgit.zfs" src="${compile.jgit.classpath}" />
+   <zipfileset id="designgridlayout.zfs" src="${compile.designgridlayout.classpath}" />
 
    <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
    <!--  Public Targets                 -->
@@ -156,7 +158,8 @@ See LICENSE for details.
          <zipfileset refid="rsyntaxtextarea.zfs" />
          <zipfileset refid="rcf.zfs" />
          <zipfileset refid="clonelink.zfs" />
-      	 <zipfileset refid="jgit.zfs" />
+         <zipfileset refid="jgit.zfs" />
+         <zipfileset refid="designgridlayout.zfs" />
       </jar>
       <symlink
          resource    = "${project.jar.name}.jar"
