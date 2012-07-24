@@ -26,6 +26,7 @@ See LICENSE for details.
         <pathelement location="${compile.jcommon.classpath}" />
         <pathelement location="${compile.jfreechart.classpath}" />
         <pathelement location="${compile.clonelink.classpath}" />
+   	    <pathelement location="${compile.jgit.classpath}" />
    </path>
 
    <!--
@@ -35,6 +36,7 @@ See LICENSE for details.
    <zipfileset id="rsyntaxtextarea.zfs" src="${compile.rsyntaxtextarea.classpath}" />
    <zipfileset id="rcf.zfs" src="${compile.rcf.classpath}" />
    <zipfileset id="clonelink.zfs" src="${compile.clonelink.classpath}" />
+   <zipfileset id="jgit.zfs" src="${compile.jgit.classpath}" />
 
    <!--  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
    <!--  Public Targets                 -->
@@ -154,6 +156,7 @@ See LICENSE for details.
          <zipfileset refid="rsyntaxtextarea.zfs" />
          <zipfileset refid="rcf.zfs" />
          <zipfileset refid="clonelink.zfs" />
+      	 <zipfileset refid="jgit.zfs" />
       </jar>
       <symlink
          resource    = "${project.jar.name}.jar"
