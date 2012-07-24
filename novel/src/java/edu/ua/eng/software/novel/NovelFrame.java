@@ -13,6 +13,7 @@ import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,6 +24,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * Creates the main UI frame and menu
@@ -171,10 +178,28 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void aboutDialog() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. Â© Copyright 2012"
-                + "\nVersion 1.0" + "\n\nBlake Bassett, Casey Ferris"
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+                + "\nVersion " + getVersion()
+                + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"
                 + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public String getVersion() {
+        try {
+            FileRepositoryBuilder builder = new FileRepositoryBuilder();
+            Repository repository = builder
+                    .setGitDir(new File("../clones/.git")).readEnvironment()
+                    .findGitDir().build();
+            RevWalk walk = new RevWalk(repository);
+            ObjectId rootId = repository.resolve("HEAD");
+            RevCommit root = walk.parseCommit(rootId);
+            String version = root.toString().substring(7, 17);
+            return version;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
