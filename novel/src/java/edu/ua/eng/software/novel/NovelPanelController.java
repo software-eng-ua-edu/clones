@@ -52,6 +52,10 @@ public class NovelPanelController
     public void updateStatus(String status) {
         panel.updateStatus(status);
     }
+    
+    public void setSourceTheme(String theme) {
+        panel.setSourceTheme(theme);
+    }
 
     public void loadCloneData() {
         panel.getClassesTree().loadFromDataModel();

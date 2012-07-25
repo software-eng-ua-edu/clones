@@ -40,6 +40,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 public class NovelFrame extends JFrame implements ActionListener
 {
     private NovelPanel panel;
+    private NovelPrefs prefs;
 
     public final void initUI() {
 
@@ -120,6 +121,7 @@ public class NovelFrame extends JFrame implements ActionListener
         // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        prefs = new NovelPrefs(this);
         panel = new NovelPanel();
         setContentPane(panel);
         NovelPanelController.getInstance().setPanel(panel);
@@ -159,7 +161,6 @@ public class NovelFrame extends JFrame implements ActionListener
 
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
-        NovelPrefs prefs = new NovelPrefs(this);
         prefs.setVisible(true);
     }
 

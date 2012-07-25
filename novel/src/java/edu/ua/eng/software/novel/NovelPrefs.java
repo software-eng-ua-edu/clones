@@ -9,10 +9,12 @@ package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.prefs.Preferences;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -33,11 +35,19 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 @SuppressWarnings("serial")
 public class NovelPrefs extends JDialog
 {
+    private Preferences prefs;
+    private ButtonGroup themes;
+    private String currentTheme;
+
+    private static final String SOURCE_THEME = "SourceTheme";
+
     public NovelPrefs(final Frame parent) {
         super(parent, "NoVEL Preferences", true);
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(640, 480));
         super.setResizable(false);
+
+        initializePrefs();
 
         JPanel visual = new JPanel();
         DesignGridLayout vLayout = new DesignGridLayout(visual);
@@ -53,26 +63,47 @@ public class NovelPrefs extends JDialog
                 JLabel.CENTER));
 
         // set source theme
-        JPanel sourceTheme = new JPanel();
+        JPanel sourceTheme = new JPanel(
+                new FlowLayout(FlowLayout.CENTER, 25, 0));
         sourceTheme.setBorder(BorderFactory
                 .createTitledBorder("Set Source Theme"));
-        JRadioButton eclipse = new JRadioButton("Eclipse (default)", true);
+        JRadioButton eclipse = new JRadioButton("Eclipse (default)");
         JRadioButton standard = new JRadioButton("Standard");
-        ButtonGroup themes = new ButtonGroup();
+        JRadioButton dark = new JRadioButton("Dark");
+        JRadioButton vs = new JRadioButton("Visual Studio");
+        themes = new ButtonGroup();
         themes.add(eclipse);
         themes.add(standard);
+        themes.add(dark);
+        themes.add(vs);
 
+        eclipse.setActionCommand("ECLIPSE");
+        standard.setActionCommand("STANDARD");
+        dark.setActionCommand("DARK");
+        vs.setActionCommand("VS");
+
+        if (currentTheme.equals("ECLIPSE")) {
+            themes.setSelected(eclipse.getModel(), true);
+        } else if (currentTheme.equals("STANDARD")) {
+            themes.setSelected(standard.getModel(), true);
+        } else if (currentTheme.equals("DARK")) {
+            themes.setSelected(dark.getModel(), true);
+        } else if (currentTheme.equals("VS")) {
+            themes.setSelected(vs.getModel(), true);
+        }
         sourceTheme.add(eclipse);
         sourceTheme.add(standard);
+        sourceTheme.add(dark);
+        sourceTheme.add(vs);
 
         // create okay and cancel buttons
         JPanel buttons = new JPanel();
         DesignGridLayout bLayout = new DesignGridLayout(buttons);
-        JButton okay = new JButton("Okay");
+        JButton okay = new JButton("OK");
         JButton cancel = new JButton("Cancel");
 
         // add action commands
-        okay.setActionCommand("OKA");
+        okay.setActionCommand("OK");
         cancel.setActionCommand("CANCEL");
         okay.addActionListener(listener);
         cancel.addActionListener(listener);
@@ -89,12 +120,36 @@ public class NovelPrefs extends JDialog
         super.setLocationRelativeTo(null);
     }
 
+    public void initializePrefs() {
+
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+        currentTheme = prefs.get(SOURCE_THEME, "ECLIPSE");
+        
+        // not sure why this line doesn't work
+        // but it's supposed to update the theme based on
+        // preferences whenever you start the program again
+        // NovelPanelController.getInstance().setSourceTheme(currentTheme);
+    }
+
+    public void setPrefs() {
+
+        prefs.put(SOURCE_THEME, themes.getSelection().getActionCommand());
+    }
+
+    public void setTheme() {
+
+        NovelPanelController.getInstance().setSourceTheme(
+                themes.getSelection().getActionCommand());
+    }
+
     ActionListener listener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
 
             if (e.getActionCommand().equals("CANCEL")) {
                 setVisible(false);
-            } else if (e.getActionCommand().equals("OKAY")) {
+            } else if (e.getActionCommand().equals("OK")) {
+                setPrefs();
+                setTheme();
                 setVisible(false);
             }
         }

@@ -10,18 +10,16 @@ package edu.ua.eng.software.novel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -172,11 +170,26 @@ public class NovelSourceViewer extends JPanel
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    scroll.getViewport().setViewPosition(new Point(0, text.yForLine(text.getCaretLineNumber())));
+                    scroll.getViewport().setViewPosition(
+                            new Point(0, text.yForLine(text
+                                    .getCaretLineNumber())));
                 } catch (BadLocationException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    public void setTheme(String themePath) {
+        try {
+            BufferedInputStream bis = new BufferedInputStream(
+                    new FileInputStream(themePath));
+            DataInputStream in = new DataInputStream(bis);
+            Theme theme = Theme.load(in);
+            theme.apply(sourceLeft);
+            theme.apply(sourceRight);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

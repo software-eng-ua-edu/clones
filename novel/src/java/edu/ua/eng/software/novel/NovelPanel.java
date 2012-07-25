@@ -21,8 +21,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
 import de.uni_bremen.st.rcf.model.File;
-import de.uni_bremen.st.rcf.model.Fragment;
-
 import edu.ua.eng.software.novel.NovelClassesTree.FragmentCell;
 
 /**
@@ -80,7 +78,7 @@ public class NovelPanel extends JPanel
         JTabbedPane listPane = new JTabbedPane();
         listPane.addTab("Files", filesView);
         listPane.addTab("Clone Classes", classesPane);
-        
+
         listPane.setMnemonicAt(0, KeyEvent.VK_F);
         listPane.setMnemonicAt(1, KeyEvent.VK_C);
 
@@ -88,10 +86,11 @@ public class NovelPanel extends JPanel
         contentPane = new JTabbedPane();
         contentPane.addTab("Source", sourcePane);
         contentPane.addTab("Pie Chart", new JLabel("Pie Chart", JLabel.CENTER));
-        contentPane.addTab("Bars", new JLabel("Bars and Stripes Chart", JLabel.CENTER));
+        contentPane.addTab("Bars", new JLabel("Bars and Stripes Chart",
+                JLabel.CENTER));
         contentPane.addTab("Tree Map", new JLabel("Tree Map", JLabel.CENTER));
         contentPane.addTab("BugLink", bugLinkPane);
-        
+
         contentPane.setMnemonicAt(0, KeyEvent.VK_S);
         contentPane.setMnemonicAt(1, KeyEvent.VK_P);
         contentPane.setMnemonicAt(2, KeyEvent.VK_B);
@@ -122,12 +121,25 @@ public class NovelPanel extends JPanel
     public void updateFragmentsSelected(List<FragmentCell> fragments) {
         leftFrag = fragments.get(0);
         rightFrag = fragments.get(1);
-        sourcePane.setSplitSource(leftFrag.getFragment(), rightFrag.getFragment());
+        sourcePane.setSplitSource(leftFrag.getFragment(),
+                rightFrag.getFragment());
         bugLinkView.showFragments(fragments);
     }
 
     public void showSourcePane() {
         contentPane.setSelectedComponent(sourcePane);
+    }
+
+    public void setSourceTheme(String theme) {
+        if (theme.equals("ECLIPSE")) {
+            sourcePane.setTheme("res/eclipseTheme.xml");
+        } else if (theme.equals("STANDARD")) {
+            sourcePane.setTheme("res/defaultTheme.xml");
+        } else if (theme.equals("DARK")) {
+            sourcePane.setTheme("res/darkTheme.xml");
+        } else if (theme.equals("VS")) {
+            sourcePane.setTheme("res/vsTheme.xml");
+        }
     }
 
     public NovelClassesTree getClassesTree() {
