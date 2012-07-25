@@ -180,8 +180,8 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void aboutDialog() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. � Copyright 2012"
-                + "\nVersion " + getVersion()
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. Copyright 2012"
+                + "\nLast updated " + getVersion()
                 + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"
                 + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
@@ -192,13 +192,13 @@ public class NovelFrame extends JFrame implements ActionListener
         try {
             FileRepositoryBuilder builder = new FileRepositoryBuilder();
             Repository repository = builder
-                    .setGitDir(new File("../clones/.git")).readEnvironment()
+                    .setGitDir(new File("../../clones/.git")).readEnvironment()
                     .findGitDir().build();
             RevWalk walk = new RevWalk(repository);
             ObjectId rootId = repository.resolve("HEAD");
             RevCommit root = walk.parseCommit(rootId);
-            String version = root.toString().substring(7, 17);
-            return version;
+            return root.getCommitterIdent().getWhen().toString()
+                    .substring(0, 10);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
