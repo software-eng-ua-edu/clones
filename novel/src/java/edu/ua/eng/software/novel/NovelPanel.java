@@ -102,7 +102,7 @@ public class NovelPanel extends JPanel
                 listPane, contentPane);
         tabPanels.setDividerLocation(300);
         tabPanels.setResizeWeight(0.2);
-        tabPanels.setOneTouchExpandable(false);
+        tabPanels.setOneTouchExpandable(true);
         tabPanels.setContinuousLayout(true);
 
         // add components to the super JPanel
