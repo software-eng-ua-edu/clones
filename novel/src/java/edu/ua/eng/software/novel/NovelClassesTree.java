@@ -39,7 +39,11 @@ import de.uni_bremen.st.rcf.model.Fragment;
 @SuppressWarnings("serial")
 public class NovelClassesTree extends JTree implements TreeSelectionListener
 {
+    private DefaultMutableTreeNode root;
+    private DefaultTreeModel model;
+
     public NovelClassesTree() {
+        setToggleClickCount(0);
         setRootVisible(false);
         getSelectionModel().setSelectionMode(
                 TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -76,9 +80,6 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
         if (node == null)
             return;
     }
-
-    private DefaultMutableTreeNode root;
-    private DefaultTreeModel model;
 
     public class ClassCell extends DefaultMutableTreeNode
     {
@@ -162,10 +163,12 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
     {
         public void mouseClicked(MouseEvent evt) {
             NovelClassesTree tree = (NovelClassesTree) evt.getSource();
-            if (evt.getClickCount() == 2) {
+           
+            if (evt.getClickCount()==2) {
                 TreePath path = getPathForLocation(evt.getX(), evt.getY());
                 if(path != null) {
                     TreeNode node = (TreeNode) path.getLastPathComponent();
+                    expandPath(path);
                     if(!node.isLeaf()) {
                         ClassCell cell = (ClassCell) node;
                         NovelPanelController.getInstance().classCellSelected(cell);
@@ -173,11 +176,12 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
                         FragmentCell cell = (FragmentCell) node;
                         List<FragmentCell> cells = new LinkedList<FragmentCell>();
                         cells.add(cell);
-                        if(cell.getNextSibling() != null) {
+
+                        if(cell.getNexsdfsdftSibling() != null) {
                             cells.add((FragmentCell) cell.getNextSibling());
                         } else {
                             cells.add((FragmentCell) cell.getPreviousSibling());
-                        }
+                        }   
                         NovelPanelController.getInstance().fragmentCellsSelected(cells);
                     }
                 }
