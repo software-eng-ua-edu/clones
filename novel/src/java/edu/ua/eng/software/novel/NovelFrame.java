@@ -135,9 +135,9 @@ public class NovelFrame extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("OPEN")) {
-            NovelImportDialog importDialog = new NovelImportDialog(this);
+            NovelImportPrefPane importDialog = new NovelImportPrefPane(this);
         } else if (e.getActionCommand().equals("SET")) {
-            NovelSetRepoDialog setRepoDialog = new NovelSetRepoDialog(this);
+            NovelSetRepoPrefPane setRepoDialog = new NovelSetRepoPrefPane(this);
         } else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))

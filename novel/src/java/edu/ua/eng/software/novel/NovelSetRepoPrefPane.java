@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.ua.eng.software.novel.importing.NovelImporter;
-import edu.ua.eng.software.novel.importing.NovelImporter.ReportType;
+import edu.ua.eng.software.novel.importing.NovelImporter.SourceRepoType;
 
 /**
  * Create a dialog to
@@ -39,10 +39,10 @@ import edu.ua.eng.software.novel.importing.NovelImporter.ReportType;
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
  * @author Casey Ferris <cmferris1@crimson.ua.edu>
  */
-public class NovelImportDialog extends JDialog
+public class NovelSetRepoPrefPane extends JDialog
 {
-    public NovelImportDialog(final Frame parent) {
-        super(parent, "Import", true);
+    public NovelSetRepoPrefPane(final Frame parent) {
+        super(parent, "Set Repository Path", true);
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(400, 240));
         super.setResizable(false);
@@ -56,28 +56,17 @@ public class NovelImportDialog extends JDialog
         selection.setLayout(new GridBagLayout());
         GridBagConstraints cSel = new GridBagConstraints();
         selection.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Set import location"),
+                BorderFactory.createTitledBorder("Set repository location"),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        final JTextField fileText = new JTextField("Choose clone results...",
+        final JTextField dirText = new JTextField("Choose repo directory or url...",
                 15);
-        final JTextField dirText = new JTextField("Choose source directory...",
-                15);
-        fileText.setEditable(false);
-        dirText.setEditable(false);
 
-        JButton fileBrowse = new JButton("Browse");
         JButton dirBrowse = new JButton("Browse");
 
         // add actions for browse buttons
         ActionListener browseListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand() == "SETCLONES") {
-                    JFileChooser chooser = chooseImportFile();
-                    if (buttonClicked == JFileChooser.APPROVE_OPTION) {
-                        importFile = chooser.getSelectedFile();
-                        fileText.setText(importFile.getAbsolutePath());
-                    }
-                } else {
+                if (e.getActionCommand() == "SETDIR") {
                     JFileChooser chooser = chooseSourceDir();
                     if (buttonClicked == JFileChooser.APPROVE_OPTION) {
                         sourceDir = chooser.getSelectedFile();
@@ -87,41 +76,38 @@ public class NovelImportDialog extends JDialog
             }
         };
 
-        fileBrowse.setActionCommand("SETCLONES");
         dirBrowse.setActionCommand("SETDIR");
-        fileBrowse.addActionListener(browseListener);
         dirBrowse.addActionListener(browseListener);
-        fileBrowse.setMnemonic(KeyEvent.VK_B);
         dirBrowse.setMnemonic(KeyEvent.VK_R);
 
         // add radio buttons to select clone results type
         JPanel radioButtons = new JPanel();
         radioButtons.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("Clone results type:"),
+                BorderFactory.createTitledBorder("Repository type:"),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         // add actions for radio buttons
         ActionListener radioListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                importType = ReportType.valueOf(e.getActionCommand());
+                importType = SourceRepoType.valueOf(e.getActionCommand());
             }
         };
 
-        JRadioButton selectRCF = new JRadioButton("RCF");
-        selectRCF.setMnemonic(KeyEvent.VK_F);
-        selectRCF.setActionCommand("RCF");
-        selectRCF.addActionListener(radioListener);
-        JRadioButton selectNiCad = new JRadioButton("NiCad");
-        selectNiCad.setMnemonic(KeyEvent.VK_N);
-        selectNiCad.setActionCommand("NICAD");
-        selectNiCad.addActionListener(radioListener);
+        JRadioButton selectSVN = new JRadioButton("SVN");
+        selectSVN.setMnemonic(KeyEvent.VK_S);
+        selectSVN.setActionCommand("SVN");
+        selectSVN.addActionListener(radioListener);
+        JRadioButton selectGit = new JRadioButton("Git");
+        selectGit.setMnemonic(KeyEvent.VK_G);
+        selectGit.setActionCommand("GIT");
+        selectGit.addActionListener(radioListener);
 
         ButtonGroup buttons = new ButtonGroup();
-        buttons.add(selectRCF);
-        buttons.add(selectNiCad);
+        buttons.add(selectSVN);
+        buttons.add(selectGit);
 
-        selectRCF.setSelected(true);
-        importType = ReportType.RCF;
+        selectSVN.setSelected(true);
+        importType = SourceRepoType.SVN;
 
         // add cancel & confirm buttons
         ActionListener confirmAction = new ActionListener() {
@@ -129,23 +115,19 @@ public class NovelImportDialog extends JDialog
                 if (e.getActionCommand() == "CANCEL")
                     setVisible(false);
                 else {
-                    if (importFile == null)
+                    if (sourceDir == null)
                         JOptionPane.showMessageDialog(parent,
-                                "Please select clone results to import",
-                                "Import Error", JOptionPane.ERROR_MESSAGE);
-                    else if (sourceDir == null)
-                        JOptionPane.showMessageDialog(parent,
-                                "Please select a source directory",
-                                "Import Error", JOptionPane.ERROR_MESSAGE);
+                                "Please select a repository path",
+                                "Set Error", JOptionPane.ERROR_MESSAGE);
                     else {
                         setVisible(false);
                         try {
                             NovelPanelController.getInstance().updateStatus(
-                                    "Imported clone results from "
-                                            + importFile.getName());
-                            NovelImporter.importReport(importFile, sourceDir,
+                                    "Set repository path to "
+                                            + sourceDir.getParentFile().getName() + "/" + sourceDir.getName());
+                            NovelImporter.importBugs(sourceDir,
                                     importType);
-                        } catch (FileNotFoundException ex) {
+                        } catch (Exception ex) {
                             JOptionPane.showMessageDialog(getParent(),
                                     ex.getMessage(), "File Not Found",
                                     JOptionPane.ERROR_MESSAGE);
@@ -157,34 +139,26 @@ public class NovelImportDialog extends JDialog
 
         JPanel confirmButtons = new JPanel();
         JButton confirm = new JButton("Okay");
-        confirm.setToolTipText("Confirm import settings");
+        confirm.setToolTipText("Confirm repository settings");
         confirm.setMnemonic(KeyEvent.VK_O);
         confirm.setActionCommand("OKAY");
         confirm.addActionListener(confirmAction);
         JButton cancel = new JButton("Cancel");
-        cancel.setToolTipText("Abort import dialog");
+        cancel.setToolTipText("Abort repository dialog");
         cancel.setMnemonic(KeyEvent.VK_C);
         cancel.setActionCommand("CANCEL");
         cancel.addActionListener(confirmAction);
 
         // add components
-        cSel.gridx = 0;
-        cSel.gridy = 0;
         cSel.weightx = 1.0;
-        cSel.weighty = 0.5;
-        cSel.fill = GridBagConstraints.HORIZONTAL;
-        selection.add(fileText, cSel);
-        cSel.gridx = 1;
-        cSel.weightx = 0;
-        selection.add(fileBrowse, cSel);
         cSel.gridx = 0;
         cSel.gridy = 1;
         cSel.fill = GridBagConstraints.HORIZONTAL;
         selection.add(dirText, cSel);
         cSel.gridx = 1;
         selection.add(dirBrowse, cSel);
-        radioButtons.add(selectRCF);
-        radioButtons.add(selectNiCad);
+        radioButtons.add(selectSVN);
+        radioButtons.add(selectGit);
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 0.5;
@@ -205,29 +179,12 @@ public class NovelImportDialog extends JDialog
         super.setVisible(true);
     }
 
-    public File getImportFile() {
-        return importFile;
-    }
-
     public File getSourceDir() {
         return sourceDir;
     }
 
-    public ReportType getImportType() {
+    public SourceRepoType getImportType() {
         return importType;
-    }
-
-    private JFileChooser chooseImportFile() {
-        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-        chooser.setFileHidingEnabled(false);
-        chooser.setDialogTitle("Import Clone Results");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                ".rcf and .xml", "rcf", "xml");
-        chooser.setFileFilter(filter);
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        buttonClicked = chooser.showOpenDialog(this);
-        return chooser;
     }
 
     private JFileChooser chooseSourceDir() {
@@ -240,9 +197,8 @@ public class NovelImportDialog extends JDialog
         return chooser;
     }
 
-    private File importFile;
     private File sourceDir;
-    private ReportType importType;
+    private SourceRepoType importType;
 
     private int buttonClicked;
 }
