@@ -177,7 +177,7 @@ public class NovelClassesTree extends JTree implements TreeSelectionListener
                         List<FragmentCell> cells = new LinkedList<FragmentCell>();
                         cells.add(cell);
 
-                        if(cell.getNexsdfsdftSibling() != null) {
+                        if(cell.getNextSibling() != null) {
                             cells.add((FragmentCell) cell.getNextSibling());
                         } else {
                             cells.add((FragmentCell) cell.getPreviousSibling());
