@@ -55,7 +55,11 @@ public class NovelPrefs extends JDialog
 
         // create tabbed pane and add its components
         JTabbedPane prefsTabs = new JTabbedPane();
-        prefsTabs.addTab("Visual", visual);
+        prefsTabs.addTab("Import Settings", new JLabel("Import Settings",
+                JLabel.CENTER));
+        prefsTabs.addTab("Repository Settings", new JLabel("Repository Settings",
+                JLabel.CENTER));
+        prefsTabs.addTab("Visual Settings", visual);
         prefsTabs.addTab("Other Settings", new JLabel("Other Settings",
                 JLabel.CENTER));
         prefsTabs.addTab("Moar Settings", new JLabel("Moar Settings",
