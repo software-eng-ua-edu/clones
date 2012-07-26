@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.prefs.Preferences;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -39,9 +40,11 @@ import edu.ua.eng.software.novel.importing.NovelImporter.SourceRepoType;
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
  * @author Casey Ferris <cmferris1@crimson.ua.edu>
  */
-public class NovelSetRepoPrefPane extends JPanel
+public class NovelSetRepoPrefPane extends NovelPrefPane
 {
-    public NovelSetRepoPrefPane() {
+    public NovelSetRepoPrefPane(Preferences prefs) {
+        super(prefs);
+        this.changed = false;
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(400, 240));
 
@@ -184,6 +187,14 @@ public class NovelSetRepoPrefPane extends JPanel
         return importType;
     }
 
+    public void apply() {
+
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
     private JFileChooser chooseSourceDir() {
         JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         chooser.setFileHidingEnabled(false);
@@ -198,4 +209,5 @@ public class NovelSetRepoPrefPane extends JPanel
     private SourceRepoType importType;
 
     private int buttonClicked;
+    private boolean changed;
 }
