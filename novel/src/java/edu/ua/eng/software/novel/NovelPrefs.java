@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import net.java.dev.designgridlayout.DesignGridLayout;
 
@@ -124,11 +125,12 @@ public class NovelPrefs extends JDialog
 
         prefs = Preferences.userRoot().node(this.getClass().getName());
         currentTheme = prefs.get(SOURCE_THEME, "ECLIPSE");
-        
-        // not sure why this line doesn't work
-        // but it's supposed to update the theme based on
-        // preferences whenever you start the program again
-        // NovelPanelController.getInstance().setSourceTheme(currentTheme);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                NovelPanelController.getInstance().setSourceTheme(currentTheme);
+            }
+        });
     }
 
     public void setPrefs() {
