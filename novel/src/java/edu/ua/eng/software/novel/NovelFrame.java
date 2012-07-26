@@ -7,13 +7,13 @@
  */
 package edu.ua.eng.software.novel;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -119,7 +119,6 @@ public class NovelFrame extends JFrame implements ActionListener
         setSize(1024, 768);
         setLocationRelativeTo(null);
         setMinimumSize(new Dimension(800, 600));
-        // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         prefs = new NovelPrefs(this);
@@ -159,8 +158,7 @@ public class NovelFrame extends JFrame implements ActionListener
      * Create dialog to handle user preferences
      */
     public void prefsDialog() {
-        // will use java.util.prefs package to handle preference storage
-        // will most likely use a new "NovelPrefs" class to display
+
         prefs.setVisible(true);
     }
 
@@ -185,11 +183,11 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void aboutDialog() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. Copyright 2012"
+        JOptionPane.showMessageDialog(this, "NoVEL Copyright 2012"
                 + "\nLast updated " + getVersion()
                 + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"
-                + "\nNicholas Kraft, Paige Rodeghero", "About N.o.V.E.L.",
+                + "\nNicholas Kraft, Paige Rodeghero", "About NoVEL",
                 JOptionPane.INFORMATION_MESSAGE);
     }
 

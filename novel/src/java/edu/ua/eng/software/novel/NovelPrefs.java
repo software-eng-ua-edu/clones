@@ -48,8 +48,8 @@ public class NovelPrefs extends JDialog
         JPanel visual = new JPanel();
         DesignGridLayout vLayout = new DesignGridLayout(visual);
 
-        importPane = new NovelImportPrefPane();
-        repoPane = new NovelSetRepoPrefPane();
+        importPane = new NovelImportPrefPane(prefs);
+        repoPane = new NovelSetRepoPrefPane(prefs);
 
         // create tabbed pane and add its components
         prefsTabs = new JTabbedPane();
@@ -60,8 +60,8 @@ public class NovelPrefs extends JDialog
                 JLabel.CENTER));
         prefsTabs.addTab("Moar Settings", new JLabel("Moar Settings",
                 JLabel.CENTER));
-        prefsTabs.addTab("Awesome Settings!", new JLabel("N.o.V.e.L. is AWESOME!",
-                JLabel.CENTER));
+        prefsTabs.addTab("Awesome Settings!", new JLabel(
+                "N.o.V.e.L. is AWESOME!", JLabel.CENTER));
 
         // set source theme
         JPanel sourceTheme = new JPanel(
@@ -108,17 +108,17 @@ public class NovelPrefs extends JDialog
         apply.setActionCommand("APPLY");
         okay.setActionCommand("OK");
         cancel.setActionCommand("CANCEL");
-    
+
         apply.addActionListener(listener);
         okay.addActionListener(listener);
         cancel.addActionListener(listener);
- 
+
         apply.setMnemonic(KeyEvent.VK_A);
         okay.setMnemonic(KeyEvent.VK_O);
         cancel.setMnemonic(KeyEvent.VK_C);
 
         // add components
-        bLayout.row().right().add(apply,okay, cancel);
+        bLayout.row().right().add(apply, okay, cancel);
         vLayout.row().left().fill().add(sourceTheme);
         super.add(prefsTabs);
         super.add(buttons, BorderLayout.SOUTH);
@@ -169,7 +169,7 @@ public class NovelPrefs extends JDialog
                 setPrefs();
                 setTheme();
                 setVisible(false);
-            } else if (e.getActionCommand().equals("APPLY")){
+            } else if (e.getActionCommand().equals("APPLY")) {
                 setPrefs();
                 setTheme();
             }
@@ -180,8 +180,8 @@ public class NovelPrefs extends JDialog
     private ButtonGroup themes;
     private String currentTheme;
 
-    private JPanel importPane;
-    private JPanel repoPane;
+    private NovelPrefPane importPane;
+    private NovelPrefPane repoPane;
     private JTabbedPane prefsTabs;
 
     private static final String SOURCE_THEME = "SourceTheme";
