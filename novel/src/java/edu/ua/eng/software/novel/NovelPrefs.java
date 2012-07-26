@@ -8,6 +8,7 @@
 package edu.ua.eng.software.novel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -36,12 +37,6 @@ import net.java.dev.designgridlayout.DesignGridLayout;
 @SuppressWarnings("serial")
 public class NovelPrefs extends JDialog
 {
-    private Preferences prefs;
-    private ButtonGroup themes;
-    private String currentTheme;
-
-    private static final String SOURCE_THEME = "SourceTheme";
-
     public NovelPrefs(final Frame parent) {
         super(parent, "NoVEL Preferences", true);
         super.setLayout(new BorderLayout());
@@ -53,12 +48,13 @@ public class NovelPrefs extends JDialog
         JPanel visual = new JPanel();
         DesignGridLayout vLayout = new DesignGridLayout(visual);
 
+        importPane = new JPanel();
+        repoPane = new JPanel();
+
         // create tabbed pane and add its components
-        JTabbedPane prefsTabs = new JTabbedPane();
-        prefsTabs.addTab("Import Settings", new JLabel("Import Settings",
-                JLabel.CENTER));
-        prefsTabs.addTab("Repository Settings", new JLabel("Repository Settings",
-                JLabel.CENTER));
+        prefsTabs = new JTabbedPane();
+        prefsTabs.addTab("Import Settings", importPane);
+        prefsTabs.addTab("Repository Settings", repoPane);
         prefsTabs.addTab("Visual Settings", visual);
         prefsTabs.addTab("Other Settings", new JLabel("Other Settings",
                 JLabel.CENTER));
@@ -126,7 +122,6 @@ public class NovelPrefs extends JDialog
     }
 
     public void initializePrefs() {
-
         prefs = Preferences.userRoot().node(this.getClass().getName());
         currentTheme = prefs.get(SOURCE_THEME, "ECLIPSE");
 
@@ -143,9 +138,20 @@ public class NovelPrefs extends JDialog
     }
 
     public void setTheme() {
-
         NovelPanelController.getInstance().setSourceTheme(
                 themes.getSelection().getActionCommand());
+    }
+
+    public void setSelectedComponent(Component c) {
+        prefsTabs.setSelectedComponent(c);
+    }
+
+    public JPanel getImportPane() {
+        return importPane;
+    }
+
+    public JPanel getRepoPane() {
+        return repoPane;
     }
 
     ActionListener listener = new ActionListener() {
@@ -160,4 +166,14 @@ public class NovelPrefs extends JDialog
             }
         }
     };
+
+    private Preferences prefs;
+    private ButtonGroup themes;
+    private String currentTheme;
+
+    private JPanel importPane;
+    private JPanel repoPane;
+    private JTabbedPane prefsTabs;
+
+    private static final String SOURCE_THEME = "SourceTheme";
 }
