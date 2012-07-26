@@ -159,15 +159,14 @@ public class NovelFrame extends JFrame implements ActionListener
      * Create dialog to handle user preferences
      */
     public void prefsDialog() {
-
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
         prefs.setVisible(true);
     }
 
     public void prefsDialog(Component c) {
-        prefsDialog();
         prefs.setSelectedComponent(c);
+        prefsDialog();
     }
 
     /**

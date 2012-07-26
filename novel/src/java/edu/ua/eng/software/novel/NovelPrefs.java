@@ -48,8 +48,8 @@ public class NovelPrefs extends JDialog
         JPanel visual = new JPanel();
         DesignGridLayout vLayout = new DesignGridLayout(visual);
 
-        importPane = new JPanel();
-        repoPane = new JPanel();
+        importPane = new NovelImportPrefPane();
+        repoPane = new NovelSetRepoPrefPane();
 
         // create tabbed pane and add its components
         prefsTabs = new JTabbedPane();

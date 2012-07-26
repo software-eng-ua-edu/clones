@@ -39,13 +39,11 @@ import edu.ua.eng.software.novel.importing.NovelImporter.SourceRepoType;
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
  * @author Casey Ferris <cmferris1@crimson.ua.edu>
  */
-public class NovelSetRepoPrefPane extends JDialog
+public class NovelSetRepoPrefPane extends JPanel
 {
-    public NovelSetRepoPrefPane(final Frame parent) {
-        super(parent, "Set Repository Path", true);
+    public NovelSetRepoPrefPane() {
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(400, 240));
-        super.setResizable(false);
 
         JPanel composite = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -109,6 +107,7 @@ public class NovelSetRepoPrefPane extends JDialog
         selectSVN.setSelected(true);
         importType = SourceRepoType.SVN;
 
+        final JPanel panel = this;
         // add cancel & confirm buttons
         ActionListener confirmAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -116,7 +115,7 @@ public class NovelSetRepoPrefPane extends JDialog
                     setVisible(false);
                 else {
                     if (sourceDir == null)
-                        JOptionPane.showMessageDialog(parent,
+                        JOptionPane.showMessageDialog(panel,
                                 "Please select a repository path",
                                 "Set Error", JOptionPane.ERROR_MESSAGE);
                     else {
@@ -174,8 +173,6 @@ public class NovelSetRepoPrefPane extends JDialog
         super.add(composite, BorderLayout.CENTER);
         super.add(confirmButtons, BorderLayout.SOUTH);
 
-        super.pack();
-        super.setLocationRelativeTo(null);
         super.setVisible(true);
     }
 

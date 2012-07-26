@@ -39,13 +39,11 @@ import edu.ua.eng.software.novel.importing.NovelImporter.ReportType;
  * @author Blake Bassett <rbbassett@crimson.ua.edu>
  * @author Casey Ferris <cmferris1@crimson.ua.edu>
  */
-public class NovelImportPrefPane extends JDialog
+public class NovelImportPrefPane extends JPanel
 {
-    public NovelImportPrefPane(final Frame parent) {
-        super(parent, "Import", true);
+    public NovelImportPrefPane() {
         super.setLayout(new BorderLayout());
         super.setPreferredSize(new Dimension(400, 240));
-        super.setResizable(false);
 
         JPanel composite = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -123,6 +121,7 @@ public class NovelImportPrefPane extends JDialog
         selectRCF.setSelected(true);
         importType = ReportType.RCF;
 
+        final JPanel panel = this;
         // add cancel & confirm buttons
         ActionListener confirmAction = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -130,11 +129,11 @@ public class NovelImportPrefPane extends JDialog
                     setVisible(false);
                 else {
                     if (importFile == null)
-                        JOptionPane.showMessageDialog(parent,
+                        JOptionPane.showMessageDialog(panel,
                                 "Please select clone results to import",
                                 "Import Error", JOptionPane.ERROR_MESSAGE);
                     else if (sourceDir == null)
-                        JOptionPane.showMessageDialog(parent,
+                        JOptionPane.showMessageDialog(panel,
                                 "Please select a source directory",
                                 "Import Error", JOptionPane.ERROR_MESSAGE);
                     else {
@@ -200,8 +199,6 @@ public class NovelImportPrefPane extends JDialog
         super.add(composite, BorderLayout.CENTER);
         super.add(confirmButtons, BorderLayout.SOUTH);
 
-        super.pack();
-        super.setLocationRelativeTo(null);
         super.setVisible(true);
     }
 
