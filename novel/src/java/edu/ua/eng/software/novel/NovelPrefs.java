@@ -104,19 +104,25 @@ public class NovelPrefs extends JDialog
         // create okay and cancel buttons
         JPanel buttons = new JPanel();
         DesignGridLayout bLayout = new DesignGridLayout(buttons);
+        JButton apply = new JButton("Apply");
         JButton okay = new JButton("OK");
         JButton cancel = new JButton("Cancel");
 
         // add action commands
+        apply.setActionCommand("APPLY");
         okay.setActionCommand("OK");
         cancel.setActionCommand("CANCEL");
+    
+        apply.addActionListener(listener);
         okay.addActionListener(listener);
         cancel.addActionListener(listener);
+ 
+        apply.setMnemonic(KeyEvent.VK_A);
         okay.setMnemonic(KeyEvent.VK_O);
         cancel.setMnemonic(KeyEvent.VK_C);
 
         // add components
-        bLayout.row().right().add(okay, cancel);
+        bLayout.row().right().add(apply,okay, cancel);
         vLayout.row().left().fill().add(sourceTheme);
         super.add(prefsTabs);
         super.add(buttons, BorderLayout.SOUTH);
@@ -157,6 +163,9 @@ public class NovelPrefs extends JDialog
                 setPrefs();
                 setTheme();
                 setVisible(false);
+            } else if (e.getActionCommand().equals("APPLY")){
+                setPrefs();
+                setTheme();
             }
         }
     };
