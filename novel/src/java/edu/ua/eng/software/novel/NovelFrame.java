@@ -13,6 +13,7 @@ import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -135,9 +136,9 @@ public class NovelFrame extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("OPEN")) {
-            NovelImportDialog importDialog = new NovelImportDialog(this);
+            prefsDialog(prefs.getImportPane());
         } else if (e.getActionCommand().equals("SET")) {
-            NovelSetRepoDialog setRepoDialog = new NovelSetRepoDialog(this);
+            prefsDialog(prefs.getRepoPane());
         } else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
@@ -162,6 +163,11 @@ public class NovelFrame extends JFrame implements ActionListener
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
         prefs.setVisible(true);
+    }
+
+    public void prefsDialog(Component c) {
+        prefsDialog();
+        prefs.setSelectedComponent(c);
     }
 
     /**
