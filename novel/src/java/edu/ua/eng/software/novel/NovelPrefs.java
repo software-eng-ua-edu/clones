@@ -59,7 +59,7 @@ public class NovelPrefs extends JDialog
                 JLabel.CENTER));
         prefsTabs.addTab("Moar Settings", new JLabel("Moar Settings",
                 JLabel.CENTER));
-        prefsTabs.addTab("Awesome Settings!", new JLabel("Awesome Settings!",
+        prefsTabs.addTab("Awesome Settings!", new JLabel("N.o.V.e.L. is AWESOME!",
                 JLabel.CENTER));
 
         // set source theme
