@@ -10,7 +10,18 @@ package edu.ua.eng.software.novel;
 import java.util.List;
 import java.util.ListIterator;
 
+import java.awt.Desktop;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.io.IOException;
+
 import javax.swing.JTree;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -30,7 +41,11 @@ import edu.ua.eng.software.novel.NovelClassesTree.ClassCell;
 public class BugLinkView extends JTree
 {
     public BugLinkView() {
+        //testing
+        setBaseURL("http://sourceforge.net/search/index.php?group_id=12679&type_of_search=artifact&q=&artifact_id=%s");
+        
         setRootVisible(false);
+        addMouseListener(new BugLinkViewMouseListener());
 
         DefaultTreeCellRenderer renderer = new DefaultTreeCellRenderer();
         renderer.setOpenIcon(null);
@@ -49,26 +64,15 @@ public class BugLinkView extends JTree
             fragments = fragments.get(0).getParent().getChildren();
             CommitData commitData = BugDataModel.getInstance().getCommitData();
             ClassCell klass = fragments.get(0).getParent();
-            DefaultMutableTreeNode klassNode = new DefaultMutableTreeNode(klass.toString());
+            DefaultMutableTreeNode klassNode = new DefaultMutableTreeNode(klass);
             root.add(klassNode);
-            System.out.println("----");
-            for(Commit commit : commitData.getBugCommits()) {
-                for(FileChange change : commit.getFileChanges()) {
-                    //if(change.getOldPath().startsWith("jhotdraw7")) {
-                        System.out.println(change.getOldPath());
-                    //}
-                }
-            }
-            System.out.println("----");
             for(FragmentCell fragment : fragments) {
                 String path = fragment.getFragment().getStart().getFile().getRelativePath();
-                System.out.println(path + ":[" + commitData.getChanges(path).size() + "]");
-
                 DefaultMutableTreeNode fragNode = new DefaultMutableTreeNode(fragment);
                 klassNode.add(fragNode);
                 for(FileChange change : commitData.getChanges(path)) {
                     if(change.getCommit().isBugFix()) {
-                        fragNode.add(new DefaultMutableTreeNode(change.getCommit().getBugID()));
+                        fragNode.add(new BugIDCell(change.getCommit().getBugID()));
                     }
                 }
             }
@@ -77,12 +81,68 @@ public class BugLinkView extends JTree
         expandAll();
     }
 
+    public String getBaseURL() {
+        return baseURL;
+    }
+
+    public void setBaseURL(String baseURL) {
+        this.baseURL = baseURL;
+    }
+
+    protected void browseTo(BugIDCell cell) {
+        String url = getURLForBugID(cell.getBugID());
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException ioe) {
+
+        } catch (URISyntaxException use) {
+
+        }
+    }
+
+    protected String getURLForBugID(String bugID) {
+        return getBaseURL().replaceAll("%s", bugID);
+    }
+
     protected void expandAll() {
         for(int i = 0; i < getRowCount(); i++) {
             expandRow(i);
         }
     }
 
+    private class BugIDCell extends DefaultMutableTreeNode {
+        public BugIDCell(String bugID) {
+            this.bugID = bugID;
+        }
+
+        public String getBugID() {
+            return bugID;
+        }
+
+        public String toString() {
+            return bugID;
+        }
+
+        private String bugID;
+    }
+
+    private class BugLinkViewMouseListener extends MouseAdapter
+    {
+        public void mouseClicked(MouseEvent evt) {
+            BugLinkView tree = (BugLinkView) evt.getSource();
+            if (evt.getClickCount() == 2) {
+                TreePath path = getPathForLocation(evt.getX(), evt.getY());
+                if(path != null) {
+                    TreeNode node = (TreeNode) path.getLastPathComponent();
+                    if(node instanceof BugIDCell) {
+                        tree.browseTo((BugIDCell) node);
+                    }
+                }
+            }
+        }
+    }
+
     private DefaultMutableTreeNode root;
     private DefaultTreeModel model;
+    private String baseURL;
 }

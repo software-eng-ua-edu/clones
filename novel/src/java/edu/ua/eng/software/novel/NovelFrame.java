@@ -40,6 +40,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 public class NovelFrame extends JFrame implements ActionListener
 {
     private NovelPanel panel;
+    private NovelPrefs prefs;
 
     public final void initUI() {
 
@@ -47,11 +48,9 @@ public class NovelFrame extends JFrame implements ActionListener
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu edit = new JMenu("Edit");
-        JMenu source = new JMenu("Source");
         JMenu help = new JMenu("Help");
         menu.add(file);
         menu.add(edit);
-        menu.add(source);
         menu.add(help);
 
         // sub menu items
@@ -61,17 +60,12 @@ public class NovelFrame extends JFrame implements ActionListener
         JMenuItem fileExit = new JMenuItem("Exit");
         JMenuItem editDif = new JMenuItem("Difference");
         JMenuItem editFilter = new JMenuItem("Filter");
-        JMenuItem sourceSelect = new JMenuItem("Select All");
-        JMenuItem sourceCopy = new JMenuItem("Copy Selection");
         JMenuItem helpTut = new JMenuItem("Tutorials");
         JMenuItem helpAbout = new JMenuItem("About");
 
         // gray out currently unavailable menu items
-        filePrefs.setEnabled(false);
         editDif.setEnabled(false);
         editFilter.setEnabled(false);
-        sourceSelect.setEnabled(false);
-        sourceCopy.setEnabled(false);
         helpTut.setEnabled(false);
 
         // set action commands
@@ -99,15 +93,6 @@ public class NovelFrame extends JFrame implements ActionListener
                 Event.CTRL_MASK + Event.SHIFT_MASK));
         editFilter.addActionListener(this);
 
-        sourceSelect.setActionCommand("SELECT");
-        sourceSelect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-                Event.CTRL_MASK));
-        sourceSelect.addActionListener(this);
-        sourceCopy.setActionCommand("COPY");
-        sourceCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
-                Event.CTRL_MASK));
-        sourceCopy.addActionListener(this);
-
         helpTut.setActionCommand("TUTORIAL");
         helpTut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         helpTut.setMnemonic(KeyEvent.VK_F1);
@@ -124,8 +109,6 @@ public class NovelFrame extends JFrame implements ActionListener
         file.add(fileExit);
         edit.add(editDif);
         edit.add(editFilter);
-        source.add(sourceSelect);
-        source.add(sourceCopy);
         help.add(helpTut);
         help.add(helpAbout);
         setJMenuBar(menu);
@@ -138,6 +121,7 @@ public class NovelFrame extends JFrame implements ActionListener
         // setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        prefs = new NovelPrefs(this);
         panel = new NovelPanel();
         setContentPane(panel);
         NovelPanelController.getInstance().setPanel(panel);
@@ -177,6 +161,7 @@ public class NovelFrame extends JFrame implements ActionListener
 
         // will use java.util.prefs package to handle preference storage
         // will most likely use a new "NovelPrefs" class to display
+        prefs.setVisible(true);
     }
 
     /**
@@ -195,7 +180,7 @@ public class NovelFrame extends JFrame implements ActionListener
      */
     public void aboutDialog() {
 
-        JOptionPane.showMessageDialog(this, "N.o.V.E.L. © Copyright 2012"
+        JOptionPane.showMessageDialog(this, "N.o.V.E.L. ï¿½ Copyright 2012"
                 + "\nVersion " + getVersion()
                 + "\n\nBlake Bassett, Casey Ferris"
                 + "\nColin Hemphill, Conor Kirkman"

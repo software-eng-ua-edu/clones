@@ -10,7 +10,6 @@ package edu.ua.eng.software.novel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -20,7 +19,7 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -166,20 +165,30 @@ public class NovelSourceViewer extends JPanel
         }
     }
 
-    public void centerLineInScrollPane(RSyntaxTextArea text,
-            RTextScrollPane scroll) {
-        // Totally doesn't work.
+    public void centerLineInScrollPane(final RSyntaxTextArea text,
+            final RTextScrollPane scroll) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    scroll.getViewport().setViewPosition(
+                            new Point(0, text.yForLine(text
+                                    .getCaretLineNumber())));
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void setTheme(String themePath) {
         try {
-            JViewport viewport = scroll.getViewport();
-            Rectangle r = text.modelToView(text.getCaretPosition());
-            int extentHeight = viewport.getExtentSize().height;
-            int viewHeight = viewport.getViewSize().height;
-
-            int y = Math.max(0, r.y);
-            y = Math.min(y, viewHeight - extentHeight);
-
-            viewport.setViewPosition(new Point(0, y));
-        } catch (BadLocationException e) {
+            BufferedInputStream bis = new BufferedInputStream(
+                    new FileInputStream(themePath));
+            DataInputStream in = new DataInputStream(bis);
+            Theme theme = Theme.load(in);
+            theme.apply(sourceLeft);
+            theme.apply(sourceRight);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

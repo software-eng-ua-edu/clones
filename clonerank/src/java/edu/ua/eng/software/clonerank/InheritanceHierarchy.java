@@ -154,7 +154,11 @@ public class InheritanceHierarchy
                 String name = ((ClassTree) extendsClause).getSimpleName().toString();
                 System.out.println("--> " + name);
             } else if (kind == Tree.Kind.MEMBER_SELECT){
-                String name = ((
+                String name = ((MemberSelectTree) extendsClause).getIdentifier().toString();
+                System.out.println("--> " + name);
+            } else if (kind == Tree.Kind.PARAMETERIZED_TYPE){
+                String name = ((ParameterizedTypeTree) extendsClause).getType().toString();
+                System.out.println("--> " + name);
             } else {
                 throw new UnreachableException("visitMethodInvocation: kind == " + kind);
             }
