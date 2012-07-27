@@ -15,6 +15,9 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
+import java.util.List;
+import java.util.LinkedList;
 import java.util.prefs.Preferences;
 
 import javax.swing.BorderFactory;
@@ -43,10 +46,10 @@ public class NovelPrefs extends JDialog
         super.setPreferredSize(new Dimension(640, 480));
         super.setResizable(false);
 
-        initializePrefs();
+        prefs = Preferences.userRoot().node(this.getClass().getName());
 
-        JPanel visual = new JPanel();
-        DesignGridLayout vLayout = new DesignGridLayout(visual);
+        themePane = new NovelThemePrefPane(prefs);
+        //DesignGridLayout vLayout = new DesignGridLayout(visual);
 
         importPane = new NovelImportPrefPane(prefs);
         repoPane = new NovelSetRepoPrefPane(prefs);
@@ -55,47 +58,13 @@ public class NovelPrefs extends JDialog
         prefsTabs = new JTabbedPane();
         prefsTabs.addTab("Import Settings", importPane);
         prefsTabs.addTab("Repository Settings", repoPane);
-        prefsTabs.addTab("Visual Settings", visual);
+        prefsTabs.addTab("Theme Settings", themePane);
         prefsTabs.addTab("Other Settings", new JLabel("Other Settings",
                 JLabel.CENTER));
         prefsTabs.addTab("Moar Settings", new JLabel("Moar Settings",
                 JLabel.CENTER));
         prefsTabs.addTab("Awesome Settings!", new JLabel(
                 "N.o.V.e.L. is AWESOME!", JLabel.CENTER));
-
-        // set source theme
-        JPanel sourceTheme = new JPanel(
-                new FlowLayout(FlowLayout.CENTER, 25, 0));
-        sourceTheme.setBorder(BorderFactory
-                .createTitledBorder("Set Source Theme"));
-        JRadioButton eclipse = new JRadioButton("Eclipse (default)");
-        JRadioButton standard = new JRadioButton("Standard");
-        JRadioButton dark = new JRadioButton("Dark");
-        JRadioButton vs = new JRadioButton("Visual Studio");
-        themes = new ButtonGroup();
-        themes.add(eclipse);
-        themes.add(standard);
-        themes.add(dark);
-        themes.add(vs);
-
-        eclipse.setActionCommand("ECLIPSE");
-        standard.setActionCommand("STANDARD");
-        dark.setActionCommand("DARK");
-        vs.setActionCommand("VS");
-
-        if (currentTheme.equals("ECLIPSE")) {
-            themes.setSelected(eclipse.getModel(), true);
-        } else if (currentTheme.equals("STANDARD")) {
-            themes.setSelected(standard.getModel(), true);
-        } else if (currentTheme.equals("DARK")) {
-            themes.setSelected(dark.getModel(), true);
-        } else if (currentTheme.equals("VS")) {
-            themes.setSelected(vs.getModel(), true);
-        }
-        sourceTheme.add(eclipse);
-        sourceTheme.add(standard);
-        sourceTheme.add(dark);
-        sourceTheme.add(vs);
 
         // create okay and cancel buttons
         JPanel buttons = new JPanel();
@@ -119,70 +88,62 @@ public class NovelPrefs extends JDialog
 
         // add components
         bLayout.row().right().add(apply, okay, cancel);
-        vLayout.row().left().fill().add(sourceTheme);
+        //vLayout.row().left().fill().add(sourceTheme);
         super.add(prefsTabs);
         super.add(buttons, BorderLayout.SOUTH);
 
         super.pack();
         super.setLocationRelativeTo(null);
+
+        applyPrefs();
     }
 
-    public void initializePrefs() {
-        prefs = Preferences.userRoot().node(this.getClass().getName());
-        currentTheme = prefs.get(SOURCE_THEME, "ECLIPSE");
+    public void selectImportPane() {
+        prefsTabs.setSelectedComponent(importPane);
+    }
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                NovelPanelController.getInstance().setSourceTheme(currentTheme);
+    public void selectRepoPane() {
+        prefsTabs.setSelectedComponent(repoPane);
+    }
+
+    protected void apply() {
+        for(int i = 0; i < prefsTabs.getTabCount(); i++) {
+            Component c = prefsTabs.getComponentAt(i);
+            if (c instanceof NovelPrefPane) {
+                NovelPrefPane pane = (NovelPrefPane) c;
+                if (pane.isChanged()) {
+                    pane.apply();
+                }
             }
-        });
+        }
     }
 
-    public void setPrefs() {
-
-        prefs.put(SOURCE_THEME, themes.getSelection().getActionCommand());
-    }
-
-    public void setTheme() {
-        NovelPanelController.getInstance().setSourceTheme(
-                themes.getSelection().getActionCommand());
-    }
-
-    public void setSelectedComponent(Component c) {
-        prefsTabs.setSelectedComponent(c);
-    }
-
-    public JPanel getImportPane() {
-        return importPane;
-    }
-
-    public JPanel getRepoPane() {
-        return repoPane;
+    protected void applyPrefs() {
+       for(int i = 0; i < prefsTabs.getTabCount(); i++) {
+            Component c = prefsTabs.getComponentAt(i);
+            if (c instanceof NovelPrefPane) {
+                ((NovelPrefPane) c).applyPrefs();
+            }
+        } 
     }
 
     ActionListener listener = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-
             if (e.getActionCommand().equals("CANCEL")) {
                 setVisible(false);
             } else if (e.getActionCommand().equals("OK")) {
-                setPrefs();
-                setTheme();
+                apply();
                 setVisible(false);
             } else if (e.getActionCommand().equals("APPLY")) {
-                setPrefs();
-                setTheme();
+                apply();
             }
         }
     };
 
     private Preferences prefs;
-    private ButtonGroup themes;
-    private String currentTheme;
 
+    private NovelPrefPane themePane;
     private NovelPrefPane importPane;
     private NovelPrefPane repoPane;
     private JTabbedPane prefsTabs;
-
-    private static final String SOURCE_THEME = "SourceTheme";
 }

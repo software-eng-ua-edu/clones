@@ -70,6 +70,7 @@ public class NovelSetRepoPrefPane extends NovelPrefPane
                 if (e.getActionCommand() == "SETDIR") {
                     JFileChooser chooser = chooseSourceDir();
                     if (buttonClicked == JFileChooser.APPROVE_OPTION) {
+                        changed = true;
                         sourceDir = chooser.getSelectedFile();
                         dirText.setText(sourceDir.getAbsolutePath());
                     }
@@ -90,6 +91,7 @@ public class NovelSetRepoPrefPane extends NovelPrefPane
         // add actions for radio buttons
         ActionListener radioListener = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                changed = true;
                 importType = SourceRepoType.valueOf(e.getActionCommand());
             }
         };
@@ -109,47 +111,6 @@ public class NovelSetRepoPrefPane extends NovelPrefPane
 
         selectSVN.setSelected(true);
         importType = SourceRepoType.SVN;
-
-        final JPanel panel = this;
-        // add cancel & confirm buttons
-        ActionListener confirmAction = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (e.getActionCommand() == "CANCEL")
-                    setVisible(false);
-                else {
-                    if (sourceDir == null)
-                        JOptionPane.showMessageDialog(panel,
-                                "Please select a repository path",
-                                "Set Error", JOptionPane.ERROR_MESSAGE);
-                    else {
-                        setVisible(false);
-                        try {
-                            NovelPanelController.getInstance().updateStatus(
-                                    "Set repository path to "
-                                            + sourceDir.getParentFile().getName() + "/" + sourceDir.getName());
-                            NovelImporter.importBugs(sourceDir,
-                                    importType);
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(getParent(),
-                                    ex.getMessage(), "File Not Found",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                }
-            }
-        };
-
-        JPanel confirmButtons = new JPanel();
-        JButton confirm = new JButton("Okay");
-        confirm.setToolTipText("Confirm repository settings");
-        confirm.setMnemonic(KeyEvent.VK_O);
-        confirm.setActionCommand("OKAY");
-        confirm.addActionListener(confirmAction);
-        JButton cancel = new JButton("Cancel");
-        cancel.setToolTipText("Abort repository dialog");
-        cancel.setMnemonic(KeyEvent.VK_C);
-        cancel.setActionCommand("CANCEL");
-        cancel.addActionListener(confirmAction);
 
         // add components
         cSel.weightx = 1.0;
@@ -171,12 +132,7 @@ public class NovelSetRepoPrefPane extends NovelPrefPane
         c.gridy = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         composite.add(radioButtons, c);
-        confirmButtons.add(confirm);
-        confirmButtons.add(cancel);
         super.add(composite, BorderLayout.CENTER);
-        super.add(confirmButtons, BorderLayout.SOUTH);
-
-        super.setVisible(true);
     }
 
     public File getSourceDir() {
@@ -188,6 +144,22 @@ public class NovelSetRepoPrefPane extends NovelPrefPane
     }
 
     public void apply() {
+        if (sourceDir != null) {
+            try {
+                NovelPanelController.getInstance().updateStatus(
+                        "Set repository path to "
+                                + sourceDir.getParentFile().getName() + "/" + sourceDir.getName());
+                NovelImporter.importBugs(sourceDir, importType);
+                changed = false;
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(getParent(),
+                        ex.getMessage(), "File Not Found",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void applyPrefs() {
 
     }
 

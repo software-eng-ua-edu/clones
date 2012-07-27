@@ -18,6 +18,8 @@ public abstract class NovelPrefPane extends JPanel
 
     public abstract void apply();
 
+    public abstract void applyPrefs();
+
     public abstract boolean isChanged();
 
     protected Preferences prefs;

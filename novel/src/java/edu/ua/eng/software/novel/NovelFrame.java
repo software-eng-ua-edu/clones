@@ -135,9 +135,11 @@ public class NovelFrame extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("OPEN")) {
-            prefsDialog(prefs.getImportPane());
+            prefs.selectImportPane();
+            prefsDialog();
         } else if (e.getActionCommand().equals("SET")) {
-            prefsDialog(prefs.getRepoPane());
+            prefs.selectRepoPane();
+            prefsDialog();
         } else if (e.getActionCommand().equals("PREFS"))
             prefsDialog();
         else if (e.getActionCommand().equals("EXIT"))
@@ -158,13 +160,7 @@ public class NovelFrame extends JFrame implements ActionListener
      * Create dialog to handle user preferences
      */
     public void prefsDialog() {
-
         prefs.setVisible(true);
-    }
-
-    public void prefsDialog(Component c) {
-        prefs.setSelectedComponent(c);
-        prefsDialog();
     }
 
     /**
